@@ -11,7 +11,7 @@ enum GRAVITY_DIRECTION {X_AXIS, X_AXIS_INVERSE, Y_AXIS, Y_AXIS_INVERSE, Z_AXIS, 
 @export var cable_gravity_direction: GRAVITY_DIRECTION = GRAVITY_DIRECTION.Y_AXIS
 @export var cable_thickness: float = 0.1
 @export var cable_springiness: float = 19.62
-@export var cable_mesh:= preload("res://cable_mesh.tscn")
+@export var cable_mesh:= preload("res://scenes/cable_mesh.tscn")
 @onready var segment_stretch: float = float(cable_length / number_of_segments)
 # instances
 var segments: Array[Node3D] = []

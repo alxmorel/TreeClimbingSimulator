@@ -39,7 +39,7 @@ func _spawn_vehicle():
 	path_follow.add_child(vehicle)
 	
 	# Ajouter le script de suivi
-	path_follow.set_script(load("res://simple_path_follower.gd"))
+	path_follow.set_script(load("res://scripts/simple_path_follower.gd"))
 	
 	_vehicles.append(path_follow)
 	print("Véhicule spawné: ", path_follow.name)
