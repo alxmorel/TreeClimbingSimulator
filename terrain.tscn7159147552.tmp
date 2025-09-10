@@ -1,0 +1,553 @@
+[gd_scene load_steps=42 format=3 uid="uid://cao8dlm7fa25q"]
+
+[ext_resource type="PackedScene" uid="uid://bvdujf2ubpixn" path="res://assets/models/grass/grass_resize.glb" id="2_3shck"]
+[ext_resource type="Shader" uid="uid://dsiuqrs03c5t3" path="res://assets/models/grass/shaderSTYLIZEDGRASS/grass.gdshader" id="2_h2lqh"]
+[ext_resource type="PackedScene" uid="uid://t12fma0lp1q3" path="res://assets/models/tree/tree.blend" id="4_xo2vs"]
+[ext_resource type="Texture2D" uid="uid://bviy45p7mkn8g" path="res://assets/textures/rocky_terrain/rocky_terrain_02_diff_1k.jpg" id="5_h2lqh"]
+[ext_resource type="Texture2D" uid="uid://dohfh3sy8eol2" path="res://assets/textures/rocky_terrain/rocky_terrain_02_nor_gl_1k.png" id="6_hl62s"]
+[ext_resource type="Script" uid="uid://dal56tte0anm1" path="res://character_body_3d.gd" id="7_3shck"]
+[ext_resource type="Texture2D" uid="uid://c88j3oj0lf6om" path="res://assets/textures/rock023_alb_ht.png" id="7_h2lqh"]
+[ext_resource type="Texture2D" uid="uid://c307hdmos4gtm" path="res://assets/textures/rock023_nrm_rgh.png" id="8_hl62s"]
+[ext_resource type="Script" uid="uid://cwpcrhng81bdw" path="res://builder_manager.gd" id="9_builder_manager"]
+[ext_resource type="Script" uid="uid://exh4vr8fh80w" path="res://builder_camera.gd" id="10_builder_camera"]
+[ext_resource type="Script" uid="uid://c3ibv82o8enhi" path="res://placement_manager.gd" id="11_placement_manager"]
+[ext_resource type="Script" uid="uid://24l3x0ky6bt8" path="res://builder_shop.gd" id="12_builder_shop"]
+[ext_resource type="Script" uid="uid://dyb8sj7y7bfr6" path="res://grid_system.gd" id="13_grid_system"]
+[ext_resource type="Script" uid="uid://kxqijw5snrk" path="res://game_manager.gd" id="14_game_manager"]
+[ext_resource type="Script" uid="uid://cht6uq8jubsl" path="res://hud_manager.gd" id="15_hud_manager"]
+[ext_resource type="StyleBox" uid="uid://0s7lmhpq3up2" path="res://default_ui_panel.tres" id="16_mre8u"]
+[ext_resource type="StyleBox" uid="uid://dgm6u8rydy7ic" path="res://default_ui_panel_dark.tres" id="16_qofig"]
+[ext_resource type="Theme" uid="uid://c56b303nxx0mf" path="res://default_theme.tres" id="18_k6k1t"]
+[ext_resource type="Script" uid="uid://bvq0aot8mtyr7" path="res://test_tree_detection.gd" id="19_test_tree_detection"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_mqteh"]
+sky_top_color = Color(0.613704, 0.752675, 0.869362, 1)
+sun_angle_max = 43.65
+
+[sub_resource type="Sky" id="Sky_206su"]
+sky_material = SubResource("ProceduralSkyMaterial_mqteh")
+
+[sub_resource type="Environment" id="Environment_mqteh"]
+background_mode = 2
+sky = SubResource("Sky_206su")
+ambient_light_source = 3
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_h2lqh"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_3shck"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mrt7q"]
+bg_color = Color(0.627451, 0.466667, 0.34902, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 15
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="Gradient" id="Gradient_lg7om"]
+offsets = PackedFloat32Array(0.2, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_0i68f"]
+noise_type = 2
+frequency = 0.03
+cellular_jitter = 3.0
+cellular_return_type = 0
+domain_warp_enabled = true
+domain_warp_type = 1
+domain_warp_amplitude = 50.0
+domain_warp_fractal_type = 2
+domain_warp_fractal_lacunarity = 1.5
+domain_warp_fractal_gain = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_e44n4"]
+seamless = true
+color_ramp = SubResource("Gradient_lg7om")
+noise = SubResource("FastNoiseLite_0i68f")
+
+[sub_resource type="Terrain3DMaterial" id="Terrain3DMaterial_q6cs3"]
+_shader_parameters = {
+&"bias_distance": 512.0,
+&"blend_sharpness": 0.5,
+&"depth_blur": 0.0,
+&"enable_macro_variation": true,
+&"enable_projection": true,
+&"flat_terrain_normals": false,
+&"macro_variation1": Color(1, 1, 1, 1),
+&"macro_variation2": Color(1, 1, 1, 1),
+&"macro_variation_slope": 0.333,
+&"mipmap_bias": 1.0,
+&"noise1_angle": 0.0,
+&"noise1_offset": Vector2(0.5, 0.5),
+&"noise1_scale": 0.04,
+&"noise2_scale": 0.076,
+&"noise_texture": SubResource("NoiseTexture2D_e44n4"),
+&"projection_threshold": 0.8
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h2lqh"]
+render_priority = 0
+shader = ExtResource("2_h2lqh")
+shader_parameter/color = Color(0, 0.549889, 0, 1)
+shader_parameter/color2 = Color(4.09111e-06, 0.634216, 0, 1)
+shader_parameter/noiseScale = 20.0
+
+[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_pgrna"]
+name = "grass_resize"
+scene_file = ExtResource("2_3shck")
+material_overlay = SubResource("ShaderMaterial_h2lqh")
+last_lod = 0
+last_shadow_lod = 0
+lod0_range = 128.0
+
+[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_hl62s"]
+name = "tree"
+id = 1
+scene_file = ExtResource("4_xo2vs")
+density = 0.01
+last_lod = 0
+last_shadow_lod = 0
+lod0_range = 128.0
+
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_xo2vs"]
+name = "rocky_terrain_02_diff_1k"
+albedo_texture = ExtResource("5_h2lqh")
+normal_texture = ExtResource("6_hl62s")
+
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_k6k1t"]
+name = "rock023_alb_ht"
+id = 1
+albedo_texture = ExtResource("7_h2lqh")
+normal_texture = ExtResource("8_hl62s")
+
+[sub_resource type="Terrain3DAssets" id="Terrain3DAssets_nsrdk"]
+mesh_list = Array[Terrain3DMeshAsset]([SubResource("Terrain3DMeshAsset_pgrna"), SubResource("Terrain3DMeshAsset_hl62s")])
+texture_list = Array[Terrain3DTextureAsset]([SubResource("Terrain3DTextureAsset_xo2vs"), SubResource("Terrain3DTextureAsset_k6k1t")])
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fallback"]
+size = Vector3(2000, 2, 2000)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qofig"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qofig"]
+bg_color = Color(1, 1, 1, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 0.901961)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_k6k1t"]
+font_size = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k6k1t"]
+bg_color = Color(0.272784, 0.187797, 0.12636, 0.9)
+border_width_left = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 0.901961)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nsrdk"]
+bg_color = Color(0.629307, 0.465748, 0.34868, 0.9)
+border_width_left = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 0.901961)
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="main" type="Node3D"]
+
+[node name="GameManager" type="Node" parent="."]
+script = ExtResource("14_game_manager")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 404.542, 0)
+light_energy = 5.225
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_mqteh")
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." node_paths=PackedStringArray("camera")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.308228, 6.92036, 17.8182)
+script = ExtResource("7_3shck")
+camera = NodePath("Camera3D")
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.593134, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+shape = SubResource("CapsuleShape3D_h2lqh")
+debug_color = Color(2.45467e-06, 0.467198, 0.548487, 1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
+mesh = SubResource("CapsuleMesh_3shck")
+
+[node name="BuilderManager" type="Node" parent="."]
+script = ExtResource("9_builder_manager")
+
+[node name="BuilderCamera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 30.1636, 38.7444)
+script = ExtResource("10_builder_camera")
+
+[node name="GridSystem" type="Node3D" parent="."]
+script = ExtResource("13_grid_system")
+
+[node name="PlacementManager" type="Node3D" parent="."]
+script = ExtResource("11_placement_manager")
+
+[node name="BuilderUI" type="CanvasLayer" parent="."]
+
+[node name="BuilderShop" type="Control" parent="BuilderUI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("12_builder_shop")
+
+[node name="ShopPanel" type="Panel" parent="BuilderUI/BuilderShop"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.694
+anchor_right = 0.511
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 0.287994
+offset_right = 10.3279
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_mrt7q")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BuilderUI/BuilderShop/ShopPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_bottom = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TabButtonsContainer" type="HBoxContainer" parent="BuilderUI/BuilderShop/ShopPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="BuilderUI/BuilderShop/ShopPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+
+[node name="TabContainer" type="Control" parent="BuilderUI/BuilderShop/ShopPanel/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Terrain3D" type="Terrain3D" parent="."]
+data_directory = "res://dd"
+material = SubResource("Terrain3DMaterial_q6cs3")
+assets = SubResource("Terrain3DAssets_nsrdk")
+top_level = true
+metadata/_edit_lock_ = true
+
+[node name="GroundPlane" type="StaticBody3D" parent="."]
+visible = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GroundPlane"]
+shape = SubResource("BoxShape3D_fallback")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource("15_hud_manager")
+
+[node name="LeftPanel" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 280.0
+offset_bottom = 180.0
+
+[node name="LeftVBox" type="VBoxContainer" parent="HUD/LeftPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.775
+anchor_bottom = 1.056
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -1.52588e-05
+offset_bottom = -0.0800018
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TimeStatePanel" type="HBoxContainer" parent="HUD/LeftPanel/LeftVBox"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="DayPanel" type="Panel" parent="HUD/LeftPanel/LeftVBox/TimeStatePanel"]
+custom_minimum_size = Vector2(50, 40)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("16_qofig")
+
+[node name="DayVBox" type="VBoxContainer" parent="HUD/LeftPanel/LeftVBox/TimeStatePanel/DayPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DayStaticLabel" type="Label" parent="HUD/LeftPanel/LeftVBox/TimeStatePanel/DayPanel/DayVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "Jour"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="DayLabel" type="Label" parent="HUD/LeftPanel/LeftVBox/TimeStatePanel/DayPanel/DayVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 14
+text = "1"
+horizontal_alignment = 1
+
+[node name="TimePanel" type="Panel" parent="HUD/LeftPanel/LeftVBox/TimeStatePanel"]
+custom_minimum_size = Vector2(60, 30)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/panel = ExtResource("16_mre8u")
+
+[node name="TimeLabel" type="Label" parent="HUD/LeftPanel/LeftVBox/TimeStatePanel/TimePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 14
+text = "08:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StatePanel" type="Panel" parent="HUD/LeftPanel/LeftVBox/TimeStatePanel"]
+custom_minimum_size = Vector2(60, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = ExtResource("16_mre8u")
+
+[node name="StateLabel" type="Label" parent="HUD/LeftPanel/LeftVBox/TimeStatePanel/StatePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 14
+text = "Fermé"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MoneyHBox" type="HBoxContainer" parent="HUD/LeftPanel/LeftVBox"]
+custom_minimum_size = Vector2(100, 35)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="MoneyIconPanel" type="Panel" parent="HUD/LeftPanel/LeftVBox/MoneyHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = ExtResource("16_qofig")
+
+[node name="MoneyIconLabel" type="Label" parent="HUD/LeftPanel/LeftVBox/MoneyHBox/MoneyIconPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "💰"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MoneyPanel" type="Panel" parent="HUD/LeftPanel/LeftVBox/MoneyHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = ExtResource("16_mre8u")
+
+[node name="MoneyLabel" type="Label" parent="HUD/LeftPanel/LeftVBox/MoneyHBox/MoneyPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 14
+text = "1000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RightPanel" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -320.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 295.0
+grow_horizontal = 0
+
+[node name="RightVBox" type="VBoxContainer" parent="HUD/RightPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StatsPanel" type="HBoxContainer" parent="HUD/RightPanel/RightVBox"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="SkillsPanel" type="Panel" parent="HUD/RightPanel/RightVBox/StatsPanel"]
+custom_minimum_size = Vector2(45, 30)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("16_qofig")
+
+[node name="SkillPointsLabel" type="Label" parent="HUD/RightPanel/RightVBox/StatsPanel/SkillsPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "⭐ 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ExperienceBar" type="ProgressBar" parent="HUD/RightPanel/RightVBox/StatsPanel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme = ExtResource("18_k6k1t")
+step = 1.0
+show_percentage = false
+
+[node name="TaskListPanel" type="Panel" parent="HUD/RightPanel/RightVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_qofig")
+
+[node name="TaskListContainer" type="VBoxContainer" parent="HUD/RightPanel/RightVBox/TaskListPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="TaskTitlePanel" type="Panel" parent="HUD/RightPanel/RightVBox/TaskListPanel/TaskListContainer"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qofig")
+
+[node name="TaskTitleHBox" type="HBoxContainer" parent="HUD/RightPanel/RightVBox/TaskListPanel/TaskListContainer/TaskTitlePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD/RightPanel/RightVBox/TaskListPanel/TaskListContainer/TaskTitlePanel/TaskTitleHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 20
+
+[node name="TaskTitleLabel" type="Label" parent="HUD/RightPanel/RightVBox/TaskListPanel/TaskListContainer/TaskTitlePanel/TaskTitleHBox/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.627451, 0.466667, 0.34902, 0.901961)
+theme_override_font_sizes/font_size = 20
+text = "Liste des taches"
+vertical_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="HUD/RightPanel/RightVBox/TaskListPanel/TaskListContainer/TaskTitlePanel/TaskTitleHBox"]
+layout_mode = 2
+theme_override_constants/margin_right = 5
+
+[node name="TaskIconLabel" type="Label" parent="HUD/RightPanel/RightVBox/TaskListPanel/TaskListContainer/TaskTitlePanel/TaskTitleHBox/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0, 0.8, 0, 1)
+theme_override_font_sizes/font_size = 18
+text = "🌲"
+label_settings = SubResource("LabelSettings_k6k1t")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TaskScrollContainer" type="ScrollContainer" parent="HUD/RightPanel/RightVBox/TaskListPanel/TaskListContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TaskVBox" type="VBoxContainer" parent="HUD/RightPanel/RightVBox/TaskListPanel/TaskListContainer/TaskScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="MainTaskPanel" type="Panel" parent="HUD/RightPanel/RightVBox/TaskListPanel/TaskListContainer/TaskScrollContainer/TaskVBox"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_k6k1t")
+
+[node name="MainTaskLabel" type="Label" parent="HUD/RightPanel/RightVBox/TaskListPanel/TaskListContainer/TaskScrollContainer/TaskVBox/MainTaskPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_right = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 0.8, 1)
+theme_override_font_sizes/font_size = 12
+text = "Débroussaillage du terrain"
+vertical_alignment = 1
+
+[node name="SubTaskPanel" type="Panel" parent="HUD/RightPanel/RightVBox/TaskListPanel/TaskListContainer/TaskScrollContainer/TaskVBox"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_nsrdk")
+
+[node name="SubTaskLabel" type="Label" parent="HUD/RightPanel/RightVBox/TaskListPanel/TaskListContainer/TaskScrollContainer/TaskVBox/SubTaskPanel"]
+layout_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = 5.0
+offset_right = -3.0
+offset_bottom = -10.0
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_font_sizes/font_size = 11
+text = "• S'équiper de la hache qui se trouve dans le coffre de la camionnette"
+autowrap_mode = 2
+
+[node name="TestTreeDetection" type="Node" parent="."]
+script = ExtResource("19_test_tree_detection")

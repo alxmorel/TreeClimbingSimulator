@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b16kvklkrhmos"]
+
+[ext_resource type="PackedScene" uid="uid://d1hpyucxxwini" path="res://assets/models/pont_de_corde_en_bois/pont_de_corde_en_bois.fbx" id="1_qdfp1"]
+
+[node name="pont_de_corde_en_bois" instance=ExtResource("1_qdfp1")]
+transform = Transform3D(0.996766, 0, -0.0803555, 0, 1, 0, 0.0803555, 0, 0.996766, 3.20302, 0.0736327, 2.72441)
