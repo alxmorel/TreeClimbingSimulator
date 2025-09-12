@@ -329,7 +329,7 @@ func is_placed_builder_object(obj: Node) -> bool:
 	print("Debug: Vérification de l'objet: ", obj.name, " Type: ", obj.get_class())
 	
 	# Ignorer les objets du terrain et du sol
-	if obj.name in ["GroundPlane", "Terrain3D"] or obj.get_class() in ["StaticBody3D", "Terrain3D"]:
+	if obj.name in ["Terrain3D"] or obj.get_class() in ["StaticBody3D", "Terrain3D"]:
 		print("Debug: Objet ignoré (terrain/sol)")
 		return false
 	
@@ -886,13 +886,20 @@ func restore_normal_materials(node: Node3D):
 
 # Fonction pour obtenir la hauteur du terrain à une position donnée
 func get_terrain_height_at_position(world_pos: Vector3) -> float:
+	# Utiliser l'API Terrain3D native au lieu de raycasts
+	if terrain and terrain.data:
+		var height = terrain.data.get_height(world_pos)
+		if not is_nan(height):
+			return height
+	
+	# Fallback : utiliser un raycast avec un mask spécifique au terrain
 	var space_state = get_world_3d().direct_space_state
 	var raycast_from = Vector3(world_pos.x, 200, world_pos.z)
 	var raycast_to = Vector3(world_pos.x, -50, world_pos.z)
 	
 	var query = PhysicsRayQueryParameters3D.create(raycast_from, raycast_to)
-	query.collision_mask = 0xFFFFFFFF
-	query.collide_with_areas = true
+	query.collision_mask = 1  # Seulement le layer du terrain (au lieu de 0xFFFFFFFF)
+	query.collide_with_areas = false
 	query.collide_with_bodies = true
 	
 	var result = space_state.intersect_ray(query)

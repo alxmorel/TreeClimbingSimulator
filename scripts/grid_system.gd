@@ -11,8 +11,8 @@ enum CellState {
 
 # Paramètres de la grille
 const CELL_SIZE = 4.0  # Taille d'une cellule en unités Godot
-const GRID_SIZE_X = 50  # Nombre de cellules en X
-const GRID_SIZE_Z = 50  # Nombre de cellules en Z
+const GRID_SIZE_X = 100  # Nombre de cellules en X
+const GRID_SIZE_Z = 100  # Nombre de cellules en Z
 const GRID_RADIUS = 5   # Rayon de la grille autour du ghost (en cellules)
 const MAX_OPACITY = 0.6  # Opacité maximale de la grille
 
@@ -231,13 +231,21 @@ func create_dynamic_cell_visual(grid_pos: Vector2i, opacity_factor: float) -> No
 
 # Obtenir la hauteur du terrain à une position donnée
 func get_terrain_height_at_position(world_pos: Vector3) -> float:
+	# Utiliser l'API Terrain3D native au lieu de raycasts
+	var terrain = get_node_or_null("../Terrain3D")
+	if terrain and terrain.data:
+		var height = terrain.data.get_height(world_pos)
+		if not is_nan(height):
+			return height
+	
+	# Fallback : utiliser un raycast avec un mask spécifique au terrain
 	var space_state = get_world_3d().direct_space_state
 	var raycast_from = Vector3(world_pos.x, 200, world_pos.z)
 	var raycast_to = Vector3(world_pos.x, -50, world_pos.z)
 	
 	var query = PhysicsRayQueryParameters3D.create(raycast_from, raycast_to)
-	query.collision_mask = 0xFFFFFFFF
-	query.collide_with_areas = true
+	query.collision_mask = 1  # Seulement le layer du terrain (au lieu de 0xFFFFFFFF)
+	query.collide_with_areas = false
 	query.collide_with_bodies = true
 	
 	var result = space_state.intersect_ray(query)

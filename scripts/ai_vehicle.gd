@@ -6,7 +6,7 @@ class_name AIVehicle
 @export var acceleration_force: float = 1200.0
 @export var brake_force: float = 3000.0
 @export var wheel_base: float = 5
-@export var look_ahead_distance: float = 0.0  # distance devant la voiture
+@export var look_ahead_distance: float = 1.0  # distance devant la voiture
 
 var has_finished: bool = false
 var curve_offset: float = 0.0  # position actuelle sur la courbe

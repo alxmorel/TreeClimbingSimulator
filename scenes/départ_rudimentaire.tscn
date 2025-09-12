@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bln1vtg0h8io8"]
+
+[ext_resource type="PackedScene" uid="uid://dwxc54w6bv82p" path="res://assets/models/module/départ_rudimentaire.glb" id="1_rydqh"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ovn43"]
+size = Vector3(2.3573, 0.0773315, 3.00124)
+
+[node name="départ_rudimentaire" instance=ExtResource("1_rydqh")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.203207, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00872803, 0.314545, -0.0639725)
+shape = SubResource("BoxShape3D_ovn43")

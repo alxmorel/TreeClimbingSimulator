@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bpotidt0k0ncr"]
+
+[ext_resource type="PackedScene" uid="uid://c5pr4b5yf8824" path="res://assets/models/piquet_bois/piquet_bois.glb" id="1_bg5c4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cqpsj"]
+size = Vector3(0.0610352, 1.45067, 0.0980225)
+
+[node name="piquet_bois2" instance=ExtResource("1_bg5c4")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00170898, 0.729393, 0.00421143)
+shape = SubResource("BoxShape3D_cqpsj")

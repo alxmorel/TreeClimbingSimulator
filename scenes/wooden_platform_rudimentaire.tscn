@@ -1,0 +1,53 @@
+[gd_scene load_steps=2 format=3 uid="uid://buej0737nj5k5"]
+
+[ext_resource type="PackedScene" uid="uid://gjknkrk771rf" path="res://scenes/wooden_pallet.tscn" id="1_thurv"]
+
+[node name="Wooden_platform_rudimentaire" type="Node3D"]
+
+[node name="wooden_pallet" parent="." instance=ExtResource("1_thurv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7903, 0, 2.12867)
+
+[node name="wooden_pallet2" parent="." instance=ExtResource("1_thurv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.595697, 0, 2.12867)
+
+[node name="wooden_pallet3" parent="." instance=ExtResource("1_thurv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.601394, 0, 2.12867)
+
+[node name="wooden_pallet4" parent="." instance=ExtResource("1_thurv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.80273, 0, 2.12867)
+
+[node name="wooden_pallet5" parent="." instance=ExtResource("1_thurv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7903, 0, 0.703657)
+
+[node name="wooden_pallet6" parent="." instance=ExtResource("1_thurv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.595697, 0, 0.703657)
+
+[node name="wooden_pallet7" parent="." instance=ExtResource("1_thurv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.601394, 0, 0.703657)
+
+[node name="wooden_pallet8" parent="." instance=ExtResource("1_thurv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.80273, 0, 0.703657)
+
+[node name="wooden_pallet9" parent="." instance=ExtResource("1_thurv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7903, 0, -0.71865)
+
+[node name="wooden_pallet10" parent="." instance=ExtResource("1_thurv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.595697, 0, -0.71865)
+
+[node name="wooden_pallet11" parent="." instance=ExtResource("1_thurv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.601394, 0, -0.71865)
+
+[node name="wooden_pallet12" parent="." instance=ExtResource("1_thurv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.80273, 0, -0.71865)
+
+[node name="wooden_pallet13" parent="." instance=ExtResource("1_thurv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7903, 0, -2.14366)
+
+[node name="wooden_pallet14" parent="." instance=ExtResource("1_thurv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.595697, 0, -2.14366)
+
+[node name="wooden_pallet15" parent="." instance=ExtResource("1_thurv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.601394, 0, -2.14366)
+
+[node name="wooden_pallet16" parent="." instance=ExtResource("1_thurv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.80273, 0, -2.14366)

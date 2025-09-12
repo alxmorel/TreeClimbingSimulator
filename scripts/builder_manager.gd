@@ -120,6 +120,10 @@ func set_builder_mode(active: bool):
 		builder_ui.visible = true
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		
+		# Positionner la caméra builder derrière le joueur
+		if builder_camera and builder_camera.has_method("position_behind_player"):
+			builder_camera.position_behind_player()
+		
 		# Afficher la grille
 		if grid_system and grid_system.has_method("show_grid"):
 			grid_system.show_grid()
