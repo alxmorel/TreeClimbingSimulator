@@ -2,8 +2,8 @@ extends CharacterBody3D
 
 # --- Movement constants ---
 var speed
-const WALK_SPEED = 5.0
-const SPRINT_SPEED = 8.0
+const WALK_SPEED = 3.0
+const SPRINT_SPEED = 7.0
 const JUMP_VELOCITY = 4.8
 const GRAVITY = 9.8
 const SENSITIVITY = 0.004
@@ -31,6 +31,10 @@ var ladder_velocity = Vector3.ZERO
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
 
+var last_aura_mesh: MeshInstance3D = null 
+var interact_distance = 3.0
+
+
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
@@ -45,6 +49,11 @@ func _unhandled_input(event):
 		head.rotate_y(-event.relative.x * SENSITIVITY)
 		camera.rotate_x(-event.relative.y * SENSITIVITY)
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-40), deg_to_rad(60))
+	
+	# Interaction (action définie dans Project -> Input Map, ex: "interact" => "E")
+	#if Input.is_action_just_pressed("interact"):
+		#_perform_interaction()
+
 
 func _physics_process(delta):
 	# --- Handle speed ---
@@ -103,7 +112,6 @@ func _physics_process(delta):
 		if Input.is_action_just_pressed("jump"):
 			current_state = State.NORMAL
 			velocity.y = JUMP_VELOCITY
-
 		return
 
 
@@ -138,6 +146,76 @@ func _physics_process(delta):
 	# --- Step climbing ---
 	if not snap_up_step(delta):
 		move_and_slide()
+		
+	# --- Interaction Raycast ---
+	_check_interaction()
+
+func _check_interaction() -> void:
+	var space_state = get_world_3d().direct_space_state
+	var from = camera.global_transform.origin
+	var to = from + -camera.global_transform.basis.z * interact_distance
+
+	var params = PhysicsRayQueryParameters3D.new()
+	params.from = from
+	params.to = to
+	params.exclude = [self]
+
+	var result = space_state.intersect_ray(params)
+
+	# Masquer l'aura par défaut
+	if last_aura_mesh:
+		last_aura_mesh.visible = false
+
+	if result:
+		var collider = result.get("collider")
+		if collider:			
+			if collider.is_in_group("interactable"):
+				
+				# Identifier le mesh parent du collider
+				var mesh_node: MeshInstance3D = null
+				if collider.get_parent() and collider.get_parent() is MeshInstance3D:
+					mesh_node = collider.get_parent() as MeshInstance3D
+				
+				# Créer l'aura si elle n'existe pas encore et qu'on a le mesh
+				if mesh_node and mesh_node.mesh:
+					if not last_aura_mesh:
+						last_aura_mesh = MeshInstance3D.new()
+						last_aura_mesh.mesh = mesh_node.mesh
+						last_aura_mesh.material_override = preload("res://materials/InteractableAuraMaterial.tres")
+						get_tree().current_scene.add_child(last_aura_mesh)
+
+					# Positionner et afficher l'aura
+					last_aura_mesh.global_transform = mesh_node.global_transform
+					last_aura_mesh.visible = true
+
+				# Afficher UI
+				if GlobalContext.ui_context:
+					GlobalContext.ui_context.update_key_action("E")
+					GlobalContext.ui_context.update_content("Ramasser objet")
+				return
+
+	# Rien d'interactif → masquer UI
+	if GlobalContext.ui_context:
+		GlobalContext.ui_context.reset()
+
+
+
+func _perform_interaction() -> void:
+	# même requête que pour l'affichage, mais pour déclencher l'action
+	var space_state = get_world_3d().direct_space_state
+	var from = camera.global_transform.origin
+	var to = from + -camera.global_transform.basis.z * interact_distance
+
+	var params = PhysicsRayQueryParameters3D.new()
+	params.from = from
+	params.to = to
+	params.exclude = [self]
+
+	var result = space_state.intersect_ray(params)
+	if result:
+		var collider = result.get("collider")
+		if collider and collider.is_in_group("interactable"):
+			collider.interact()
 
 
 func snap_up_step(delta: float) -> bool:
@@ -167,15 +245,9 @@ func _headbob(time) -> Vector3:
 
 # --- Ladder detection ---
 func _on_ladder_area_body_entered(body):
-	
-	print("Body entered in ladder area 3D")
-
 	if body == self:
 		current_state = State.LADDER
 
 func _on_ladder_area_body_exited(body):
-	
-	print("Body exited ladder area 3D")
-	
 	if body == self:
 		current_state = State.NORMAL

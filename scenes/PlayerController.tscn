@@ -1,0 +1,71 @@
+[gd_scene load_steps=6 format=3 uid="uid://ca7wvirp42kb7"]
+
+[ext_resource type="Script" uid="uid://dal56tte0anm1" path="res://scripts/character_body_3d.gd" id="1_ci81t"]
+[ext_resource type="Script" uid="uid://bfhbr8boht0o7" path="res://scenes/context_component.gd" id="2_awcob"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_3shck"]
+radius = 0.3
+height = 1.75
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_sgisc"]
+points = PackedVector3Array(0.298118, 0.559565, -0.0325898, -0.29037, -0.617422, -0.0587508, -0.268213, -0.677982, -0.085681, 0.119603, -0.608331, 0.271723, -0.212945, 0.694007, 0.172658, 0.0693717, -0.612715, -0.288114, -0.135397, 0.615148, -0.263594, 0.122535, 0.728073, 0.226574, 0.253422, -0.730585, -0.033572, -0.159286, -0.633937, 0.246452, 0.147694, 0.723815, -0.214171, -0.0325898, 0.559565, 0.298118, -0.268213, 0.677982, -0.085681, -0.0875795, -0.851855, 0.0720806, 0.26467, -0.518301, 0.141253, 0.239922, -0.542711, -0.179482, -0.183418, -0.604614, -0.233796, -0.0878975, 0.854762, -0.0611966, -0.284295, -0.579641, 0.0937364, 0.194902, 0.631114, 0.220141, 0.144435, 0.6061, -0.259636, -0.060253, -0.816284, -0.165606, 0.202953, 0.789539, 0.0450233, -0.284299, 0.579649, 0.0937375, -0.206277, 0.573209, 0.217388, 0.298118, -0.559565, -0.0325898, 0.097482, -0.814463, 0.150011, -0.255708, 0.54739, -0.1562, -0.0587508, 0.617422, -0.29037, 0.268764, 0.576595, -0.132286, 0.271723, 0.608331, 0.119603, -0.0325898, -0.559565, 0.298118)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_awcob"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="CharacterBody3D" type="CharacterBody3D"]
+transform = Transform3D(-0.963789, 0, 0.266666, 0, 1, 0, -0.266666, 0, -0.963789, 0, 0, 0)
+script = ExtResource("1_ci81t")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_3shck")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_sgisc")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0, 0.668152, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Head" groups=["player_camera"]]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0, -0.0597739, 0)
+
+[node name="UserInterface" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ContextComponent" type="CenterContainer" parent="UserInterface"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 161.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_awcob")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UserInterface/ContextComponent"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Button" type="Button" parent="UserInterface/ContextComponent/HBoxContainer"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.212305, 0.212305, 0.212305, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_awcob")
+text = "E"
+
+[node name="Label" type="Label" parent="UserInterface/ContextComponent/HBoxContainer"]
+layout_mode = 2
+text = "Lorem Ipsum"

@@ -2,12 +2,13 @@ extends Node
 
 signal builder_mode_changed(is_active: bool)
 
-@export var player_camera: Camera3D
 @export var builder_camera: Camera3D
 @export var player_controller: CharacterBody3D
 @export var builder_ui: CanvasLayer
 @export var placement_manager: Node3D
 @export var grid_system: Node3D
+
+var player_camera: Camera3D
 
 var is_builder_mode = false
 var game_manager: Node  # Référence au GameManager
@@ -75,7 +76,7 @@ func _ready():
 	
 	# Vérifier que toutes les références sont correctes
 	if not player_camera:
-		player_camera = get_node_or_null("../CharacterBody3D/Camera3D")
+		player_camera = get_tree().get_first_node_in_group("player_camera")
 	if not builder_camera:
 		builder_camera = get_node_or_null("../BuilderCamera")
 	if not player_controller:

@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://dx2xt66ut415f"
+path.s3tc="res://.godot/imported/wood_stairs_Image_17.jpg-18214932715313e1abc2d49d2aadde53.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "d9d0859015a8b6579b37209e684dc9a6"
+}
+
+[deps]
+
+source_file="res://assets/models/module/wood_stairs/wood_stairs_Image_17.jpg"
+dest_files=["res://.godot/imported/wood_stairs_Image_17.jpg-18214932715313e1abc2d49d2aadde53.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=1
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=1
+roughness/src_normal="res://assets/models/module/wood_stairs/wood_stairs_Image_17.jpg"
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0

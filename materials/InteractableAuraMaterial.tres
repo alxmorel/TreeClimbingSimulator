@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://omx21egf23f7"]
+
+[ext_resource type="Shader" uid="uid://l0ifhfkeuthb" path="res://shaders/interactable_outline.gdshader" id="1_vidb5"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_vidb5")
+shader_parameter/aura_color = Vector4(1, 0.8, 0, 1)
+shader_parameter/aura_thickness = 0.0
