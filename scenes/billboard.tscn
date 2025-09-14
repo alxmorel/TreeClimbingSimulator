@@ -1,6 +1,7 @@
-[gd_scene load_steps=14 format=4 uid="uid://mijdy2b5g372"]
+[gd_scene load_steps=15 format=4 uid="uid://mijdy2b5g372"]
 
 [ext_resource type="Texture2D" uid="uid://3betpr7o6pq3" path="res://assets/models/billboard/fond_pub_billboard.png" id="1_1hd33"]
+[ext_resource type="Script" uid="uid://61ti745x2n4g" path="res://scenes/billboard.gd" id="1_a358y"]
 [ext_resource type="Texture2D" uid="uid://c0f5j13vi3tor" path="res://assets/models/billboard/Billboard_Image_1.png" id="2_a358y"]
 [ext_resource type="Texture2D" uid="uid://beaqdy6if5jww" path="res://assets/models/billboard/Billboard_Image_2.jpg" id="3_56ec2"]
 [ext_resource type="Texture2D" uid="uid://d2j25hti1o8jy" path="res://assets/models/billboard/Billboard_Image_3.png" id="4_asg08"]
@@ -135,10 +136,12 @@ theme_override_font_sizes/font_size = 43
 text = "ACCROTATSIK"
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="billboard" type="MeshInstance3D" parent="."]
 mesh = SubResource("ArrayMesh_1hd33")
 skeleton = NodePath("")
+script = ExtResource("1_a358y")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="billboard" groups=["interactable"]]
 
