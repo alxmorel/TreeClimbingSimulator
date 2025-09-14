@@ -201,6 +201,7 @@ func _physics_process(delta):
 
 	# --- Horizontal movement ---
 	var direction = (head.transform.basis * transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	
 	if is_on_floor():
 		if direction:
 			velocity.x = direction.x * speed
@@ -211,6 +212,7 @@ func _physics_process(delta):
 	else:
 		velocity.x = lerp(velocity.x, direction.x * speed, delta * 3.0)
 		velocity.z = lerp(velocity.z, direction.z * speed, delta * 3.0)
+		
 
 	# --- Head bob ---
 	t_bob += delta * Vector3(velocity.x, 0, velocity.z).length() * float(is_on_floor())

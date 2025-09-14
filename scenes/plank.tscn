@@ -4,6 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://cvib11tw1g3t6" path="res://assets/models/module/pont_de_corde_en_bois/planche_Image_4_3.png" id="2_opdqs"]
 [ext_resource type="Texture2D" uid="uid://bgkwfvay4g4dt" path="res://assets/models/module/pont_de_corde_en_bois/planche_Image_5.png" id="3_ghamj"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_0arx4"]
+size = Vector3(2.40094, 0.120911, 0.578796)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w41cb"]
 resource_name = "Boards.001"
 cull_mode = 2
@@ -49,15 +52,13 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_riyfk")
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_0arx4"]
-points = PackedVector3Array(-1.20692, -0.0867183, 0.297666, -0.441829, 0.104464, 0.259399, 1.20189, -0.0867183, -0.237645, 1.20189, 0.104464, -0.237645, -1.13003, 0.104464, -0.275852, -1.13003, -0.0867183, -0.275852, 1.20189, 0.104464, 0.259399, 1.20189, -0.0867183, 0.259399, -1.12034, 0.0621554, 0.276021, 0.322542, 0.104464, -0.314118, 1.24022, -0.010234, -0.275852, 0.78126, -0.0867183, -0.275852, 1.24022, -0.0867183, 0.221193, -1.13003, 0.104464, -0.161172, 1.24022, 0.02798, -0.275852, -0.900787, -0.0867183, 0.297666, -1.20692, -0.0867183, 0.182926, 1.24022, -0.0484668, 0.259399, -1.05361, 0.104464, -0.0846992, -1.14369, 0.0632495, 0.100527, 1.24022, -0.0867183, 0.106453, -0.518242, 0.104464, 0.221193, 0.78126, 0.104464, -0.275852)
-
 [node name="plank" type="RigidBody3D"]
 mass = 0.3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0105896, 0.00582886, -0.0162659)
+shape = SubResource("BoxShape3D_0arx4")
 
 [node name="planche_001" type="MeshInstance3D" parent="."]
 mesh = SubResource("ArrayMesh_0arx4")
 skeleton = NodePath("")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
-shape = SubResource("ConvexPolygonShape3D_0arx4")

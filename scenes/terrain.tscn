@@ -1,4 +1,4 @@
-[gd_scene load_steps=103 format=4 uid="uid://cao8dlm7fa25q"]
+[gd_scene load_steps=104 format=4 uid="uid://cao8dlm7fa25q"]
 
 [ext_resource type="PackedScene" uid="uid://ca7wvirp42kb7" path="res://scenes/PlayerController.tscn" id="2_1l6ik"]
 [ext_resource type="PackedScene" uid="uid://bvdujf2ubpixn" path="res://assets/models/grass/grass_resize.glb" id="2_3shck"]
@@ -44,6 +44,7 @@
 [ext_resource type="PackedScene" uid="uid://10v3n1o6vdbh" path="res://scenes/pont_de_corde_en_bois_dynamic_2.tscn" id="39_norgw"]
 [ext_resource type="PackedScene" uid="uid://42o7ypy5aebq" path="res://scenes/modules/plateforme_rudimentaire.tscn" id="39_u5ydn"]
 [ext_resource type="PackedScene" uid="uid://gjknkrk771rf" path="res://scenes/wooden_pallet.tscn" id="41_c7ldm"]
+[ext_resource type="PackedScene" uid="uid://dah46gwgp4nt2" path="res://log.tscn" id="41_nf4h6"]
 [ext_resource type="PackedScene" uid="uid://cvxcpx21hyf35" path="res://scenes/pallet_couch.tscn" id="42_siel4"]
 [ext_resource type="PackedScene" uid="uid://bll50aqgr8qo0" path="res://scenes/information_kiosk.tscn" id="43_3lcp5"]
 [ext_resource type="PackedScene" uid="uid://buej0737nj5k5" path="res://scenes/wooden_platform_rudimentaire.tscn" id="43_siel4"]
@@ -477,7 +478,7 @@ light_energy = 5.225
 environment = SubResource("Environment_mqteh")
 
 [node name="CharacterBody3D" parent="." instance=ExtResource("2_1l6ik")]
-transform = Transform3D(-0.963789, 0, 0.266666, 0, 1, 0, -0.266666, 0, -0.963789, -216.549, 6.18793, -4.21338)
+transform = Transform3D(-0.863316, 0, -0.504664, 0, 1, 0, 0.504664, 0, -0.863316, -124.133, 6.18793, 14.0984)
 
 [node name="BuilderManager" type="Node" parent="." node_paths=PackedStringArray("builder_camera", "player_controller", "builder_ui", "placement_manager", "grid_system")]
 script = ExtResource("9_builder_manager")
@@ -960,25 +961,28 @@ transform = Transform3D(0.0942473, 5.50166e-09, 0.995549, 0.249804, 0.968008, -0
 transform = Transform3D(1, 0, 0, 0, 1.17995, 0, 0, 0, 1.17995, -120.699, 7.38423, -6.00042)
 
 [node name="PlateformeRudimentaire3" parent="ParcoursVert1" instance=ExtResource("39_u5ydn")]
-transform = Transform3D(1.30803, 0.00292109, -0.101411, -0.00392234, 1.00098, -0.00064284, 0.121929, 0.000863779, 1.0879, -121.022, 10.3319, -5.72111)
+transform = Transform3D(1.30803, 0.00292109, -0.101411, -0.00392234, 1.00098, -0.00064284, 0.121929, 0.000863779, 1.0879, -121.022, 10.413, -5.721)
+
+[node name="Log" parent="ParcoursVert1/PlateformeRudimentaire3" instance=ExtResource("41_nf4h6")]
+transform = Transform3D(-0.0999423, -0.738726, -0.229555, 0.715688, -0.000449117, -0.310146, 0.293602, -0.250368, 0.677874, 4.68417, 0.106049, 1.70463)
 
 [node name="tree5" parent="ParcoursVert1" instance=ExtResource("37_7tnnv")]
 transform = Transform3D(1, 0, 0, 0, 1.17995, 0, 0, 0, 1.17995, -109.772, 5.52797, -1.49749)
 
 [node name="PlateformeRudimentaire4" parent="ParcoursVert1" instance=ExtResource("39_u5ydn")]
-transform = Transform3D(-0.992642, -0.00581418, -0.120948, -0.00589445, 0.999982, 0.000305949, 0.120944, 0.00101662, -0.992659, -109.601, 11.8247, -1.17549)
+transform = Transform3D(-0.992642, -0.00581418, -0.120948, -0.00589445, 0.999982, 0.000305949, 0.120944, 0.00101662, -0.992659, -109.601, 10.4133, -1.17549)
 
 [node name="pont_de_corde_en_bois" parent="ParcoursVert1" instance=ExtResource("39_norgw")]
-transform = Transform3D(0.975013, 0.0436793, 0.217816, -0.0426294, 0.999047, -0.00951894, -0.218024, -4.2526e-06, 0.975943, -102.754, 11.573, -2.704)
+transform = Transform3D(0.975013, 0.0436793, 0.217816, -0.0426294, 0.999047, -0.00951894, -0.218024, -4.2526e-06, 0.975943, -102.754, 10.1616, -2.704)
 
 [node name="tree3" parent="ParcoursVert1" instance=ExtResource("37_7tnnv")]
 transform = Transform3D(0.999733, 0, 0.0272435, 0, 1.17995, 0, -0.0230887, 0, 1.17964, -95.5935, 5.70144, -4.31769)
 
 [node name="debut_tyro" type="Node3D" parent="ParcoursVert1/tree3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.48358, 0)
+transform = Transform3D(1, 0, -1.86265e-09, 0, 1, 0, 0, 0, 1, 0, 5.28744, 0)
 
 [node name="PlateformeRudimentaire5" parent="ParcoursVert1" instance=ExtResource("39_u5ydn")]
-transform = Transform3D(-0.989585, -0.00578916, -0.143835, -0.00589445, 0.999982, 0.000305949, 0.143831, 0.00115059, -0.989602, -95.7184, 11.2717, -4.26769)
+transform = Transform3D(-0.989585, -0.00578916, -0.143835, -0.00589445, 0.999982, 0.000305949, 0.143831, 0.00115059, -0.989602, -95.7184, 9.86031, -4.26769)
 
 [node name="CableTyro" type="Node3D" parent="ParcoursVert1" node_paths=PackedStringArray("start_point", "end_point")]
 transform = Transform3D(1, 0, 0, 0, 1.17995, 0, 0, 0, 1.17995, -100.505, 24.0601, -33.9373)
