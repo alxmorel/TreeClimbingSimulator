@@ -13,7 +13,7 @@ func _ready():
 		# Essayer d'auto-détecter
 		var parent = get_parent()
 		while parent and not path_3d:
-			path_3d = parent.find_child("Path3D", false, false)
+			path_3d = parent.find_child("RouteParc_rapide", false, false)
 			parent = parent.get_parent()
 
 func _process(delta):
@@ -45,4 +45,3 @@ func _cleanup_finished():
 	for v in _spawned.duplicate():
 		if not is_instance_valid(v):
 			_spawned.erase(v)
-

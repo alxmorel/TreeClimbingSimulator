@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b54ika6x2shfb"]
+
+[ext_resource type="Script" uid="uid://d36nfiqxb4got" path="res://npc_interactable.gd" id="1_i3lmp"]
+
+[node name="NPCInteractable" type="Node3D"]
+script = ExtResource("1_i3lmp")

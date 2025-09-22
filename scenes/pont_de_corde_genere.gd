@@ -124,16 +124,10 @@ func _calculate_plank_distribution() -> Array[int]:
 
 func _attach_planks_to_cables() -> void:
 	if not plank_scene:
-		print("[_attach_planks_to_cables] ❌ Aucune scène de planche définie !")
 		return
-	
-	print("[_attach_planks_to_cables] 🔹 Attacher ", number_of_planks, " planches")
-	print("    Nombre de segments : ", number_of_segments)
-	print("    Nombre de joints : ", joints_left.size(), " / ", joints_right.size())
 	
 	# Calculer la distribution optimale des planches
 	var plank_positions = _calculate_plank_distribution()
-	print("    Positions des planches : ", plank_positions)
 
 	for i in range(number_of_planks):
 		# Instanciation
@@ -145,25 +139,17 @@ func _attach_planks_to_cables() -> void:
 		plank.gravity_scale = 1.0  # Gravité normale
 		plank.linear_damp = 0.1  # Amortissement linéaire
 		plank.angular_damp = 0.1  # Amortissement angulaire
-		
-		print("[_attach_planks_to_cables] ➕ Plank ", i, " instanciée : ", plank.name)
-		
+				
 		# Utiliser la position calculée par la fonction de distribution
 		var joint_index = plank_positions[i]
 		
 		# Vérifier que les indices sont valides
 		if joint_index >= joints_left.size() or joint_index >= joints_right.size():
-			print("⚠️  Index de joint invalide pour la planche ", i, " : ", joint_index)
-			print("    Taille joints_left : ", joints_left.size())
-			print("    Taille joints_right : ", joints_right.size())
 			continue
 		
 		var joint_left = joints_left[joint_index]
 		var joint_right = joints_right[joint_index]
-		print("[_attach_planks_to_cables] 🔗 Planche ", i, " joint_index = ", joint_index)
-		print("    Joint gauche : ", joint_left.name, " pos = ", joint_left.global_position)
-		print("    Joint droit : ", joint_right.name, " pos = ", joint_right.global_position)
-		
+
 		# Position et orientation initiale
 		# Calculer la position centrale entre les deux joints
 		var center_position = (joint_left.global_position + joint_right.global_position) / 2
@@ -174,10 +160,7 @@ func _attach_planks_to_cables() -> void:
 		center_position.y = reference_height
 		
 		plank.global_position = center_position
-		
-		print("    Hauteur de référence : ", reference_height)
-		print("    Position finale plank : ", plank.global_position)
-		
+
 		# Calculer la direction entre les deux joints (direction des cordes)
 		var cable_direction = (joint_right.global_position - joint_left.global_position).normalized()
 		
@@ -193,12 +176,6 @@ func _attach_planks_to_cables() -> void:
 		else:
 			# Si les cordes sont verticales, orientation par défaut
 			plank.global_transform.basis = Basis.IDENTITY
-		
-		print("    Position plank : ", plank.global_position)
-		print("    Direction cordes : ", cable_direction)
-		print("    Direction planche forward : ", plank_forward)
-		print("    Base valide : ", plank_forward.length() > 0.001)
-		print("    Orientation plank horizontale et perpendiculaire appliquée")
 		
 		# Création de corps statiques pour les points d'ancrage
 		var anchor_left = StaticBody3D.new()
@@ -242,7 +219,6 @@ func _attach_planks_to_cables() -> void:
 		joint_left_conn.set_param_z(Generic6DOFJoint3D.PARAM_LINEAR_DAMPING, 0.8)
 		
 		add_child(joint_left_conn)
-		print("    Joint gauche phys. créé : ", joint_left_conn.name)
 		
 		var joint_right_conn = Generic6DOFJoint3D.new()
 		joint_right_conn.name = "Joint_Right_" + str(i)
@@ -266,30 +242,17 @@ func _attach_planks_to_cables() -> void:
 		joint_right_conn.set_param_z(Generic6DOFJoint3D.PARAM_LINEAR_DAMPING, 0.8)
 		
 		add_child(joint_right_conn)
-		print("    Joint droit phys. créé : ", joint_right_conn.name)
-
-		print("[_attach_planks_to_cables] ✅ Planche ", i, " attachée correctement entre les deux câbles")
 
 func _debug_plank_status() -> void:
-	print("=== DEBUG: État des planches ===")
 	var planks = get_children().filter(func(node): return node is RigidBody3D)
-	print("Nombre de planches trouvées : ", planks.size())
 	
 	for i in range(planks.size()):
 		var plank = planks[i] as RigidBody3D
-		print("Planche ", i, " :")
-		print("  - Position : ", plank.global_position)
-		print("  - Vitesse : ", plank.linear_velocity.length())
-		print("  - Masse : ", plank.mass)
 		
 		# Vérifier les joints attachés
 		var joints = get_children().filter(func(node): 
 			return node is Generic6DOFJoint3D and node.node_b == plank.get_path()
 		)
-		print("  - Joints attachés : ", joints.size())
-		
-		for joint in joints:
-			print("    * ", joint.name, " -> ", joint.node_a)
 
 func _adjust_plank_orientations() -> void:
 	# Ajuster l'orientation des planches pour qu'elles restent alignées avec les cordes

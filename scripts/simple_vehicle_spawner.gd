@@ -23,7 +23,7 @@ func _process(delta):
 	_cleanup_finished_vehicles()
 
 func _find_path_3d():
-	path_3d = get_tree().current_scene.find_child("Path3D", false, false)
+	path_3d = get_tree().current_scene.find_child("RouteParc_rapide", false, false)
 
 func _spawn_vehicle():
 	if not vehicle_scene or not path_3d:

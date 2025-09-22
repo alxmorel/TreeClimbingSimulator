@@ -38,7 +38,7 @@ func _process(delta):
 func _find_path_3d():
 	print("Recherche automatique du Path3D...")
 	var scene_root = get_tree().current_scene
-	path_3d = scene_root.find_child("Path3D", false, false)
+	path_3d = scene_root.find_child("RouteParc_rapide", false, false)
 	if path_3d:
 		print("Path3D trouvé: ", path_3d.name)
 	else:

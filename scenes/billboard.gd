@@ -3,6 +3,10 @@ extends ObjectInteractable
 
 @onready var label = get_parent().get_node("SubViewport/Control/Label") as Label
 
+# Retourne le texte que l'UI doit afficher pour cette interaction
+func get_interaction_label() -> String:
+	return "Changer nom du parc"
+
 # Retourne les infos pour le travel de la caméra : position relative ou offset, durée, etc.
 func get_camera_travel_params() -> Dictionary:
 	return {
@@ -28,17 +32,12 @@ func object_interact() -> void:
 
 	# On ajoute le champ de texte dans le CanvasLayer global (UI)
 	if GlobalContext.ui_context:
-		print("GlobalContext.ui_context : ",GlobalContext.ui_context )
 		GlobalContext.ui_context.show_input(line_edit)
 
 
 func _on_text_submitted(new_text: String) -> void:
-	print("Texte soumis:", new_text)
-	print("Label instance:", label)
 	if label:
 		label.text = new_text
-	else:
-		print("⚠️ label est null, vérifie le chemin $SubViewport/Control/Label")
 
 	if GlobalContext.ui_context:
 		GlobalContext.ui_context.hide_input()

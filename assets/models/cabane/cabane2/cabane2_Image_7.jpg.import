@@ -2,14 +2,14 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cqhxraqu0v7ph"
+uid="uid://ceayvpqukbs2r"
 path.s3tc="res://.godot/imported/cabane2_Image_7.jpg-34ea2e3534488c8476edeac24afb1878.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "b3554541920afdb50a969aaa07f90772"
+"md5": "bfa14782b27a95b3ef9c44d4dc39dcba"
 }
 
 [deps]
@@ -22,6 +22,8 @@ dest_files=["res://.godot/imported/cabane2_Image_7.jpg-34ea2e3534488c8476edeac24
 compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
@@ -29,6 +31,10 @@ mipmaps/generate=true
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false

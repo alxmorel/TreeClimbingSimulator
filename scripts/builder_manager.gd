@@ -64,7 +64,7 @@ var available_objects = [
 	{
 		"name": "Module Départ Rudimentaire",
 		"price": 150,
-		"scene_path": "res://assets/models/module/départ_rudimentaire.glb",
+		"scene_path": "res://scenes/départ_rudimentaire.tscn",
 		"icon": "🎯",
 		"type": "tree_module"
 	}

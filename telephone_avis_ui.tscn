@@ -1,0 +1,188 @@
+[gd_scene load_steps=10 format=3 uid="uid://cb4e2rrcp3xr3"]
+
+[ext_resource type="Script" uid="uid://canwqsl2h2pav" path="res://telephone_avis_ui.gd" id="1_2u1fe"]
+[ext_resource type="Texture2D" uid="uid://b5hittrwsr1yy" path="res://assets/images/etoile.png" id="1_ntjw6"]
+[ext_resource type="PackedScene" uid="uid://dic6o7vgd2dms" path="res://scenes/avis.tscn" id="2_yk0bu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wq6v3"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f63a6"]
+bg_color = Color(0.40265262, 0.28577662, 0.1996409, 0.9019608)
+border_color = Color(1, 1, 1, 0.901961)
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0.86021227, 0.7185747, 0.61867034, 0.9019608)
+shadow_size = 1
+shadow_offset = Vector2(0, 3)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2u1fe"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_yk0bu"]
+font_size = 22
+
+[sub_resource type="LabelSettings" id="LabelSettings_wq6v3"]
+font_size = 45
+font_color = Color(0.22670749, 0.22670749, 0.22670746, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ntjw6"]
+font_size = 18
+font_color = Color(0.22670749, 0.22670749, 0.22670746, 1)
+
+[node name="telephone_avis_ui" type="Control"]
+layout_mode = 3
+anchor_left = 0.384
+anchor_right = 0.648
+anchor_bottom = 1.0
+offset_left = 20.631989
+offset_top = 28.0
+offset_right = -0.49597168
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2u1fe")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_wq6v3")
+
+[node name="TitreParc" type="Panel" parent="Panel"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.093
+offset_bottom = -0.26399994
+theme_override_styles/panel = SubResource("StyleBoxFlat_f63a6")
+
+[node name="Label" type="Label" parent="Panel/TitreParc"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_2u1fe")
+text = "Mon parc d'accrobranche"
+label_settings = SubResource("LabelSettings_yk0bu")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NoteParc" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.093
+anchor_right = 1.0
+anchor_bottom = 0.19000001
+offset_top = -0.26399994
+offset_bottom = -0.120010376
+text = "4.5"
+label_settings = SubResource("LabelSettings_wq6v3")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ListeEtoilesParc" type="HBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.2
+anchor_right = 0.5
+anchor_bottom = 0.2
+offset_left = -70.0
+offset_top = -8.599998
+offset_right = 70.0
+offset_bottom = 11.400002
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="Etoile" type="TextureRect" parent="Panel/ListeEtoilesParc"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_ntjw6")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Etoile1" type="TextureRect" parent="Panel/ListeEtoilesParc"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_ntjw6")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Etoile2" type="TextureRect" parent="Panel/ListeEtoilesParc"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_ntjw6")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Etoile3" type="TextureRect" parent="Panel/ListeEtoilesParc"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_ntjw6")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Etoile4" type="TextureRect" parent="Panel/ListeEtoilesParc"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_ntjw6")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="NBAvis" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.22100002
+anchor_right = 1.0
+anchor_bottom = 0.261
+offset_top = -0.20800781
+offset_bottom = -0.12800598
+text = "64 avis"
+label_settings = SubResource("LabelSettings_ntjw6")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.279
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 0.20799255
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_right = 15
+
+[node name="ListeAvisParc" type="VBoxContainer" parent="Panel/ScrollContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Avis" parent="Panel/ScrollContainer/MarginContainer/ListeAvisParc" instance=ExtResource("2_yk0bu")]
+layout_mode = 2

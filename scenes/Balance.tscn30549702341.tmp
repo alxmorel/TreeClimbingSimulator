@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://ca1r0af2ybr2w"]
+
+[ext_resource type="Script" uid="uid://dlv4yyfvlribr" path="res://scenes/balance_script.gd" id="1_0x8y9"]
+[ext_resource type="PackedScene" uid="uid://gjknkrk771rf" path="res://scenes/wooden_pallet.tscn" id="2_r7fi8"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2x3y4"]
+size = Vector3(1.66913, 0.601451, 1.72583)
+
+[node name="Balance" type="Node3D"]
+
+[node name="Pivot" type="Node3D" parent="."]
+script = ExtResource("1_0x8y9")
+
+[node name="wooden_pallet" parent="Pivot" instance=ExtResource("2_r7fi8")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0105778, -0.169132, -0.0450439)
+shape = SubResource("BoxShape3D_2x3y4")

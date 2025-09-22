@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://mijdy2b5g372"]
+[gd_scene load_steps=16 format=4 uid="uid://mijdy2b5g372"]
 
 [ext_resource type="Texture2D" uid="uid://3betpr7o6pq3" path="res://assets/models/billboard/fond_pub_billboard.png" id="1_1hd33"]
 [ext_resource type="Script" uid="uid://61ti745x2n4g" path="res://scenes/billboard.gd" id="1_a358y"]
@@ -77,6 +77,9 @@ albedo_texture = SubResource("ViewportTexture_dt668")
 roughness = 0.15
 emission_energy_multiplier = 9.37
 backlight = Color(1, 1, 1, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_a358y"]
+radius = 1.819
 
 [node name="Billboard" type="Node3D"]
 
@@ -162,3 +165,10 @@ transform = Transform3D(3.29904, 0, 0, 0, -4.37114e-08, -1.40689, 0, 1, -6.14973
 mesh = SubResource("PlaneMesh_dt668")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_1hd33")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." groups=["interactable"]]
+transform = Transform3D(0.5, 0, -1.86265e-09, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("SphereShape3D_a358y")
+debug_color = Color(0, 0.6, 0.701961, 0.858824)

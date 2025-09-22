@@ -7,7 +7,7 @@ size = Vector3(2.3573, 0.0773315, 3.00124)
 
 [node name="départ_rudimentaire" instance=ExtResource("1_rydqh")]
 
-[node name="StaticBody3D" type="StaticBody3D" parent="." index="8"]
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.203207, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]

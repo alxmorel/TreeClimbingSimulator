@@ -21,16 +21,10 @@ var target_altitude = 30.0
 var player_controller: CharacterBody3D
 
 func _ready():
+	player_controller = GlobalContext.player
 	# Configuration pour caméra perspective avec vue inclinée
 	projection = PROJECTION_PERSPECTIVE
 	fov = 75.0
-	
-	# Trouver le joueur dans la scène
-	player_controller = get_node_or_null("../CharacterBody3D")
-	if not player_controller:
-		# Essayer de le trouver dans la scène racine
-		var scene_root = get_tree().current_scene
-		player_controller = scene_root.get_node_or_null("CharacterBody3D")
 	
 	# Position et orientation initiales
 	#position = Vector3(0, 30, -30)
@@ -125,11 +119,9 @@ func position_behind_player():
 	if not player_controller:
 		print("Erreur: Player controller non trouvé pour le positionnement de la caméra")
 		return
-	
+
 	# Trouver la caméra du joueur
-	var player_camera = player_controller.get_node_or_null("Head/Camera3D")
-	if not player_camera:
-		player_camera = player_controller.get_node_or_null("Camera3D")
+	var player_camera = player_controller.get_node_or_null("%Camera3D")
 	
 	if not player_camera:
 		print("Erreur: Caméra du joueur non trouvée")
