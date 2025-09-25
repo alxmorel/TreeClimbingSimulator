@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cyvqmbttfn8ml"]
+[gd_scene load_steps=13 format=3 uid="uid://botr3aycakj04"]
 
 [ext_resource type="Script" uid="uid://jvvc2wqvkx2u" path="res://scenes/cash_register_ui.gd" id="1_j0xjo"]
 [ext_resource type="Texture2D" uid="uid://cfn84xvt36fgl" path="res://assets/images/enfants.png" id="2_b5ybr"]
@@ -39,6 +39,22 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hover"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.75, 0.56, 0.42, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.5, 0.36, 0.25, 0.901961)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
 [node name="CashRegisterUI" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -58,144 +74,162 @@ stretch_mode = 6
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 174.0
-offset_top = 29.0
-offset_right = -173.0
-offset_bottom = -120.0
+anchor_bottom = 0.86300004
+offset_left = 121.0
+offset_top = 55.0
+offset_right = -124.0
+offset_bottom = -45.224
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_brelx")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+layout_mode = 2
 theme_override_constants/separation = 30
 alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="Panel/VBoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="lbl_age" type="Label" parent="Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(171.435, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 35
-text = "Tranche d'age"
+text = "AGE"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 30
-alignment = 1
-
-[node name="btn_enfant" type="Button" parent="Panel/VBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="btn_enfant" type="Button" parent="Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer" groups=["ticket_buttons"]]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/h_separation = 18
-theme_override_constants/icon_max_width = 50
-theme_override_font_sizes/font_size = 30
+theme_override_constants/icon_max_width = 100
+theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxFlat_iuqvq")
-text = "Enfant"
+theme_override_styles/hover = SubResource("StyleBoxFlat_hover")
 icon = ExtResource("2_b5ybr")
 
-[node name="btn_adulte" type="Button" parent="Panel/VBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="btn_adulte" type="Button" parent="Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer" groups=["ticket_buttons"]]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/h_separation = 18
-theme_override_constants/icon_max_width = 50
-theme_override_font_sizes/font_size = 30
+theme_override_constants/icon_max_width = 100
+theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxFlat_iuqvq")
-text = "Adulte"
+theme_override_styles/hover = SubResource("StyleBoxFlat_hover")
 icon = ExtResource("3_wdy31")
 
-[node name="btn_senior" type="Button" parent="Panel/VBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="btn_senior" type="Button" parent="Panel/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer" groups=["ticket_buttons"]]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/h_separation = 18
-theme_override_constants/icon_max_width = 50
-theme_override_font_sizes/font_size = 30
+theme_override_constants/icon_max_width = 100
+theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxFlat_iuqvq")
-text = "Sénior
-"
+theme_override_styles/hover = SubResource("StyleBoxFlat_hover")
 icon = ExtResource("4_4ji7b")
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="Panel/VBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="Panel/VBoxContainer/VBoxContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="lbl_duree" type="Label" parent="Panel/MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(171.435, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 35
-text = "Durée"
+text = "DUREE"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/VBoxContainer2"]
-layout_mode = 2
-theme_override_constants/separation = 30
-alignment = 1
-
-[node name="btn_mi_journee" type="Button" parent="Panel/VBoxContainer/VBoxContainer2/HBoxContainer"]
+[node name="btn_mi_journee" type="Button" parent="Panel/MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer" groups=["ticket_buttons"]]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/h_separation = 18
-theme_override_constants/icon_max_width = 50
-theme_override_font_sizes/font_size = 30
+theme_override_constants/icon_max_width = 100
+theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxFlat_iuqvq")
-text = "Demi journée"
+theme_override_styles/hover = SubResource("StyleBoxFlat_hover")
+text = "1/2  Journée"
 icon = ExtResource("5_brelx")
 
-[node name="btn_journee" type="Button" parent="Panel/VBoxContainer/VBoxContainer2/HBoxContainer"]
+[node name="btn_journee" type="Button" parent="Panel/MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer" groups=["ticket_buttons"]]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/h_separation = 18
-theme_override_constants/icon_max_width = 50
-theme_override_font_sizes/font_size = 30
+theme_override_constants/icon_max_width = 100
+theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxFlat_iuqvq")
+theme_override_styles/hover = SubResource("StyleBoxFlat_hover")
 text = "Journée"
 icon = ExtResource("6_7moen")
 
-[node name="VBoxContainer3" type="VBoxContainer" parent="Panel/VBoxContainer"]
+[node name="VBoxContainer3" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="Panel/VBoxContainer/VBoxContainer3"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/VBoxContainer3"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="lbl_formule" type="Label" parent="Panel/MarginContainer/VBoxContainer/VBoxContainer3/HBoxContainer"]
+custom_minimum_size = Vector2(171.435, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 35
-text = "Formule"
+text = "FORMULE"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/VBoxContainer3"]
-layout_mode = 2
-theme_override_constants/separation = 30
-alignment = 1
-
-[node name="btn_mi_journee" type="Button" parent="Panel/VBoxContainer/VBoxContainer3/HBoxContainer"]
+[node name="btn_basic" type="Button" parent="Panel/MarginContainer/VBoxContainer/VBoxContainer3/HBoxContainer" groups=["ticket_buttons"]]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/h_separation = 18
-theme_override_constants/icon_max_width = 50
-theme_override_font_sizes/font_size = 30
+theme_override_constants/icon_max_width = 100
+theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxFlat_iuqvq")
-text = "Parcours simple"
+theme_override_styles/hover = SubResource("StyleBoxFlat_hover")
+text = "Basic"
 icon = ExtResource("5_llbgh")
 
-[node name="btn_journee" type="Button" parent="Panel/VBoxContainer/VBoxContainer3/HBoxContainer"]
+[node name="btn_sensation" type="Button" parent="Panel/MarginContainer/VBoxContainer/VBoxContainer3/HBoxContainer" groups=["ticket_buttons"]]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/h_separation = 18
-theme_override_constants/icon_max_width = 50
-theme_override_font_sizes/font_size = 30
+theme_override_constants/icon_max_width = 100
+theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxFlat_iuqvq")
-text = "Parcours sensation"
+theme_override_styles/hover = SubResource("StyleBoxFlat_hover")
+text = "Sensation"
 icon = ExtResource("6_brelx")
 
-[node name="btn_valid_command" type="Button" parent="."]
+[node name="btn_impression_ticket" type="Button" parent="." groups=["ticket_buttons"]]
+unique_name_in_owner = true
 layout_mode = 0
-offset_left = 361.0
-offset_top = 551.0
-offset_right = 759.0
-offset_bottom = 621.0
+offset_top = 559.0
+offset_right = 1152.0
+offset_bottom = 648.0
 theme_override_constants/h_separation = 18
-theme_override_constants/icon_max_width = 50
-theme_override_font_sizes/font_size = 30
+theme_override_constants/icon_max_width = 100
+theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = ExtResource("10_7moen")
+theme_override_styles/hover = SubResource("StyleBoxFlat_hover")
 text = "Impression Ticket"

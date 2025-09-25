@@ -4,6 +4,7 @@ var ui_context: ContextComponent
 var pending_interaction: Object = null
 var input_active: bool = false
 var player: CharacterBody3D = null
+var active_subviewport: SubViewport = null
 
 # TARGETS stockées globalement
 var target_billeterie: Node3D = null

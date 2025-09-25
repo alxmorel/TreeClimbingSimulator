@@ -60,7 +60,7 @@ var phrases = [
 	"%s %s %s %s pour le %s %s", 
 	"%s %s %s %s et le %s %s",
 	"%s %s %s %s, vous me mettez le %s %s",
-	"%s %s %s votre %s %s",
+	"%s %s %s %s votre %s %s",
 	"%s %s %s %s avec le %s %s",
 	"%s %s %s %s et pour le parcours... allez le %s %s",
 	"%s %s %s %s et %s %s",
@@ -96,8 +96,18 @@ func _ready():
 
 	ticket_phrase = get_random_ticket_phrase()
 	
+	# Rendre le NPC interactable
+	add_to_group("interactable")
+	add_to_group("npc")
+	add_to_group("script_interact")  # Le NPC lui-même contient les scripts d'interaction
+	
+	# Ajouter le groupe mesh_interact au skeleton pour l'aura
+	if skeleton:
+		skeleton.add_to_group("mesh_interact")
+		print("👤 Skeleton ajouté au groupe mesh_interact")
 	
 	print("[NPC] _ready called, data =", data)
+	print("👤 NPC groupes: ", get_groups())
 
 	_snap_to_ground_safe()
 	call_deferred("_setup_target")
@@ -112,7 +122,10 @@ func _ready():
 
 func get_interaction_label() -> String:
 	# Le texte affiché quand le joueur regarde le NPC
-	return "Parler à " + (data.nom if data else "Personne")
+	if GlobalContext.player and GlobalContext.player.held_ticket:
+		return "Donner le ticket au client (E)"
+	else:
+		return "Parler à " + (data.nom if data else "Personne")
 
 func object_interact() -> void:
 	# Arrêter le NPC
@@ -126,6 +139,72 @@ func object_interact() -> void:
 	# ✅ Si le NPC est arrivé à la billeterie
 	if GlobalContext.target_billeterie and global_position.distance_to(GlobalContext.target_billeterie.global_position) < 2:
 		$Label3D.text = ticket_phrase
+
+# ===== SYSTÈME DE TICKETS =====
+func receive_ticket(ticket: Node) -> bool:
+	# Vérifier si le ticket correspond aux demandes du NPC
+	if not ticket or not ticket.ticket_data:
+		print("🎫 Ticket invalide")
+		return false
+	
+	# Analyser la phrase du NPC pour déterminer ce qu'il veut
+	var ticket_data = ticket.ticket_data
+	var wants_adult = "adulte" in ticket_phrase.to_lower() or "adulte" in ticket_data.type.to_lower()
+	var wants_child = "enfant" in ticket_phrase.to_lower() or "enfant" in ticket_data.type.to_lower()
+	var wants_senior = "sénior" in ticket_phrase.to_lower() or "senior" in ticket_phrase.to_lower()
+	
+	# Vérifier la correspondance basique
+	var type_match = false
+	match ticket_data.type:
+		"Enfant":
+			type_match = wants_child or "enfant" in ticket_phrase.to_lower()
+		"Adulte":
+			type_match = wants_adult or "adulte" in ticket_phrase.to_lower()
+		"Sénior":
+			type_match = wants_senior or "sénior" in ticket_phrase.to_lower() or "senior" in ticket_phrase.to_lower()
+	
+	if type_match:
+		print("🎫 Le NPC accepte le ticket: ", ticket_data.numero)
+		$Label3D.text = "Merci beaucoup! Voilà mon ticket: " + ticket_data.numero
+		
+		# Faire disparaître le ticket après un court délai
+		# ticket est maintenant le script, on doit supprimer le RigidBody parent
+		var ticket_rigidbody = ticket.get_parent()
+		if ticket_rigidbody:
+			ticket_rigidbody.queue_free()
+		else:
+			ticket.queue_free()
+		
+		# Optionnel: faire réagir le NPC
+		_react_to_ticket_received(ticket_data)
+		
+		return true
+	else:
+		var rejection_messages = [
+			"Ce n'est pas le bon ticket pour moi...",
+			"Je crois que ce ticket n'est pas pour moi.",
+			"Hmm, ce n'est pas ce que j'avais demandé.",
+			"Je pense qu'il y a une erreur."
+		]
+		$Label3D.text = rejection_messages[randi() % rejection_messages.size()]
+		print("🎫 Le NPC refuse le ticket - mauvais type")
+		return false
+
+func _react_to_ticket_received(ticket_data: Dictionary):
+	# Réaction du NPC au ticket reçu
+	var reactions = [
+		"Parfait! Merci beaucoup!",
+		"Exactement ce qu'il me fallait!",
+		"Super, je vais pouvoir profiter du parc!",
+		"Merci, c'est génial!"
+	]
+	
+	# Optionnel: arrêter le NPC ou changer son comportement
+	if agent:
+		agent.set_target_position(global_position)  # Arrêter le mouvement
+	
+	await get_tree().create_timer(3.0).timeout
+	$Label3D.text = reactions[randi() % reactions.size()]
 
 func _set_height(target_height: float) -> void:
 	# Calcul du scale proportionnel à la taille désirée
