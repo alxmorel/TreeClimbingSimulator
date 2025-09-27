@@ -8,6 +8,11 @@ class_name NPC
 @export var sprint_speed: float = 5.0
 @export var current_context: String = "achat_billeterie"
 
+@export var interaction_data: InteractionData
+
+var npc_state_machine: NPCStateMachine
+var interaction_component: ObjectInteractable
+
 @onready var skeleton: Skeleton3D = $Skeleton3D
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
 @onready var anim_tree: AnimationTree = $AnimationTree
@@ -15,7 +20,12 @@ class_name NPC
 @onready var label_3d = $Label3D
 
 @onready var agent: NavigationAgent3D = $NavigationAgent3D
+
+@onready var body = $Skeleton3D/Body
 @onready var head = $Skeleton3D/Head
+@onready var bottoms = $Skeleton3D/Bottoms
+@onready var tops = $Skeleton3D/Tops
+
 
 var is_talking: bool = false
 var stored_speed: float = 0.0
@@ -90,6 +100,10 @@ func get_random_ticket_phrase() -> String:
 
 
 func _ready():
+	# Initialiser ObjectInteractable
+	_setup_npc_state_machine()
+	_setup_interaction_component()
+
 	if data:
 		apply_style(data)
 		_set_height(data.taille)
@@ -97,14 +111,7 @@ func _ready():
 	ticket_phrase = get_random_ticket_phrase()
 	
 	# Rendre le NPC interactable
-	add_to_group("interactable")
 	add_to_group("npc")
-	add_to_group("script_interact")  # Le NPC lui-même contient les scripts d'interaction
-	
-	# Ajouter le groupe mesh_interact au skeleton pour l'aura
-	if skeleton:
-		skeleton.add_to_group("mesh_interact")
-		print("👤 Skeleton ajouté au groupe mesh_interact")
 	
 	print("[NPC] _ready called, data =", data)
 	print("👤 NPC groupes: ", get_groups())
@@ -120,25 +127,114 @@ func _ready():
 		push_error("[NPC] Aucun AnimationTree trouvé !")
 
 
-func get_interaction_label() -> String:
-	# Le texte affiché quand le joueur regarde le NPC
-	if GlobalContext.player and GlobalContext.player.held_ticket:
-		return "Donner le ticket au client (E)"
-	else:
-		return "Parler à " + (data.nom if data else "Personne")
+func _setup_npc_state_machine():
+	npc_state_machine = NPCStateMachine.new(self)
+	
+	# Ajouter les états
+	npc_state_machine.add_state("seeking_ticket", SeekingTicketState.new())
+	npc_state_machine.add_state("waiting_for_ticket", WaitingForTicketState.new())
+	npc_state_machine.add_state("waiting_for_equipment", WaitingForEquipmentState.new())  # NOUVEAU
+	npc_state_machine.add_state("equipment_fitting", EquipmentFittingState.new())  # NOUVEAU
+	npc_state_machine.add_state("exploring_park", ExploringParkState.new())  # NOUVEAU
 
-func object_interact() -> void:
-	# Arrêter le NPC
+	# Démarrer dans l'état de recherche de ticket
+	npc_state_machine.change_state("seeking_ticket")
+
+
+func _setup_interaction_component():
+	# Créer un composant ObjectInteractable
+	interaction_component = ObjectInteractable.new()
+	add_child(interaction_component)
+	
+	# Ne pas configurer de label statique - on utilisera la méthode dynamique du NPC
+	interaction_component.set_interaction_config("", "ui_accept", false)
+
+
+func get_interaction_label() -> String:
+	var player = GlobalContext.player
+	if not player:
+		return "Parler à " + (data.nom if data else "Personne")
+	
+	# Utiliser la méthode utilitaire
+	if is_in_state("WaitingForTicketState") and player.held_ticket:
+		return "Donner le ticket au client (E)"
+	
+	return "Parler à " + (data.nom if data else "Personne")
+
+
+func get_camera_travel_params() -> Dictionary:
+	# Retourner un dictionnaire vide pour pas d'animation de caméra
+	return {}
+
+
+func object_interact() -> bool:
+	var player = GlobalContext.player
+	if not player:
+		print("🎫 Pas de joueur trouvé")
+		return false
+		
+	# Arrêter le NPC temporairement
 	if agent:
 		stored_speed = speed
 		speed = 0
-		agent.set_target_position(global_position) # stop navigation
-
-	is_talking = true
+		agent.set_target_position(global_position)
 	
-	# ✅ Si le NPC est arrivé à la billeterie
-	if GlobalContext.target_billeterie and global_position.distance_to(GlobalContext.target_billeterie.global_position) < 2:
-		$Label3D.text = ticket_phrase
+	print("🎫 Interaction avec NPC - État actuel:", get_current_state_name())
+	
+	# Utiliser la méthode utilitaire
+	if is_in_state("WaitingForTicketState"):
+		if player and player.held_ticket:
+			print("🎫 Tentative de donner le ticket au NPC")
+			var success = player._give_ticket_to_npc(self)
+			if success:
+				print("🎫 Ticket donné avec succès!")
+			else:
+				print("🎫 Échec de la remise du ticket")
+		else:
+			print("🎫 Pas de ticket, démarrage du dialogue")
+			_start_dialogue()
+	else:
+		print("🎫 Dialogue normal")
+		_start_dialogue()
+			
+	return true
+
+
+func _update_object_interaction_detection(is_detected: bool):
+	if interaction_component:
+		# Utiliser le label dynamique du NPC au lieu du label statique du composant
+		if is_detected:
+			# Appliquer l'effet stencil
+			interaction_component._change_stencil(is_detected)
+			
+			# Afficher le label d'interaction dynamique
+			if GlobalContext.ui_context:
+				GlobalContext.ui_context.update_key_action("E")
+				var label = get_interaction_label()  # Utiliser la méthode du NPC
+				if label != "":
+					GlobalContext.ui_context.update_content(label)
+				else:
+					GlobalContext.ui_context.update_content("Interagir")
+		else:
+			# Retirer l'effet stencil
+			interaction_component._change_stencil(is_detected)
+
+func can_interact(player: Node = null) -> bool:
+	if interaction_component:
+		return interaction_component.can_interact(player)
+	return true
+
+func trigger_interaction(player: Node = null) -> bool:
+	if interaction_component:
+		return interaction_component.trigger_interaction(player)
+	return object_interact()
+
+
+func _start_dialogue():
+	is_talking = true
+	$Label3D.text = ticket_phrase
+	pass
+
 
 # ===== SYSTÈME DE TICKETS =====
 func receive_ticket(ticket: Node) -> bool:
@@ -149,26 +245,57 @@ func receive_ticket(ticket: Node) -> bool:
 	
 	# Analyser la phrase du NPC pour déterminer ce qu'il veut
 	var ticket_data = ticket.ticket_data
-	var wants_adult = "adulte" in ticket_phrase.to_lower() or "adulte" in ticket_data.type.to_lower()
-	var wants_child = "enfant" in ticket_phrase.to_lower() or "enfant" in ticket_data.type.to_lower()
-	var wants_senior = "sénior" in ticket_phrase.to_lower() or "senior" in ticket_phrase.to_lower()
+	var npc_phrase = ticket_phrase.to_lower()
 	
-	# Vérifier la correspondance basique
+	# Vérifier le type de personne
+	var wants_adult = "adulte" in npc_phrase
+	var wants_child = "enfant" in npc_phrase
+	var wants_senior = "sénior" in npc_phrase or "senior" in npc_phrase
+	
+	# Vérifier la durée
+	var wants_full_day = "journée" in npc_phrase and "demi" not in npc_phrase
+	var wants_half_day = "demi-journée" in npc_phrase or "demi journée" in npc_phrase
+	
+	# Vérifier la formule
+	var wants_standard = "simple" in npc_phrase or "standard" in npc_phrase
+	var wants_sensation = "sensation" in npc_phrase
+	
+	# Vérifier la correspondance du type de personne
 	var type_match = false
 	match ticket_data.type:
 		"Enfant":
-			type_match = wants_child or "enfant" in ticket_phrase.to_lower()
+			type_match = wants_child
 		"Adulte":
-			type_match = wants_adult or "adulte" in ticket_phrase.to_lower()
+			type_match = wants_adult
 		"Sénior":
-			type_match = wants_senior or "sénior" in ticket_phrase.to_lower() or "senior" in ticket_phrase.to_lower()
+			type_match = wants_senior
 	
-	if type_match:
+	# Vérifier la correspondance de la durée
+	var duration_match = false
+	match ticket_data.duree:
+		"Journée":
+			duration_match = wants_full_day
+		"1/2 Journée":
+			duration_match = wants_half_day
+	
+	# Vérifier la correspondance de la formule
+	var formula_match = false
+	match ticket_data.parcours:
+		"Basic":
+			formula_match = wants_standard
+		"Sensation":
+			formula_match = wants_sensation
+	
+	# Le ticket doit correspondre sur tous les critères
+	if type_match and duration_match and formula_match:
 		print("🎫 Le NPC accepte le ticket: ", ticket_data.numero)
+		print("🎫 Correspondance - Type: ", ticket_data.type, " Durée: ", ticket_data.duree, " Formule: ", ticket_data.parcours)
 		$Label3D.text = "Merci beaucoup! Voilà mon ticket: " + ticket_data.numero
 		
+		# CORRECTION : Remettre is_talking à false pour permettre le mouvement
+		is_talking = false
+		
 		# Faire disparaître le ticket après un court délai
-		# ticket est maintenant le script, on doit supprimer le RigidBody parent
 		var ticket_rigidbody = ticket.get_parent()
 		if ticket_rigidbody:
 			ticket_rigidbody.queue_free()
@@ -178,17 +305,26 @@ func receive_ticket(ticket: Node) -> bool:
 		# Optionnel: faire réagir le NPC
 		_react_to_ticket_received(ticket_data)
 		
+		if npc_state_machine:
+			npc_state_machine.change_state("waiting_for_equipment")
+		
 		return true
 	else:
-		var rejection_messages = [
-			"Ce n'est pas le bon ticket pour moi...",
-			"Je crois que ce ticket n'est pas pour moi.",
-			"Hmm, ce n'est pas ce que j'avais demandé.",
-			"Je pense qu'il y a une erreur."
-		]
-		$Label3D.text = rejection_messages[randi() % rejection_messages.size()]
-		print("🎫 Le NPC refuse le ticket - mauvais type")
+		# Messages d'erreur plus spécifiques
+		var rejection_messages = []
+		if not type_match:
+			rejection_messages.append("Ce n'est pas le bon type de ticket pour moi...")
+		if not duration_match:
+			rejection_messages.append("Ce n'est pas la bonne durée...")
+		if not formula_match:
+			rejection_messages.append("Ce n'est pas la bonne formule...")
+		
+		var final_message = rejection_messages[randi() % rejection_messages.size()] if rejection_messages.size() > 0 else "Ce ticket ne correspond pas à ma demande."
+		$Label3D.text = final_message
+		print("🎫 Le NPC refuse le ticket - Correspondance: Type=", type_match, " Durée=", duration_match, " Formule=", formula_match)
 		return false
+		
+		
 
 func _react_to_ticket_received(ticket_data: Dictionary):
 	# Réaction du NPC au ticket reçu
@@ -210,7 +346,6 @@ func _set_height(target_height: float) -> void:
 	# Calcul du scale proportionnel à la taille désirée
 	var correction := target_height / BASE_HEIGHT
 	scale = Vector3.ONE * correction
-
 
 func _snap_to_ground_safe():
 	# On spawn le NPC un peu au-dessus du sol pour éviter qu'il soit "dans" le sol
@@ -237,6 +372,9 @@ func _setup_target():
 	var nav_region = current_scene.get_node_or_null("NavigationRegion3D")
 	if nav_region:
 		agent.set_navigation_map(nav_region.get_navigation_map())
+		print("[NPC] Navigation map configurée: ", nav_region.get_navigation_map())
+	else:
+		print("[NPC] ERREUR: NavigationRegion3D introuvable!")
 
 	if GlobalContext.target_billeterie:
 		agent.target_position = GlobalContext.target_billeterie.global_position
@@ -265,7 +403,7 @@ func _physics_process(delta):
 		if dir.length() > 0.05:
 			move_dir = dir.normalized() * speed
 			_rotate_towards(dir, delta)
-
+			
 	# --- Appliquer mouvement ---
 	velocity.x = move_dir.x
 	velocity.z = move_dir.z
@@ -280,15 +418,8 @@ func _physics_process(delta):
 		t_bob += delta * Vector3(velocity.x, 0, velocity.z).length()
 		head.transform.origin = _headbob(t_bob)
 		
-	# 🔹 Faire regarder le Label3D vers le joueur
-	#if GlobalContext.player and label_3d and label_3d.text.length() > 0:
-		#var player_pos = GlobalContext.player.global_transform.origin
-#
-		## Faire regarder le Label3D vers le joueur
-		#label_3d.look_at(player_pos, Vector3.UP)
-#
-		## Correction pour que la face avant du Label3D (-Z) soit visible
-		#label_3d.rotate_y(deg_to_rad(180))
+	if npc_state_machine:
+		npc_state_machine.physics_process(delta)
 
 		
 
@@ -368,3 +499,16 @@ func apply_style(p: Personne):
 				"Shoes": mat.albedo_color = p.couleur_chaussures
 				"Hair": mat.albedo_color = p.couleur_cheveux
 			part.set_surface_override_material(0, mat)
+
+func is_in_state(state_name: String) -> bool:
+	if not npc_state_machine or not npc_state_machine.current_state:
+		return false
+	
+	var current_state_name = npc_state_machine.current_state.get_script().get_global_name()
+	return current_state_name == state_name
+
+func get_current_state_name() -> String:
+	if not npc_state_machine or not npc_state_machine.current_state:
+		return "unknown"
+	
+	return npc_state_machine.current_state.get_script().get_global_name()

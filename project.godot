@@ -26,8 +26,8 @@ enabled=PackedStringArray("res://addons/terrain_3d/plugin.cfg")
 [global_group]
 
 player_camera=""
-interactable="Objets avec lesquelles le joueur peut intéragir"
 ordinateur=""
+equipment_zone="zone de récupération de l'équipement de sécu"
 
 [input]
 
@@ -88,10 +88,12 @@ click={
 }
 drop_ticket={
 "deadzone": 0.5,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":71,"key_label":0,"unicode":103,"location":0,"echo":false,"script":null)
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":81,"key_label":0,"unicode":97,"location":0,"echo":false,"script":null)
 ]
 }
 
 [layer_names]
 
 3d_render/layer_2="invisible"
+3d_physics/layer_1="player"
+3d_physics/layer_2="interaction"

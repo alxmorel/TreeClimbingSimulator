@@ -1,4 +1,4 @@
-[gd_scene load_steps=118 format=4 uid="uid://cao8dlm7fa25q"]
+[gd_scene load_steps=119 format=4 uid="uid://cao8dlm7fa25q"]
 
 [ext_resource type="PackedScene" uid="uid://ca7wvirp42kb7" path="res://scenes/PlayerController.tscn" id="2_1l6ik"]
 [ext_resource type="PackedScene" uid="uid://bvdujf2ubpixn" path="res://assets/models/grass/grass_resize.glb" id="2_3shck"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://t12fma0lp1q3" path="res://assets/models/tree/tree.blend" id="4_xo2vs"]
 [ext_resource type="Texture2D" uid="uid://bviy45p7mkn8g" path="res://assets/textures/rocky_terrain/rocky_terrain_02_diff_1k.jpg" id="5_h2lqh"]
 [ext_resource type="Texture2D" uid="uid://dohfh3sy8eol2" path="res://assets/textures/rocky_terrain/rocky_terrain_02_nor_gl_1k.png" id="6_hl62s"]
+[ext_resource type="Script" uid="uid://trkhya1bxt3d" path="res://scripts/park_management/park_points_manager.gd" id="7_d64uu"]
 [ext_resource type="Texture2D" uid="uid://c88j3oj0lf6om" path="res://assets/textures/rock023_alb_ht.png" id="7_h2lqh"]
 [ext_resource type="Texture2D" uid="uid://c307hdmos4gtm" path="res://assets/textures/rock023_nrm_rgh.png" id="8_hl62s"]
 [ext_resource type="Script" uid="uid://cwpcrhng81bdw" path="res://scripts/builder_manager.gd" id="9_builder_manager"]
@@ -63,12 +64,12 @@
 [ext_resource type="PackedScene" uid="uid://df81rqo2ltj81" path="res://scenes/metal_lockers.tscn" id="52_1411t"]
 [ext_resource type="PackedScene" uid="uid://bb4evwm5in5oa" path="res://scenes/comptoir.tscn" id="56_jhn2k"]
 [ext_resource type="PackedScene" uid="uid://bgqh6wf6hk758" path="res://scenes/ordinateur.tscn" id="57_b0vxc"]
+[ext_resource type="PackedScene" uid="uid://brkn70itb53yc" path="res://scenes/ticket_printer.tscn" id="58_erjgr"]
 [ext_resource type="PackedScene" uid="uid://b70do5r2tsfiy" path="res://scenes/partial_wood_fence.tscn" id="58_q6oe0"]
 [ext_resource type="PackedScene" uid="uid://bkuvh372f8u0x" path="res://scenes/toilette.tscn" id="59_m6fqw"]
 [ext_resource type="PackedScene" uid="uid://mijdy2b5g372" path="res://scenes/billboard.tscn" id="60_1l6ik"]
 [ext_resource type="PackedScene" uid="uid://chrlombxq8jfp" path="res://assets/models/paiement_terminal/Paiement_terminal.glb" id="63_udpf3"]
 [ext_resource type="PackedScene" uid="uid://ce5ik6im6n88o" path="res://assets/models/wooden_chair/Wooden_chair.glb" id="64_erjgr"]
-[ext_resource type="PackedScene" uid="uid://bbw4l51atyjyu" path="res://assets/models/ticket_printer/Ticket_printer.glb" id="64_qeq0d"]
 [ext_resource type="PackedScene" uid="uid://cb4e2rrcp3xr3" path="res://telephone_avis_ui.tscn" id="67_b0vxc"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_mqteh"]
@@ -543,6 +544,9 @@ script = ExtResource("10_builder_camera")
 [node name="GridSystem" type="Node3D" parent="."]
 script = ExtResource("13_grid_system")
 
+[node name="ParkPointsManager" type="Node3D" parent="."]
+script = ExtResource("7_d64uu")
+
 [node name="PlacementManager" type="Node3D" parent="." node_paths=PackedStringArray("builder_manager", "builder_camera", "terrain", "grid_system")]
 script = ExtResource("11_placement_manager")
 builder_manager = NodePath("../BuilderManager")
@@ -841,6 +845,18 @@ transform = Transform3D(-0.999234, -2.98023e-08, -0.0391204, -0.035273, 0.432463
 [node name="Wooden_platform_rudimentaire" parent="NavigationRegion3D/Terrain3D" instance=ExtResource("43_siel4")]
 transform = Transform3D(-0.999234, 0, -0.0391204, 0, 1, 0, 0.0391204, 0, -0.999234, -123.878, 5.06872, 28.4758)
 
+[node name="Point1_equipment_zone" type="Node3D" parent="NavigationRegion3D/Terrain3D/Wooden_platform_rudimentaire" groups=["equipment_zone"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7855911, 0.110426426, 2.1535282)
+
+[node name="Point2_equipment_zone" type="Node3D" parent="NavigationRegion3D/Terrain3D/Wooden_platform_rudimentaire" groups=["equipment_zone"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.57476807, 0.110426426, 2.1410694)
+
+[node name="Point3_equipment_zone" type="Node3D" parent="NavigationRegion3D/Terrain3D/Wooden_platform_rudimentaire" groups=["equipment_zone"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.59739685, 0.110426426, 2.1724682)
+
+[node name="Point4_equipment_zone" type="Node3D" parent="NavigationRegion3D/Terrain3D/Wooden_platform_rudimentaire" groups=["equipment_zone"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7914124, 0.110426426, 2.1292477)
+
 [node name="picnic_table1" parent="NavigationRegion3D/Terrain3D" instance=ExtResource("44_3fgno")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -110.326, 4.9313, 6.19421)
 
@@ -864,7 +880,7 @@ transform = Transform3D(-0.021325283, 0, 2.4390213, 0, 1, 0, -1.2192806, 0, -0.0
 transform = Transform3D(0.7522768, 0, -0.65884733, 0, 1, 0, 0.65884733, 0, 0.7522768, -127.919785, 6.05355, 31.561098)
 ticket_printer = NodePath("../Ticket_printer")
 
-[node name="Ticket_printer" parent="NavigationRegion3D/Terrain3D" instance=ExtResource("64_qeq0d")]
+[node name="Ticket_printer" parent="NavigationRegion3D/Terrain3D" instance=ExtResource("58_erjgr")]
 transform = Transform3D(0.9998619, 0, -0.01659733, 0, 1, 0, 0.01659733, 0, 0.9998619, -128.56801, 6.0292053, 31.252443)
 
 [node name="fridge2" parent="NavigationRegion3D/Terrain3D" instance=ExtResource("48_owmfx")]
@@ -992,7 +1008,7 @@ transform = Transform3D(0.818781, 0, -0.574105, 0, 1, 0, 0.574105, 0, 0.818782, 
 [node name="Toilette2" parent="NavigationRegion3D/Terrain3D" instance=ExtResource("59_m6fqw")]
 transform = Transform3D(-0.994678, 0, -0.103036, 0, 1, 0, 0.103036, 0, -0.994678, -120.417, 4.95243, 39.4875)
 
-[node name="Billboard" parent="NavigationRegion3D/Terrain3D" groups=["interactable"] instance=ExtResource("60_1l6ik")]
+[node name="Billboard" parent="NavigationRegion3D/Terrain3D" instance=ExtResource("60_1l6ik")]
 transform = Transform3D(0.64889, 0, -0.760882, 0, 1, 0, 0.760882, 0, 0.64889, -202.834, 5.21826, -1.21118)
 
 [node name="Wooden_chair" parent="NavigationRegion3D/Terrain3D" instance=ExtResource("64_erjgr")]

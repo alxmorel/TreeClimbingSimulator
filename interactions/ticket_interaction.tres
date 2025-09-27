@@ -1,0 +1,19 @@
+[gd_resource type="InteractionData" script_class="InteractionData" format=3]
+
+[resource]
+label = "Prendre le ticket"
+action_key = "ui_accept"
+icon_path = ""
+requires_camera_animation = false
+camera_offset = Vector3(0, 1.5, 2)
+camera_duration = 0.8
+camera_look_at_offset = Vector3(0, 1, 0)
+aura_type = 1
+aura_color = Color(0, 1, 0, 0.8)
+aura_intensity = 1.0
+auto_trigger = false
+interaction_distance = 3.0
+repeatable = false
+consume_on_use = true
+interaction_sound = null
+sound_volume = 1.0

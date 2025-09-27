@@ -1,11 +1,24 @@
-[gd_scene load_steps=20 format=4 uid="uid://bgqh6wf6hk758"]
+[gd_scene load_steps=22 format=4 uid="uid://bgqh6wf6hk758"]
 
 [ext_resource type="Script" uid="uid://bx8ky0qtvb3rn" path="res://scenes/ordinateur.gd" id="1_3cp7l"]
 [ext_resource type="Texture2D" uid="uid://c34gxybjqasin" path="res://assets/models/laptop/Ordinateur_Image_0.jpg" id="1_d2koj"]
 [ext_resource type="Texture2D" uid="uid://c0tq0x6msrvx0" path="res://assets/models/laptop/Ordinateur_Image_1.png" id="2_3cp7l"]
+[ext_resource type="Script" uid="uid://dg667eobtm5qw" path="res://scripts/interactions/InteractionData.gd" id="2_ssi2f"]
 [ext_resource type="Texture2D" uid="uid://dfjbysfa8btuf" path="res://assets/models/laptop/Ordinateur_Image_2.jpg" id="3_ssi2f"]
 [ext_resource type="Texture2D" uid="uid://belmgcjjcglfx" path="res://assets/models/laptop/Ordinateur_Image_3.png" id="4_gabcy"]
 [ext_resource type="PackedScene" uid="uid://botr3aycakj04" path="res://scenes/cash_register_ui.tscn" id="5_d2koj"]
+
+[sub_resource type="Resource" id="Resource_ssi2f"]
+script = ExtResource("2_ssi2f")
+label = "Aller sur l'ordinateur"
+requires_camera_animation = true
+camera_offset = Vector3(-0.5, 0.5, -0.5)
+camera_duration = 0.5
+camera_look_at_offset = Vector3(0, 0.5, 0)
+metadata/_custom_type_script = "uid://dg667eobtm5qw"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3cp7l"]
+size = Vector3(0.9518132, 0.53840244, 0.04054904)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vspdo"]
 resource_name = "01___Default"
@@ -22,6 +35,7 @@ normal_enabled = true
 normal_texture = ExtResource("4_gabcy")
 ao_enabled = true
 ao_texture = ExtResource("2_3cp7l")
+stencil_flags = 2
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_tqnnk"]
 _surfaces = [{
@@ -145,10 +159,16 @@ albedo_texture = SubResource("ViewportTexture_3cp7l")
 emission_enabled = true
 emission_texture = SubResource("ViewportTexture_ssi2f")
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_3cp7l"]
-size = Vector3(2.0164814, 0.045943737, 1.8986111)
+[node name="Ordinateur" type="StaticBody3D" node_paths=PackedStringArray("mesh_list") groups=["ordinateur"]]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_3cp7l")
+interaction_data = SubResource("Resource_ssi2f")
+mesh_list = [NodePath("Chassis")]
 
-[node name="Ordinateur" type="Node3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0043489933, 0.52291304, -0.13646376)
+shape = SubResource("BoxShape3D_3cp7l")
 
 [node name="Souris" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.5011509, 0, 0, 0, 0.501151, 0, 0, 0, 0.501151, 0, -0.0033118464, 0)
@@ -170,16 +190,9 @@ transform = Transform3D(0.471, 0, 0, 0, -3.746066e-08, -0.279, 0, 0.857, -1.2195
 mesh = SubResource("PlaneMesh_djg0n")
 surface_material_override/0 = SubResource("StandardMaterial3D_fikar")
 
-[node name="Ordinateur" type="StaticBody3D" parent="Ecran" groups=["interactable", "ordinateur"]]
-script = ExtResource("1_3cp7l")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ecran/Ordinateur"]
-transform = Transform3D(0.99999946, 0, 0, 0, 1, 3.5527137e-15, 0, 0, 1, 0.00039949268, -0.01627034, 0.00815773)
-shape = SubResource("BoxShape3D_3cp7l")
-
 [node name="SubViewport" type="SubViewport" parent="Ecran"]
 size = Vector2i(1152, 647)
 
 [node name="CashRegisterUI" parent="Ecran/SubViewport" instance=ExtResource("5_d2koj")]
 
-[connection signal="input_event" from="Ecran/Ordinateur" to="Ecran/Ordinateur" method="_on_input_event"]
+[connection signal="input_event" from="." to="." method="_on_input_event"]

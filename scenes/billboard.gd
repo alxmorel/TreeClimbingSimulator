@@ -1,21 +1,24 @@
 # res://scenes/billboard/Billboard.gd
+class_name Billboard
 extends ObjectInteractable
 
-@onready var label = get_parent().get_node("SubViewport/Control/Label") as Label
+@onready var label = $SubViewport/Control/Label as Label
+
+func _ready():
+	super._ready()
+	
+	# Configuration spécifique du billboard
+	set_interaction_config("Changer nom du parc", "ui_accept", true)
+	set_camera_animation(true, Vector3(-2, 5, -8), 0.8)
+	
+	# Configurer le point de regard de la caméra
+	interaction_data.camera_look_at_offset = Vector3(0, 1.0, 0)
 
 # Retourne le texte que l'UI doit afficher pour cette interaction
 func get_interaction_label() -> String:
 	return "Changer nom du parc"
 
-# Retourne les infos pour le travel de la caméra : position relative ou offset, durée, etc.
-func get_camera_travel_params() -> Dictionary:
-	return {
-		"offset": Vector3(-2, 5, -8), # position relative depuis l'objet
-		"duration": 0.8,
-		"look_at": global_transform.origin + Vector3(0, 1.0, 0) # point que la caméra doit regarder
-	}
-
-func object_interact() -> void:
+func object_interact() -> bool:
 	# Crée une fenêtre de saisie simple
 	var line_edit := LineEdit.new()
 	line_edit.custom_minimum_size.x = 250.0
@@ -33,6 +36,8 @@ func object_interact() -> void:
 	# On ajoute le champ de texte dans le CanvasLayer global (UI)
 	if GlobalContext.ui_context:
 		GlobalContext.ui_context.show_input(line_edit)
+	
+	return true  # Interaction réussie
 
 
 func _on_text_submitted(new_text: String) -> void:
@@ -43,7 +48,8 @@ func _on_text_submitted(new_text: String) -> void:
 		GlobalContext.ui_context.hide_input()
 	
 	# Restaurer la caméra après validation
-	GlobalContext.player.restore_camera_to_player()
+	if GlobalContext.player and GlobalContext.player.has_method("restore_camera_to_player"):
+		GlobalContext.player.restore_camera_to_player()
 
 		
 func _on_line_edit_input(event: InputEvent) -> void:
@@ -52,6 +58,7 @@ func _on_line_edit_input(event: InputEvent) -> void:
 		if event.is_action_pressed("ui_cancel"):
 			if GlobalContext.ui_context:
 				GlobalContext.ui_context.hide_input()
-			GlobalContext.player.restore_camera_to_player()
+			if GlobalContext.player and GlobalContext.player.has_method("restore_camera_to_player"):
+				GlobalContext.player.restore_camera_to_player()
 			# Consume event
 			get_viewport().set_input_as_handled()

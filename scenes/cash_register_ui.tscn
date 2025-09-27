@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://botr3aycakj04"]
+[gd_scene load_steps=15 format=3 uid="uid://botr3aycakj04"]
 
 [ext_resource type="Script" uid="uid://jvvc2wqvkx2u" path="res://scenes/cash_register_ui.gd" id="1_j0xjo"]
 [ext_resource type="Texture2D" uid="uid://cfn84xvt36fgl" path="res://assets/images/enfants.png" id="2_b5ybr"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://c4od1ptmfrkyr" path="res://assets/images/foret-tropicale.png" id="6_7moen"]
 [ext_resource type="Texture2D" uid="uid://ci65xldrt343e" path="res://assets/images/signalisation (1).png" id="6_brelx"]
 [ext_resource type="StyleBox" uid="uid://dgm6u8rydy7ic" path="res://resources/default_ui_panel_dark.tres" id="10_7moen"]
+[ext_resource type="Texture2D" uid="uid://cqbf4caco3fkr" path="res://assets/images/sac-decole.png" id="10_tgm86"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_brelx"]
 content_margin_left = 0.0
@@ -77,10 +78,10 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 0.86300004
-offset_left = 121.0
-offset_top = 55.0
-offset_right = -124.0
-offset_bottom = -45.224
+offset_left = 150.0
+offset_top = 22.0
+offset_right = -115.0
+offset_bottom = -17.223999
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_brelx")
@@ -166,7 +167,7 @@ text = "DUREE"
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/h_separation = 18
-theme_override_constants/icon_max_width = 100
+theme_override_constants/icon_max_width = 80
 theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxFlat_iuqvq")
 theme_override_styles/hover = SubResource("StyleBoxFlat_hover")
@@ -177,7 +178,7 @@ icon = ExtResource("5_brelx")
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/h_separation = 18
-theme_override_constants/icon_max_width = 100
+theme_override_constants/icon_max_width = 80
 theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxFlat_iuqvq")
 theme_override_styles/hover = SubResource("StyleBoxFlat_hover")
@@ -203,7 +204,7 @@ text = "FORMULE"
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/h_separation = 18
-theme_override_constants/icon_max_width = 100
+theme_override_constants/icon_max_width = 80
 theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxFlat_iuqvq")
 theme_override_styles/hover = SubResource("StyleBoxFlat_hover")
@@ -214,12 +215,32 @@ icon = ExtResource("5_llbgh")
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/h_separation = 18
-theme_override_constants/icon_max_width = 100
+theme_override_constants/icon_max_width = 80
 theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxFlat_iuqvq")
 theme_override_styles/hover = SubResource("StyleBoxFlat_hover")
 text = "Sensation"
 icon = ExtResource("6_brelx")
+
+[node name="VBoxContainer4" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/VBoxContainer4"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="lbl_caution" type="Label" parent="Panel/MarginContainer/VBoxContainer/VBoxContainer4/HBoxContainer"]
+custom_minimum_size = Vector2(171.435, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 35
+text = "CAUTION"
+
+[node name="CheckBox" type="CheckBox" parent="Panel/MarginContainer/VBoxContainer/VBoxContainer4/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/icon_max_width = 80
+icon = ExtResource("10_tgm86")
 
 [node name="btn_impression_ticket" type="Button" parent="." groups=["ticket_buttons"]]
 unique_name_in_owner = true

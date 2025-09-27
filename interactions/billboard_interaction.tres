@@ -1,0 +1,19 @@
+[gd_resource type="InteractionData" script_class="InteractionData" format=3]
+
+[resource]
+label = "Changer nom du parc"
+action_key = "ui_accept"
+icon_path = ""
+requires_camera_animation = true
+camera_offset = Vector3(-2, 5, -8)
+camera_duration = 0.8
+camera_look_at_offset = Vector3(0, 1, 0)
+aura_type = 1
+aura_color = Color(1, 1, 0, 0.8)
+aura_intensity = 1.0
+auto_trigger = false
+interaction_distance = 3.0
+repeatable = true
+consume_on_use = false
+interaction_sound = null
+sound_volume = 1.0

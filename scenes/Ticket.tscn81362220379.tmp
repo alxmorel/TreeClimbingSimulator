@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://bxkv8y3mvj7k2"]
+
+[ext_resource type="Script" uid="uid://c8aglk80d8hey" path="res://scenes/ticket.gd" id="1_77m8q"]
+[ext_resource type="Script" uid="uid://dg667eobtm5qw" path="res://scripts/interactions/InteractionData.gd" id="2_lntfd"]
+
+[sub_resource type="Resource" id="Resource_5fouo"]
+script = ExtResource("2_lntfd")
+stencil_color = Color(0, 1, 0, 0.8)
+metadata/_custom_type_script = "uid://dg667eobtm5qw"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ticket"]
+size = Vector3(0.20034179, 0.005, 0.3001465)
+
+[sub_resource type="BoxMesh" id="BoxMesh_77m8q"]
+size = Vector3(0.4, 0.002, 0.6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ticket"]
+albedo_color = Color(0.95, 0.95, 0.85, 1)
+roughness = 0.8
+stencil_flags = 2
+
+[node name="RigidBody" type="RigidBody3D" node_paths=PackedStringArray("mesh_list")]
+collision_layer = 2
+collision_mask = 3
+mass = 0.1
+gravity_scale = 0.5
+script = ExtResource("1_77m8q")
+interaction_data = SubResource("Resource_5fouo")
+mesh_list = [NodePath("MeshInstance")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1.3113419e-07, 1, 0, -1, 1.3113419e-07, -7.325411e-05, -0.00017090142, -2.2411406e-11)
+shape = SubResource("BoxShape3D_ticket")
+
+[node name="MeshInstance" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, -2.1855694e-08, -0.5, 0, 0.5, -2.1855694e-08, 0, 0, 0)
+mesh = SubResource("BoxMesh_77m8q")
+surface_material_override/0 = SubResource("StandardMaterial3D_ticket")

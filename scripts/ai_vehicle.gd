@@ -5,10 +5,22 @@ class_name AIVehicle
 @export var max_speed: float = 15.0
 @export var acceleration_force: float = 1200.0
 @export var brake_force: float = 150.0
-@export var personne_scene: PackedScene
+
+@export var personne_scenes: Array[PackedScene] = []
+
+# Types de personnages disponibles
+enum PersonnageType {
+	ADULTE_MASCULIN,
+	ADULTE_FEMININ,
+	ENFANT_GARCON,
+	ENFANT_FILLE,
+	SENIOR,
+	FAMILLE
+}
 
 var has_finished: bool = false
 var curve_offset: float = 0.0
+
 
 func _ready():
 	if not target_path:
@@ -23,6 +35,26 @@ func _ready():
 	curve_offset = target_path.curve.get_closest_offset(global_position)
 	global_position = target_path.curve.sample_baked(curve_offset)
 	print("[READY] Position initiale =", global_position, " offset =", curve_offset)
+	
+	# Charger les scènes par défaut si pas assignées
+	if personne_scenes.is_empty():
+		_load_default_personnage_scenes()
+
+func _load_default_personnage_scenes():
+	# Charger les scènes par défaut
+	var default_scenes = [
+		"res://scenes/personnages/AdulteMasculin.tscn",
+		"res://scenes/personnages/AdulteFeminin.tscn", 
+		"res://scenes/personnages/EnfantGarcon.tscn",
+	]
+	
+	for scene_path in default_scenes:
+		if ResourceLoader.exists(scene_path):
+			personne_scenes.append(load(scene_path))
+			print("✅ Scène chargée: ", scene_path)
+		else:
+			print("⚠️ Scène non trouvée: ", scene_path)
+
 
 func _physics_process(delta):
 	if not target_path or not target_path.curve or has_finished:
@@ -64,6 +96,7 @@ func _physics_process(delta):
 	if curve_offset >= path_length - 0.1:
 		_stop_vehicle()
 
+
 func _stop_vehicle():
 	engine_force = 0
 	brake = brake_force
@@ -71,31 +104,39 @@ func _stop_vehicle():
 	has_finished = true
 	print("[STOP] Véhicule arrêté")
 
-	if not personne_scene:
-		push_error("Pas de Personne.tscn assignée !")
+	if personne_scenes.is_empty():
+		push_error("Aucune scène de personnage disponible !")
 		return
 
+
 	var nb_personnes = randi() % 3 + 1
+	print("[SPAWN] Génération de ", nb_personnes, " personnages")
+
 	for i in nb_personnes:
-		var p_scene = personne_scene.instantiate()
-		var p_data = Personne.new()
-		
-		p_data.taille = 1.5 + randf() * 0.5
-		p_data.poids = 50 + randf() * 50
-		p_data.couleur_peau = Color(randf(), randf(), randf())
-		p_data.couleur_cheveux = Color(randf(), randf(), randf())
-		p_data.couleur_haut = Color(randf(), randf(), randf())
-		p_data.couleur_bas = Color(randf(), randf(), randf())
-		p_data.couleur_chaussures = Color(randf(), randf(), randf())
-		
-		print("p_data : ", p_data)
-		
-		p_scene.data = p_data
+		_spawn_random_personnage()
+	
 
-		get_parent().add_child(p_scene)
 
-		var angle = randf() * PI * 2
-		var distance = 2.0 + randf() * 2.0
-		var offset_above_ground = p_scene.BASE_HEIGHT * p_scene.scale.y * 0.5 + 0.1
-		p_scene.global_position = global_position + Vector3(cos(angle) * distance, offset_above_ground, sin(angle) * distance)
-		p_scene._snap_to_ground_safe()
+func _spawn_random_personnage():
+	if personne_scenes.is_empty():
+		push_error("Aucune scène de personnage disponible !")
+		return
+	
+	# Choisir une scène aléatoire
+	var selected_scene = personne_scenes[randi() % personne_scenes.size()]
+	var p_scene = selected_scene.instantiate()
+	
+	# Créer des données personnalisées
+	#var p_data = _create_random_personne_data()
+	#p_scene.data = p_data
+	
+	get_parent().add_child(p_scene)
+	
+	# Position aléatoire autour du véhicule
+	var angle = randf() * PI * 2
+	var distance = 2.0 + randf() * 2.0
+	var offset_above_ground = p_scene.BASE_HEIGHT * p_scene.scale.y * 0.5 + 0.1
+	p_scene.global_position = global_position + Vector3(cos(angle) * distance, offset_above_ground, sin(angle) * distance)
+	p_scene._snap_to_ground_safe()
+	
+	print("[SPAWN] Personnage créé: ", p_scene.name, " à ", p_scene.global_position)		

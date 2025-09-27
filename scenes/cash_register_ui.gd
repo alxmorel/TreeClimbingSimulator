@@ -19,9 +19,6 @@ var selected_type_button: Button = null
 var selected_duree_button: Button = null
 var selected_parcours_button: Button = null
 
-# Curseur de débogage
-var debug_cursor: ColorRect = null
-
 func _ready():
 	# Connecter les signaux
 	btn_enfant.pressed.connect(_on_type_pressed.bind("Enfant", btn_enfant))
@@ -36,8 +33,6 @@ func _ready():
 	# Style initial pour le bouton d'impression (désactivé)
 	_update_print_button_state()
 	
-	# Créer un curseur de débogage
-	_create_debug_cursor()
 
 func _on_type_pressed(value: String, button: Button):
 	type_personne = value
@@ -106,29 +101,3 @@ func _update_print_button_state():
 		btn_impression_ticket.modulate = Color(0.8, 1.2, 0.8)  # Vert quand prêt
 	else:
 		btn_impression_ticket.modulate = Color(0.7, 0.7, 0.7)  # Gris quand pas prêt
-
-func _create_debug_cursor():
-	# Créer un curseur de débogage visible
-	debug_cursor = ColorRect.new()
-	debug_cursor.size = Vector2(20, 20)
-	debug_cursor.color = Color.RED
-	debug_cursor.z_index = 100  # Au-dessus de tout
-	debug_cursor.visible = false
-	add_child(debug_cursor)
-	
-	print("🎯 Curseur de débogage créé")
-
-func show_debug_cursor_at(pos: Vector2):
-	if debug_cursor:
-		debug_cursor.position = pos - Vector2(10, 10)  # Centrer le curseur
-		debug_cursor.visible = true
-		print("🔴 Curseur débogage à: ", pos)
-
-func hide_debug_cursor():
-	if debug_cursor:
-		debug_cursor.visible = false
-
-# Fonction pour tester la projection depuis l'extérieur
-func debug_mouse_projection(mouse_pos: Vector2):
-	show_debug_cursor_at(mouse_pos)
-	print("🖱️ Projection souris sur interface: ", mouse_pos)

@@ -3,12 +3,12 @@
 [ext_resource type="PackedScene" uid="uid://b6l1d2oefuqdy" path="res://assets/models/comptoir/comptoir.glb" id="1_aj0up"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_t3jp2"]
-size = Vector3(1.7911377, 0.7216797, 0.3088379)
+size = Vector3(1.8004456, 0.7249756, 0.3088379)
 
 [node name="comptoir" instance=ExtResource("1_aj0up")]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0033569336, 0.36220533, -0.0025634766)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.364, 0)
 shape = SubResource("BoxShape3D_t3jp2")

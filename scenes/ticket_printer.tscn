@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://brkn70itb53yc"]
+
+[ext_resource type="PackedScene" uid="uid://bbw4l51atyjyu" path="res://assets/models/ticket_printer/Ticket_printer.glb" id="1_jgr0c"]
+[ext_resource type="Script" uid="uid://boywdu35kexbj" path="res://ticket_printer.gd" id="2_24sv1"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_a0h7o"]
+size = Vector3(0.19398499, 0.1898346, 0.27264404)
+
+[node name="Ticket_printer" instance=ExtResource("1_jgr0c")]
+script = ExtResource("2_24sv1")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Cube" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube/StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00046539307, 0.09499955, 0.0033874512)
+shape = SubResource("BoxShape3D_a0h7o")
