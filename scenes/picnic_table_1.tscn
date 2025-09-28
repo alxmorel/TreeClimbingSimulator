@@ -65,3 +65,15 @@ skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="picnic_table1/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_qcgdf")
+
+[node name="PositionArea" type="Node3D" parent="." groups=["picnic_table", "rest_area"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5715839, 0.4038394, 0.4282529)
+
+[node name="PositionArea2" type="Node3D" parent="." groups=["picnic_table"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5715839, 0.4038394, -0.36236778)
+
+[node name="PositionArea3" type="Node3D" parent="." groups=["picnic_table"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6070269, 0.4038394, 0.4282529)
+
+[node name="PositionArea4" type="Node3D" parent="." groups=["picnic_table"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6070269, 0.4038394, -0.36236778)

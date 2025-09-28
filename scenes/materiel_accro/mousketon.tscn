@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://bd6m81vsn3ly3"]
+
+[ext_resource type="PackedScene" uid="uid://ub0qsgc0x84d" path="res://assets/models/materiel_accro/mousketon/Mousketon.glb" id="1_abd0k"]
+
+[node name="Mousketon" instance=ExtResource("1_abd0k")]

@@ -1,0 +1,82 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmkv8vbugv2yk"]
+
+[ext_resource type="Script" uid="uid://ds8wikoytk65f" path="res://scripts/ui/player_inventory.gd" id="1_83doj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_83doj"]
+bg_color = Color(0.27450982, 0.1882353, 0.1254902, 0.28235295)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 0.901961)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="PlayerInventory" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_83doj")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -225.0
+offset_top = -118.0
+offset_right = 225.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Slot1" type="Control" parent="HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="SlotPanel" type="Panel" parent="HBoxContainer/Slot1"]
+custom_minimum_size = Vector2(50, 40)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_83doj")
+
+[node name="Slot2" type="Control" parent="HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="SlotPanel" type="Panel" parent="HBoxContainer/Slot2"]
+custom_minimum_size = Vector2(50, 40)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_83doj")
+
+[node name="Slot3" type="Control" parent="HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="SlotPanel" type="Panel" parent="HBoxContainer/Slot3"]
+custom_minimum_size = Vector2(50, 40)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_83doj")

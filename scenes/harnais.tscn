@@ -1,6 +1,7 @@
-[gd_scene load_steps=22 format=4 uid="uid://bwktcyboif26o"]
+[gd_scene load_steps=21 format=4 uid="uid://bwktcyboif26o"]
 
 [ext_resource type="Texture2D" uid="uid://c7wpv1qv5vy7h" path="res://assets/models/Harnais/Harnais_Image_0.png" id="1_du05k"]
+[ext_resource type="Script" uid="uid://i2vmbqgdakv4" path="res://scenes/harnais.gd" id="1_qqjf5"]
 [ext_resource type="Texture2D" uid="uid://fgy38aa7htnj" path="res://assets/models/Harnais/Harnais_Image_1.png" id="2_qqjf5"]
 [ext_resource type="Texture2D" uid="uid://dvljp456cqlqt" path="res://assets/models/Harnais/Harnais_Image_2.png" id="3_dqx8s"]
 [ext_resource type="Texture2D" uid="uid://cqhgii80vfsh0" path="res://assets/models/Harnais/Harnais_Image_3.png" id="4_u38oo"]
@@ -56,9 +57,6 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_3r8wm")
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_gnoo4"]
-points = PackedVector3Array(-0.316744, -0.487136, -0.0448205, 0.361364, 0.356864, -0.0899905, 0.0422021, 0.275882, 0.368963, 0.466829, -0.366517, 0.120803, -0.151041, 0.175854, -0.421636, -0.362064, 0.356864, -0.0899905, -0.422303, -0.245981, 0.256552, 0.331056, -0.38147, -0.13524, 0.376377, -0.215826, 0.286665, 0.150341, 0.175854, -0.421636, -0.467529, -0.276136, -0.0147071, -0.120827, 0.311591, 0.362028, 0.361364, 0.100508, -0.240717, 0.120127, 0.311591, -0.361329, 0.315477, 0.207749, 0.229452, -0.256411, -0.38147, -0.150217, -0.316744, -0.170636, 0.316858, -0.422303, 0.206091, -0.120184, -0.316177, 0.207749, 0.229452, 0.316044, -0.487136, -0.0448205, 0.481841, -0.215826, 0.120803, 0.0447817, 0.236246, 0.392221, -0.346957, 0.085555, -0.255773, 0.466829, -0.276136, -0.0147071, 0.406496, 0.251282, -0.13524, -0.467529, -0.366517, 0.120803, -0.482541, -0.215826, 0.120803, -0.331756, -0.38147, -0.13524, -0.346957, 0.356864, -0.150217, -0.120827, 0.311591, -0.361329, 0.316044, -0.170636, 0.316858, 0.255711, -0.38147, -0.150217)
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r6ehf"]
 resource_name = "Harness_2_2k"
 cull_mode = 2
@@ -105,9 +103,6 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_s1iug")
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_04a87"]
-points = PackedVector3Array(-0.266369, 0.278423, 0.242806, 0.104894, 0.284826, 0.335639, 0.109361, 0.295212, 0.325086, 0.412929, -0.195554, 0.228284, -0.303836, -0.143821, 0.312167, -0.329646, 0.295212, 0.150771, -0.407075, -0.189012, 0.221837, -0.00635847, 0.215337, 0.402857, 0.303136, -0.137379, 0.312167, -0.185573, 0.284057, 0.329299, -0.400603, -0.195554, 0.26704, 0.406456, -0.18262, 0.221837, 0.399983, -0.195554, 0.26704, -0.342591, 0.243529, 0.150771, 0.0598948, 0.139528, 0.394366, 0.0121099, 0.268426, 0.398716, -0.116453, 0.295212, 0.35737, -0.403826, -0.208879, 0.242121, -0.0605134, 0.139518, 0.394355, 0.403126, -0.208879, 0.242121, -0.331589, 0.287012, 0.161211, -0.413629, -0.176179, 0.241203, 0.412929, -0.18262, 0.247649, -0.0605807, 0.163743, 0.394483, -0.407075, -0.201995, 0.228284, 0.0601026, 0.164043, 0.394761, 0.412929, -0.176179, 0.228284, 0.395264, -0.204026, 0.255224, -0.134228, 0.280634, 0.352943, -0.329646, 0.243529, 0.150771, -0.413629, -0.176179, 0.228284, -0.39596, -0.204024, 0.255224)
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xss1r"]
 resource_name = "Harness_3_2k"
 cull_mode = 2
@@ -153,31 +148,27 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_68osc")
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_jkrun"]
-points = PackedVector3Array(0.194502, 0.345101, -0.305523, 0.360987, 0.193305, 0.0119818, 0.34943, 0.347294, 0.0593683, -0.348808, 0.176509, 0.136315, -0.238354, -0.387329, -0.133243, -0.263962, 0.345252, -0.246918, 0.0679765, 0.225551, 0.357029, 0.227327, -0.387329, -0.120956, -0.0299613, 0.0662004, -0.427529, -0.264945, 0.334745, 0.224384, 0.30089, 0.20103, 0.222174, 0.276369, 0.151988, -0.268099, -0.336438, 0.164285, -0.18224, -0.14027, 0.213327, 0.332454, 0.313114, 0.360453, 0.148602, -0.348247, 0.347306, 0.0593715, -0.0761931, 0.347247, -0.35448, -0.201609, -0.387329, -0.108668, 0.101321, 0.312631, 0.332337, 0.362156, 0.164285, -0.108668, -0.250651, 0.151988, -0.292674, 0.0189344, 0.0662004, -0.427529, -0.373329, 0.164285, -0.03525, -0.275172, 0.188806, 0.246672, 0.324964, 0.346398, -0.153137, 0.362156, 0.176509, 0.0873181, 0.202806, 0.213327, 0.307956, -0.348534, 0.347603, -0.0824885, 0.202806, -0.387329, -0.108668, -0.099952, 0.312066, 0.331699, 0.202806, 0.139764, -0.329459, 0.0772859, 0.34677, -0.354058)
+[sub_resource type="BoxShape3D" id="BoxShape3D_du05k"]
+size = Vector3(0.71694183, 0.7151184, 0.6621094)
 
-[node name="Harnais" type="Node3D"]
-
-[node name="RigidBody3D" type="RigidBody3D" parent="."]
+[node name="Harnais" type="RigidBody3D"]
+collision_layer = 2
+collision_mask = 3
 mass = 0.3
+script = ExtResource("1_qqjf5")
 
-[node name="Object_4" type="MeshInstance3D" parent="RigidBody3D"]
+[node name="Object_4" type="MeshInstance3D" parent="."]
 mesh = SubResource("ArrayMesh_ybuq4")
 skeleton = NodePath("")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
-shape = SubResource("ConvexPolygonShape3D_gnoo4")
-
-[node name="Object_6" type="MeshInstance3D" parent="RigidBody3D"]
+[node name="Object_6" type="MeshInstance3D" parent="."]
 mesh = SubResource("ArrayMesh_1tudl")
 skeleton = NodePath("")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="RigidBody3D"]
-shape = SubResource("ConvexPolygonShape3D_04a87")
-
-[node name="Object_8" type="MeshInstance3D" parent="RigidBody3D"]
+[node name="Object_8" type="MeshInstance3D" parent="."]
 mesh = SubResource("ArrayMesh_c8d05")
 skeleton = NodePath("")
 
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="RigidBody3D"]
-shape = SubResource("ConvexPolygonShape3D_jkrun")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0008201599, 0.0016174316, -0.0048828125)
+shape = SubResource("BoxShape3D_du05k")

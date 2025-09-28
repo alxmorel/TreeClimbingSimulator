@@ -400,3 +400,12 @@ transform = Transform3D(1, 0, -1.49012e-08, 0, 1, 0, 1.49012e-08, 0, 1, 0.597799
 [node name="CollisionShape3D10" type="CollisionShape3D" parent="toilette_porte/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.101752, -0.0444874, -0.0884311)
 shape = SubResource("BoxShape3D_kualw")
+
+[node name="PositionArea" type="Node3D" parent="." groups=["toilets"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.0242016)
+
+[node name="PositionArea2" type="Node3D" parent="." groups=["toilets"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.8106563)
+
+[node name="PositionArea3" type="Node3D" parent="." groups=["toilets"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.881471)

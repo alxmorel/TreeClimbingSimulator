@@ -1,0 +1,57 @@
+[gd_scene load_steps=7 format=3 uid="uid://bdh3iuk27umnx"]
+
+[ext_resource type="Texture2D" uid="uid://duaoqrfclrkyc" path="res://assets/models/plaque_liege/PlaqueLiege_Image_0.jpg" id="1_y6454"]
+[ext_resource type="Texture2D" uid="uid://b1g0o7hl7xwdw" path="res://assets/models/plaque_liege/PlaqueLiege_Image_1.png" id="2_i7673"]
+[ext_resource type="Texture2D" uid="uid://d02u12061bhqa" path="res://assets/models/plaque_liege/PlaqueLiege_Image_2.png" id="3_dsh8c"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1hrjd"]
+resource_name = "M_cork_plane"
+cull_mode = 2
+albedo_texture = ExtResource("1_y6454")
+metallic = 1.0
+metallic_texture = ExtResource("2_i7673")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("2_i7673")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("3_dsh8c")
+ao_enabled = true
+ao_texture = ExtResource("2_i7673")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_ddfbb"]
+_surfaces = [{
+"aabb": AABB(-0.50185645, 0.005018575, -0.5018565, 1.0037129, 1e-05, 1.0037129),
+"format": 34896613377,
+"index_count": 6,
+"index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 1, 0, 0, 0, 3, 0),
+"name": "M_cork_plane",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0)
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_kbwi4"]
+resource_name = "PlaqueLiege_defaultMaterial_006"
+_surfaces = [{
+"aabb": AABB(-0.50185645, 0.005018575, -0.5018565, 1.0037129, 1e-05, 1.0037129),
+"attribute_data": PackedByteArray(0, 0, 255, 255, 255, 255, 0, 0, 0, 0, 0, 0, 255, 255, 255, 255),
+"format": 34896613399,
+"index_count": 6,
+"index_data": PackedByteArray(0, 0, 1, 0, 2, 0, 1, 0, 0, 0, 3, 0),
+"material": SubResource("StandardMaterial3D_1hrjd"),
+"name": "M_cork_plane",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray(0, 0, 0, 0, 0, 0, 255, 63, 255, 255, 0, 0, 255, 255, 255, 63, 0, 0, 0, 0, 255, 255, 255, 63, 255, 255, 0, 0, 0, 0, 255, 63, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127, 255, 255, 255, 127)
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_ddfbb")
+
+[node name="PlaqueLiege" type="Node3D"]
+
+[node name="defaultMaterial_006" type="MeshInstance3D" parent="."]
+mesh = SubResource("ArrayMesh_kbwi4")
+skeleton = NodePath("")

@@ -11,6 +11,8 @@ extends CharacterBody3D
 @onready var camera = $Skeleton3D/HeadCam/Camera3D
 @onready var cable_tyro = %CableTyro
 
+@onready var player_inventory: PlayerInventory = $PlayerInventory
+
 # --- Movement constants ---
 var speed
 const WALK_SPEED = 3.0
@@ -37,17 +39,6 @@ const MAX_STEP_HEIGHT = 0.4
 # --- State Machine ---
 var state_machine: StateMachine
 
-# ===== SYSTÈME DE TICKETS =====
-var held_ticket: Node = null
-var ticket_ui_position: Vector3 = Vector3(0.2, -0.1, -0.6)  # Position relative à la caméra (légèrement à droite et en bas du centre)
-
-# Animation du ticket
-var ticket_animating: bool = false
-var ticket_start_transform: Transform3D
-var ticket_target_transform: Transform3D
-var ticket_animation_t: float = 0.0
-var ticket_animation_duration: float = 1.0
-
 var interact_distance = 3.0
 
 var camera_traveling: bool = false
@@ -63,7 +54,6 @@ var camera_original_look_at: Vector3
 var camera_return_requested: bool = false
 
 var phone_visible: bool = false
-
 
 func _ready():
 	if data:
@@ -81,32 +71,16 @@ func _ready():
 	# Initialiser la State Machine
 	_setup_state_machine()
 	
+	# Connecter signaux de l'inventaire
+	player_inventory.active_item_changed.connect(_on_active_item_changed)
+
+	
 	 # Récupérer toutes les Area3D marquées comme ladder
 	for ladder_area in get_tree().get_nodes_in_group("Ladders"):
 		ladder_area.connect("body_entered", Callable(self, "_on_ladder_area_body_entered"))
 		ladder_area.connect("body_exited", Callable(self, "_on_ladder_area_body_exited"))
 
-func _physics_process(delta):
-	# Gestion de l'animation du ticket
-	if ticket_animating and held_ticket:
-		ticket_animation_t += delta / ticket_animation_duration
-		ticket_animation_t = clamp(ticket_animation_t, 0, 1)
-		
-		var ticket_rigidbody = held_ticket
-		if ticket_rigidbody:
-			# Animation fluide vers la position cible (utilisation des transforms locaux)
-			var eased_t = ease_out_cubic(ticket_animation_t)
-			ticket_rigidbody.transform = ticket_start_transform.interpolate_with(ticket_target_transform, eased_t)
-			
-			if ticket_animation_t >= 1.0:
-				ticket_animating = false
-				# Animation terminée - le ticket est déjà attaché à la caméra
-				print("🎫 Animation terminée - ticket au centre de l'écran et suit parfaitement la caméra")
-	
-	# Mise à jour continue pour que le ticket reste toujours devant le joueur
-	if held_ticket and not ticket_animating:
-		_update_ticket_forward_position()
-	
+func _physics_process(delta):	
 	if camera_traveling:
 		camera_travel_t += delta / camera_travel_duration
 		camera_travel_t = clamp(camera_travel_t, 0, 1)
@@ -402,7 +376,12 @@ func is_in_ordinateur_state() -> bool:
 
 # ===== SYSTÈME DE TICKETS =====
 func _grab_ticket(ticket_rigidbody: RigidBody3D) -> void:
-	if held_ticket:
+	if not player_inventory:
+		print("🎫 ERREUR: Inventaire UI non initialisé!")
+		return
+	
+	if player_inventory.is_full():
+		print("🎫 Inventaire plein!")
 		return
 	
 	# Le ticket est directement le RigidBody3D qui contient le script
@@ -410,133 +389,112 @@ func _grab_ticket(ticket_rigidbody: RigidBody3D) -> void:
 		push_error("🎫 ERREUR: Le ticket n'est pas un RigidBody3D!")
 		return
 	
-	held_ticket = ticket_rigidbody  # On garde une référence au RigidBody3D
-		
-	# 1. DÉSACTIVER COMPLÈTEMENT LA PHYSIQUE avant d'attacher
-	ticket_rigidbody.set_freeze_mode(RigidBody3D.FREEZE_MODE_KINEMATIC)
-	ticket_rigidbody.freeze = true
-	ticket_rigidbody.gravity_scale = 0
-	ticket_rigidbody.lock_rotation = true
+	# NOUVEAU : D'abord détacher le ticket du monde
+	# Détacher de la scène AVANT d'ajouter à l'inventaire
+	ticket_rigidbody.get_parent().remove_child(ticket_rigidbody)
 	
-	# 2. Sauvegarder la position mondiale AVANT de détacher
-	var world_position = ticket_rigidbody.global_position
-	var world_rotation = ticket_rigidbody.global_rotation
-	var world_scale = ticket_rigidbody.scale
-	
-	# 3. Détacher du monde
-	if ticket_rigidbody.get_parent():
-		ticket_rigidbody.get_parent().remove_child(ticket_rigidbody)
-	
-	# 4. Attacher à la caméra
-	camera.add_child(ticket_rigidbody)
-	
-	# 5. Repositionner le ticket à sa position mondiale dans l'espace de la caméra
-	ticket_rigidbody.global_position = world_position
-	ticket_rigidbody.global_rotation = world_rotation
-	ticket_rigidbody.scale = world_scale
-	
-	# 6. Sauvegarder la position initiale dans l'espace de la caméra pour l'animation
-	ticket_start_transform = ticket_rigidbody.transform  # Position locale dans la caméra
-	
-	# 7. Position cible finale (centre de l'écran dans l'espace de la caméra)
-	var ticket_basis = Basis()
-	ticket_basis = ticket_basis.rotated(Vector3.UP, deg_to_rad(15))  # Légère rotation sur Y
-	ticket_basis = ticket_basis.rotated(Vector3.RIGHT, deg_to_rad(-10))  # Légère inclinaison
-	ticket_target_transform = Transform3D(ticket_basis, ticket_ui_position)
-	#ticket_target_transform.basis = ticket_target_transform.basis.scaled(Vector3(0.6, 0.6, 0.6))
-	
-	# 8. Démarrer l'animation
-	ticket_animating = true
-	ticket_animation_t = 0.0
-
-
-func _release_ticket() -> void:
-	if not held_ticket:
-		return
-	
-	var ticket_rigidbody = held_ticket
-	held_ticket = null
-	
-	# 1. Sauvegarder la position actuelle du ticket dans l'espace monde
-	var current_world_position = ticket_rigidbody.global_position
-	var current_world_rotation = ticket_rigidbody.global_rotation
-	var current_scale = ticket_rigidbody.scale
-	
-	# 2. Détacher de la caméra
-	if ticket_rigidbody and ticket_rigidbody.get_parent() == camera:
-		camera.remove_child(ticket_rigidbody)
-	
-	# 3. Remettre dans le monde
-	if ticket_rigidbody:
-		get_tree().current_scene.add_child(ticket_rigidbody)
-		
-		# 4. Repositionner le ticket à sa position actuelle (pas devant le joueur)
-		ticket_rigidbody.global_position = current_world_position
-		ticket_rigidbody.global_rotation = current_world_rotation
-		ticket_rigidbody.scale = current_scale
-		
-		# 5. RÉACTIVER LA PHYSIQUE COMPLÈTEMENT
-		ticket_rigidbody.freeze = false
-		ticket_rigidbody.set_freeze_mode(RigidBody3D.FREEZE_MODE_KINEMATIC)
-		ticket_rigidbody.gravity_scale = 1.0
-		ticket_rigidbody.lock_rotation = false
-	
-	# 7. Réactiver via le script aussi
-	if ticket_rigidbody.has_method("_release_ticket"):
-		ticket_rigidbody._release_ticket()
-	
-	
-func _give_ticket_to_npc(npc: Node) -> bool:
-	if not held_ticket:
-		return false
-	
-	if not npc.has_method("receive_ticket"):
-		return false
-	
-	var ticket_rigidbody = held_ticket
-	held_ticket = null
-	
-	# Retirer le ticket de la caméra
-	if ticket_rigidbody and ticket_rigidbody.get_parent() == camera:
-		camera.remove_child(ticket_rigidbody)
-	
-	# Donner le ticket au NPC (on donne le RigidBody3D qui contient le script)
-	var success = npc.receive_ticket(ticket_rigidbody)
-	
-	if success:
-		return true
+	# Maintenant ajouter à l'inventaire
+	if player_inventory.add_item(ticket_rigidbody):
+		print("🎫 Ticket ajouté à l'inventaire UI!")
 	else:
-		# Remettre le ticket en main si échec
-		if ticket_rigidbody:
-			camera.add_child(ticket_rigidbody)
-			# Appliquer la même rotation et position que lors du grab initial
-			var ticket_basis = Basis()
-			ticket_basis = ticket_basis.rotated(Vector3.UP, deg_to_rad(15))  # Légère rotation sur Y
-			ticket_basis = ticket_basis.rotated(Vector3.RIGHT, deg_to_rad(-10))  # Légère inclinaison
-			ticket_rigidbody.transform = Transform3D(ticket_basis, ticket_ui_position)
-			#ticket_rigidbody.scale = Vector3(0.6, 0.6, 0.6)
-		held_ticket = ticket_rigidbody
-		return false
+		print("🎫 Impossible d'ajouter le ticket à l'inventaire!")
 
-func _update_ticket_forward_position() -> void:
-	# Met à jour la position du ticket pour qu'il reste toujours devant le joueur
-	if not held_ticket:
+
+func _release_item() -> void:
+	if not player_inventory:
 		return
+	
+	# Récupérer l'item actif
+	var active_item = player_inventory.get_active_item()
+	if not active_item:
+		print("🎫 Aucun item actif à lâcher!")
+		return
+	
+	# Retirer de l'inventaire UI
+	var item = player_inventory.remove_item(player_inventory.active_slot_index)
+	if item:
+		# Utiliser la fonction de drop
+		player_inventory._drop_item_from_camera(item)
+		print("🎫 Item drop dans le monde!")
+	
+
+func _give_ticket_to_npc(npc: Node) -> bool:
+	if not player_inventory:
+		return false
+	
+	# Récupérer l'item actif
+	var active_item = player_inventory.get_active_item()
+	if not active_item or not active_item is Ticket:
+		print("🎫 Aucun ticket actif à donner!")
+		return false
+	
+	# NOUVEAU : Vérifier d'abord si le NPC accepte le ticket
+	if npc.receive_ticket(active_item):
+		# Le NPC accepte, maintenant retirer de l'inventaire
+		var ticket = player_inventory.remove_item(player_inventory.active_slot_index)
+		if ticket:
+			# NOUVEAU : Détacher le ticket de la caméra avant de le donner
+			if ticket.get_parent() == camera:
+				camera.remove_child(ticket)
+			
+			print("🎫 Ticket donné au NPC via l'inventaire UI!")
+			return true
+	else:
+		# Le NPC refuse, ne pas retirer de l'inventaire
+		print("🎫 Le NPC refuse le ticket!")
+		return false
+	
+	return false
+
+
+func _grab_harnais(harnais: Harnais):
+	if not player_inventory:
+		print("🎒 ERREUR: Inventaire UI non initialisé!")
+		return false
+	
+	if player_inventory.is_full():
+		print("🎒 Inventaire plein!")
+		return false
+	
+	# Détacher de la scène AVANT d'ajouter à l'inventaire
+	harnais.get_parent().remove_child(harnais)
+	
+	# Maintenant ajouter à l'inventaire
+	if player_inventory.add_item(harnais):
+		print("🎒 Harnais ajouté à l'inventaire UI!")
+		return true
+	
+	return false
 		
-	var ticket_rigidbody = held_ticket
-	if not ticket_rigidbody:
-		return
 	
-	# Vérifier que le ticket est bien attaché à la caméra
-	if ticket_rigidbody.get_parent() != camera:
-		return
+func _give_harnais_to_npc(npc: NPC) -> bool:
+	if not player_inventory:
+		return false
 	
-	# Le ticket doit toujours être au centre de l'écran, dans la direction "avant" de la caméra
-	# Position locale dans l'espace de la caméra : devant (Z négatif)
-	var ticket_basis = Basis()
-	ticket_basis = ticket_basis.rotated(Vector3.UP, deg_to_rad(15))  # Légère rotation sur Y
-	ticket_basis = ticket_basis.rotated(Vector3.RIGHT, deg_to_rad(-10))  # Légère inclinaison
+	# Récupérer l'item actif
+	var active_item = player_inventory.get_active_item()
+	if not active_item or not active_item is Harnais:
+		print("🎒 Aucun harnais actif à donner!")
+		return false
 	
-	# Position fixe au centre de l'écran (devant la caméra) - forcer la mise à jour
-	ticket_rigidbody.transform = Transform3D(ticket_basis, ticket_ui_position)
-	#ticket_rigidbody.scale = Vector3(0.6, 0.6, 0.6)
+	# NOUVEAU : Vérifier d'abord si le NPC accepte le harnais
+	if npc.receive_harnais(active_item):
+		# Le NPC accepte, maintenant retirer de l'inventaire
+		var harnais = player_inventory.remove_item(player_inventory.active_slot_index)
+		if harnais:
+			# NOUVEAU : Détacher le harnais de la caméra avant de le donner
+			if harnais.get_parent() == camera:
+				camera.remove_child(harnais)
+			
+			print("🎒 Harnais donné au NPC via l'inventaire UI!")
+			return true
+	else:
+		# Le NPC refuse, ne pas retirer de l'inventaire
+		print("🎒 Le NPC refuse le harnais!")
+		return false
+	
+	return false
+
+func _on_active_item_changed(item: Node, slot_index: int):
+	# Déléguer à l'inventaire
+	player_inventory._on_active_item_changed(item, slot_index)

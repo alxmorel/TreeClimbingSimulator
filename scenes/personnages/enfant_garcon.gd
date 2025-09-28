@@ -15,6 +15,8 @@ func _create_child_data():
 	data.taille = 1.10 + randf() * 0.30  # 1.10m à 1.40m (5-12 ans)
 	data.poids = 20 + randf() * 25       # 20kg à 45kg
 	
+	data.tranche_age = "Enfant"
+	
 	# Couleurs de peau réalistes
 	data.couleur_peau = _get_realistic_skin_color()
 	

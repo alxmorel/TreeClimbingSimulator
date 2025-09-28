@@ -46,6 +46,7 @@ func _load_default_personnage_scenes():
 		"res://scenes/personnages/AdulteMasculin.tscn",
 		"res://scenes/personnages/AdulteFeminin.tscn", 
 		"res://scenes/personnages/EnfantGarcon.tscn",
+		"res://scenes/personnages/SeniorMasculin.tscn",
 	]
 	
 	for scene_path in default_scenes:

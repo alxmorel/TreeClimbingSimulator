@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdbumvr1ayn1w"]
+
+[ext_resource type="PackedScene" uid="uid://cx583mn60eqji" path="res://assets/models/furniture/wooden_shelf/single_wood_shelf.glb" id="1_rj82e"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rj82e"]
+size = Vector3(1.7086182, 0.03753662, 0.21459961)
+
+[node name="WoodenShelf" instance=ExtResource("1_rj82e")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00018310547, -9.1552734e-05, 0.10583496)
+shape = SubResource("BoxShape3D_rj82e")

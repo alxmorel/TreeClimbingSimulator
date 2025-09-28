@@ -15,6 +15,8 @@ func _create_senior_data():
 	data.taille = 1.60 + randf() * 0.15  # 1.60m à 1.75m (peut être plus petit avec l'âge)
 	data.poids = 55 + randf() * 25       # 55kg à 80kg
 	
+	data.tranche_age = "Senior"
+	
 	# Couleurs de peau réalistes (peut être plus pâle)
 	data.couleur_peau = _get_senior_skin_color()
 	

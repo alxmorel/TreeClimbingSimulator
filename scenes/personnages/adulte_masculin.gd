@@ -15,6 +15,8 @@ func _create_masculine_adult_data():
 	data.taille = 1.70 + randf() * 0.20  # 1.70m à 1.90m
 	data.poids = 65 + randf() * 35        # 65kg à 100kg
 	
+	data.tranche_age = "Adulte"
+	
 	# Couleurs de peau réalistes
 	data.couleur_peau = _get_realistic_skin_color()
 	

@@ -17,3 +17,8 @@ class_name Personne
 @export var couleur_bas: Color = Color(0.1, 0.1, 0.1)
 @export var couleur_chaussures: Color = Color(0.1, 0.1, 0.1)
 @export var accessoire: Array = []  # lunettes, chapeau, sac...
+
+@export var niveau_energie: String = "medium"  # "low", "medium", "high"
+@export var preferences_activites: Array[String] = []  # Préférences personnalisées
+@export var budget: String = "medium"  # "low", "medium", "high"
+@export var groupe: String = "solo"  # "solo", "couple", "famille", "groupe"

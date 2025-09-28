@@ -41,8 +41,22 @@ func handle_input(event: InputEvent) -> void:
 		player._perform_interaction()
 	
 	# Relâcher un ticket avec la touche a
-	if Input.is_action_just_pressed("drop_ticket") and player.held_ticket:
-		player._release_ticket()
+	if Input.is_action_just_pressed("drop_item"):
+		var active_item = player.player_inventory.get_active_item()
+		if active_item:
+			if active_item is Ticket or active_item is Harnais:
+				player._release_item()
+	
+	#Gestion du scroll de la roulette pour changer d'item actif
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+			# Scroll vers le haut = item précédent
+			player.player_inventory.scroll_to_previous_item()
+			player.get_viewport().set_input_as_handled()
+		elif event.button_index == MOUSE_BUTTON_WHEEL_UP:
+			# Scroll vers le bas = item suivant
+			player.player_inventory.scroll_to_next_item()
+			player.get_viewport().set_input_as_handled()
 	
 	# Toggle téléphone
 	if event.is_action_pressed("toggle_phone"):

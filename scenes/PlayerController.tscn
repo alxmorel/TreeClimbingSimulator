@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=4 uid="uid://ca7wvirp42kb7"]
+[gd_scene load_steps=66 format=4 uid="uid://ca7wvirp42kb7"]
 
 [ext_resource type="Script" uid="uid://dal56tte0anm1" path="res://scripts/character_body_3d.gd" id="1_ci81t"]
 [ext_resource type="Script" uid="uid://bfhbr8boht0o7" path="res://scenes/context_component.gd" id="2_awcob"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://de75hx8udgrbb" path="res://assets/models/man/Man2_Remy_Shoes_Diffuse.png" id="6_x708w"]
 [ext_resource type="Animation" uid="uid://bh744gm1kt7wb" path="res://assets/models/man/Jump_idle.res" id="7_bx5ub"]
 [ext_resource type="Texture2D" uid="uid://b2x01rhhoy5pb" path="res://assets/models/man/Man2_Remy_Top_Diffuse.png" id="7_yrulf"]
+[ext_resource type="PackedScene" uid="uid://cmkv8vbugv2yk" path="res://scenes/ui/player_inventory.tscn" id="12_mvbka"]
 
 [sub_resource type="Resource" id="Resource_mdsj3"]
 script = ExtResource("2_axp2b")
@@ -1835,3 +1836,10 @@ anim_player = NodePath("../AnimationPlayer")
 libraries = {
 &"": SubResource("AnimationLibrary_yx726")
 }
+
+[node name="PlayerInventory" parent="." instance=ExtResource("12_mvbka")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+grow_vertical = 0

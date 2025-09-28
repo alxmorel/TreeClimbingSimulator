@@ -64,3 +64,15 @@ skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sandbox_LP/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_d5mia")
+
+[node name="PositionArea" type="Node3D" parent="." groups=["playground"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8154614, 0.23922545, -0.8044479)
+
+[node name="PositionArea2" type="Node3D" parent="." groups=["playground"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8154614, 0.23922545, 0.8031703)
+
+[node name="PositionArea3" type="Node3D" parent="." groups=["playground"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8617468, 0.23922545, 0.8031703)
+
+[node name="PositionArea4" type="Node3D" parent="." groups=["playground"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8617468, 0.23922545, -0.9181186)

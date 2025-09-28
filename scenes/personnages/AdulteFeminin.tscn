@@ -1,27 +1,27 @@
 [gd_scene load_steps=65 format=4 uid="uid://e8laurkfe7tu"]
 
 [ext_resource type="Script" uid="uid://umakg017m5u1" path="res://scenes/personnages/adulte_feminin.gd" id="1_jid51"]
-[ext_resource type="Texture2D" uid="uid://65peuqetqr7t" path="res://assets/models/man/Man2_Remy_Body_Diffuse.png" id="2_1vqmh"]
-[ext_resource type="Texture2D" uid="uid://sf526n1jkv8d" path="res://assets/models/man/Man2_Remy_Body_Gloss.png" id="3_utx65"]
-[ext_resource type="Texture2D" uid="uid://dttynmshcmu5y" path="res://assets/models/man/Man2_Remy_Body_Normal.png" id="4_idy6r"]
-[ext_resource type="Texture2D" uid="uid://b1l3lqwt6ywi0" path="res://assets/models/man/Man2_Remy_Bottom_Diffuse.png" id="5_j0ltc"]
-[ext_resource type="Texture2D" uid="uid://bx8oepa6juccc" path="res://assets/models/man/Man2_Remy_Bottom_Gloss.png" id="6_eqi5m"]
-[ext_resource type="Texture2D" uid="uid://bh6w3ksyisygs" path="res://assets/models/man/Man2_Remy_Bottom_Normal.png" id="7_04neb"]
-[ext_resource type="Texture2D" uid="uid://vyfs4io7le" path="res://assets/models/man/Man2_Remy_Body_Diffuse-Remy_Body_Opacity1.png" id="8_nrkv5"]
-[ext_resource type="Texture2D" uid="uid://r3t5p23kqlrr" path="res://assets/models/man/Man2_Remy_Hair_Diffuse-Remy_Hair_Opacity.png" id="9_iixyp"]
-[ext_resource type="Texture2D" uid="uid://d3c3rbvxgdmf8" path="res://assets/models/man/Man2_Remy_Hair_Gloss.png" id="10_wwseq"]
-[ext_resource type="Texture2D" uid="uid://bmf2k847yojvk" path="res://assets/models/man/Man2_Remy_Hair_Normal.png" id="11_fp8h6"]
-[ext_resource type="Texture2D" uid="uid://de75hx8udgrbb" path="res://assets/models/man/Man2_Remy_Shoes_Diffuse.png" id="12_q8jgc"]
-[ext_resource type="Texture2D" uid="uid://pl0ovdnlvkew" path="res://assets/models/man/Man2_Remy_Shoes_Gloss.png" id="13_vmtax"]
-[ext_resource type="Texture2D" uid="uid://dv3khmgcv658p" path="res://assets/models/man/Man2_Remy_Shoes_Normal.png" id="14_x3v0q"]
-[ext_resource type="Texture2D" uid="uid://b2x01rhhoy5pb" path="res://assets/models/man/Man2_Remy_Top_Diffuse.png" id="15_07dve"]
-[ext_resource type="Texture2D" uid="uid://cpd2vayevafa2" path="res://assets/models/man/Man2_Remy_Top_Gloss.png" id="16_rb7ag"]
-[ext_resource type="Texture2D" uid="uid://do0mewxt4mj8w" path="res://assets/models/man/Man2_Remy_Top_Normal.png" id="17_wx1dp"]
+[ext_resource type="Texture2D" uid="uid://65peuqetqr7t" path="res://assets/models/man/Man2_Remy_Body_Diffuse.png" id="7_jid51"]
+[ext_resource type="Texture2D" uid="uid://sf526n1jkv8d" path="res://assets/models/man/Man2_Remy_Body_Gloss.png" id="8_1vqmh"]
+[ext_resource type="Texture2D" uid="uid://dttynmshcmu5y" path="res://assets/models/man/Man2_Remy_Body_Normal.png" id="9_utx65"]
+[ext_resource type="Texture2D" uid="uid://b1l3lqwt6ywi0" path="res://assets/models/man/Man2_Remy_Bottom_Diffuse.png" id="10_idy6r"]
+[ext_resource type="Texture2D" uid="uid://bx8oepa6juccc" path="res://assets/models/man/Man2_Remy_Bottom_Gloss.png" id="11_j0ltc"]
+[ext_resource type="Texture2D" uid="uid://bh6w3ksyisygs" path="res://assets/models/man/Man2_Remy_Bottom_Normal.png" id="12_eqi5m"]
+[ext_resource type="Texture2D" uid="uid://vyfs4io7le" path="res://assets/models/man/Man2_Remy_Body_Diffuse-Remy_Body_Opacity1.png" id="13_04neb"]
+[ext_resource type="Texture2D" uid="uid://r3t5p23kqlrr" path="res://assets/models/man/Man2_Remy_Hair_Diffuse-Remy_Hair_Opacity.png" id="14_nrkv5"]
+[ext_resource type="Texture2D" uid="uid://d3c3rbvxgdmf8" path="res://assets/models/man/Man2_Remy_Hair_Gloss.png" id="15_iixyp"]
+[ext_resource type="Texture2D" uid="uid://bmf2k847yojvk" path="res://assets/models/man/Man2_Remy_Hair_Normal.png" id="16_wwseq"]
+[ext_resource type="Texture2D" uid="uid://de75hx8udgrbb" path="res://assets/models/man/Man2_Remy_Shoes_Diffuse.png" id="17_fp8h6"]
 [ext_resource type="Animation" uid="uid://bh744gm1kt7wb" path="res://assets/models/man/Jump_idle.res" id="18_hneem"]
+[ext_resource type="Texture2D" uid="uid://pl0ovdnlvkew" path="res://assets/models/man/Man2_Remy_Shoes_Gloss.png" id="18_q8jgc"]
 [ext_resource type="Animation" uid="uid://dlap3uvbjsq6j" path="res://assets/models/man/Jump_run.res" id="19_7c07f"]
+[ext_resource type="Texture2D" uid="uid://dv3khmgcv658p" path="res://assets/models/man/Man2_Remy_Shoes_Normal.png" id="19_vmtax"]
 [ext_resource type="Animation" uid="uid://5yl7fc6732rw" path="res://assets/models/man/Running.res" id="20_u7eg4"]
+[ext_resource type="Texture2D" uid="uid://b2x01rhhoy5pb" path="res://assets/models/man/Man2_Remy_Top_Diffuse.png" id="20_x3v0q"]
+[ext_resource type="Texture2D" uid="uid://cpd2vayevafa2" path="res://assets/models/man/Man2_Remy_Top_Gloss.png" id="21_07dve"]
 [ext_resource type="Animation" uid="uid://dngfjxy4w8x7p" path="res://assets/models/man/walking.res" id="21_vyqxy"]
 [ext_resource type="PackedScene" uid="uid://pjp4b7gmaq17" path="res://scenes/dialogue_ui.tscn" id="22_htvt1"]
+[ext_resource type="Texture2D" uid="uid://do0mewxt4mj8w" path="res://assets/models/man/Man2_Remy_Top_Normal.png" id="22_rb7ag"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2msh7"]
 radius = 0.146126
@@ -30,17 +30,17 @@ height = 1.61704
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lgv7s"]
 resource_name = "Bodymat"
 cull_mode = 2
-albedo_texture = ExtResource("2_1vqmh")
+albedo_texture = ExtResource("7_jid51")
 metallic = 0.04
-metallic_texture = ExtResource("3_utx65")
+metallic_texture = ExtResource("8_1vqmh")
 metallic_texture_channel = 2
-roughness_texture = ExtResource("3_utx65")
+roughness_texture = ExtResource("8_1vqmh")
 roughness_texture_channel = 1
 normal_enabled = true
 normal_scale = 0.0
-normal_texture = ExtResource("4_idy6r")
+normal_texture = ExtResource("9_utx65")
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_lnd3j"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_wx1dp"]
 resource_name = "Man2_Body"
 _surfaces = [{
 "aabb": AABB(-0.862607, 0.041342, -0.116485, 1.73723, 1.41469, 0.228248),
@@ -60,7 +60,7 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[sub_resource type="Skin" id="Skin_nf7u0"]
+[sub_resource type="Skin" id="Skin_hneem"]
 resource_name = "Skin"
 bind_count = 67
 bind/0/name = &"mixamorig_Hips"
@@ -268,17 +268,17 @@ bind/66/pose = Transform3D(-221.985, -0.35832, -31.0704, -31.0725, 2.55814, 221.
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eytfa"]
 resource_name = "Bottommat"
 cull_mode = 2
-albedo_texture = ExtResource("5_j0ltc")
+albedo_texture = ExtResource("10_idy6r")
 metallic = 0.04
-metallic_texture = ExtResource("6_eqi5m")
+metallic_texture = ExtResource("11_j0ltc")
 metallic_texture_channel = 2
-roughness_texture = ExtResource("6_eqi5m")
+roughness_texture = ExtResource("11_j0ltc")
 roughness_texture_channel = 1
 normal_enabled = true
 normal_scale = 0.0
-normal_texture = ExtResource("7_04neb")
+normal_texture = ExtResource("12_eqi5m")
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_2nxvj"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_7c07f"]
 resource_name = "Man2_Bottoms"
 _surfaces = [{
 "aabb": AABB(-0.184155, 0.39903, -0.121354, 0.366287, 0.548486, 0.254744),
@@ -302,17 +302,17 @@ blend_shape_mode = 0
 resource_name = "Eyelashmat"
 transparency = 4
 cull_mode = 2
-albedo_texture = ExtResource("8_nrkv5")
+albedo_texture = ExtResource("13_04neb")
 metallic = 0.04
-metallic_texture = ExtResource("3_utx65")
+metallic_texture = ExtResource("8_1vqmh")
 metallic_texture_channel = 2
-roughness_texture = ExtResource("3_utx65")
+roughness_texture = ExtResource("8_1vqmh")
 roughness_texture_channel = 1
 normal_enabled = true
 normal_scale = 0.0
-normal_texture = ExtResource("4_idy6r")
+normal_texture = ExtResource("9_utx65")
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_bvfp3"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_u7eg4"]
 resource_name = "Man2_Eyelashes"
 _surfaces = [{
 "aabb": AABB(-0.0426575, 1.55046, 0.0891336, 0.0947344, 0.0161042, 0.0170329),
@@ -332,7 +332,7 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_xsyd7"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_vyqxy"]
 resource_name = "Man2_Eyes"
 _surfaces = [{
 "aabb": AABB(-0.0382788, 1.54641, 0.0644147, 0.0853499, 0.0315735, 0.0316973),
@@ -356,17 +356,17 @@ blend_shape_mode = 0
 resource_name = "Hairmat"
 transparency = 4
 cull_mode = 2
-albedo_texture = ExtResource("9_iixyp")
+albedo_texture = ExtResource("14_nrkv5")
 metallic = 0.04
-metallic_texture = ExtResource("10_wwseq")
+metallic_texture = ExtResource("15_iixyp")
 metallic_texture_channel = 2
-roughness_texture = ExtResource("10_wwseq")
+roughness_texture = ExtResource("15_iixyp")
 roughness_texture_channel = 1
 normal_enabled = true
 normal_scale = 0.0
-normal_texture = ExtResource("11_fp8h6")
+normal_texture = ExtResource("16_wwseq")
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_88mkn"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_htvt1"]
 resource_name = "Man2_Hair"
 _surfaces = [{
 "aabb": AABB(-0.115911, 1.44931, -0.104443, 0.226824, 0.239264, 0.222368),
@@ -386,7 +386,7 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_ukx0e"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_4m3va"]
 resource_name = "Man2_Body_002"
 _surfaces = [{
 "aabb": AABB(-0.0237727, 1.47416, 0.0283775, 0.0586482, 0.0441188, 0.0753802),
@@ -406,7 +406,7 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_0vpwo"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_td0s1"]
 resource_name = "Man2_Body_001"
 _surfaces = [{
 "aabb": AABB(-0.0846692, 1.4218, -0.0733303, 0.182005, 0.247995, 0.202112),
@@ -429,17 +429,17 @@ blend_shape_mode = 0
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7yich"]
 resource_name = "Shoesmat"
 cull_mode = 2
-albedo_texture = ExtResource("12_q8jgc")
+albedo_texture = ExtResource("17_fp8h6")
 metallic = 0.04
-metallic_texture = ExtResource("13_vmtax")
+metallic_texture = ExtResource("18_q8jgc")
 metallic_texture_channel = 2
-roughness_texture = ExtResource("13_vmtax")
+roughness_texture = ExtResource("18_q8jgc")
 roughness_texture_channel = 1
 normal_enabled = true
 normal_scale = 0.0
-normal_texture = ExtResource("14_x3v0q")
+normal_texture = ExtResource("19_vmtax")
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_hogw0"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_xsxh0"]
 resource_name = "Man2_Shoes"
 _surfaces = [{
 "aabb": AABB(-0.158878, 3.25547e-05, -0.0827898, 0.309179, 0.13483, 0.262844),
@@ -462,17 +462,17 @@ blend_shape_mode = 0
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rebqj"]
 resource_name = "Topmat"
 cull_mode = 2
-albedo_texture = ExtResource("15_07dve")
+albedo_texture = ExtResource("20_x3v0q")
 metallic = 0.04
-metallic_texture = ExtResource("16_rb7ag")
+metallic_texture = ExtResource("21_07dve")
 metallic_texture_channel = 2
-roughness_texture = ExtResource("16_rb7ag")
+roughness_texture = ExtResource("21_07dve")
 roughness_texture_channel = 1
 normal_enabled = true
 normal_scale = 0.0
-normal_texture = ExtResource("17_wx1dp")
+normal_texture = ExtResource("22_rb7ag")
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_2i4hl"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_ipfyn"]
 resource_name = "Man2_Tops"
 _surfaces = [{
 "aabb": AABB(-0.323896, 0.829823, -0.142484, 0.634211, 0.599193, 0.290121),
@@ -575,7 +575,7 @@ advance_expression = "not is_on_floor() and velocity.length() >= WALK_SPEED - 0.
 advance_mode = 2
 advance_expression = "velocity.length() <= 0.1 and is_on_floor()"
 
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_i7sst"]
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_1ugpv"]
 states/End/position = Vector2(878, 173)
 states/Idle/node = SubResource("AnimationNodeAnimation_nco80")
 states/Idle/position = Vector2(328, 173)
@@ -1270,7 +1270,7 @@ _data = {
 &"Walking": ExtResource("21_vyqxy")
 }
 
-[node name="Personne" type="CharacterBody3D"]
+[node name="Personne2" type="CharacterBody3D"]
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_jid51")
@@ -1287,43 +1287,43 @@ bones/0/name = "mixamorig_Hips"
 bones/0/parent = -1
 bones/0/rest = Transform3D(1, 0, 0, 0, 1, 9.97191e-08, 0, -9.97191e-08, 1, -0.0419201, 209.151, -1.41642)
 bones/0/enabled = false
-bones/0/position = Vector3(-1.2739689, 207.13625, -0.086873055)
-bones/0/rotation = Quaternion(-0.038093228, -0.040911958, -0.025136827, 0.99811995)
+bones/0/position = Vector3(0.4640998, 207.29387, -1.8550901)
+bones/0/rotation = Quaternion(-0.031190842, -0.046515636, -0.029264623, 0.9980015)
 bones/0/scale = Vector3(1, 1, 1)
 bones/1/name = "mixamorig_Spine"
 bones/1/parent = 0
 bones/1/rest = Transform3D(0.999934, -0.0114498, -0.00114991, 0.0115074, 0.994929, 0.0999206, 3.08501e-09, -0.0999272, 0.994995, -0.194802, 19.8048, -3.88975)
 bones/1/enabled = true
 bones/1/position = Vector3(-0.194802, 19.8048, -3.88975)
-bones/1/rotation = Quaternion(-0.018730963, 0.015008622, 0.030891275, 0.9992346)
+bones/1/rotation = Quaternion(-0.020946616, 0.011157703, 0.02856447, 0.99931026)
 bones/1/scale = Vector3(1, 1, 1)
 bones/2/name = "mixamorig_Spine1"
 bones/2/parent = 1
 bones/2/rest = Transform3D(0.999971, 0.00757641, 0.000325687, -0.00754545, 0.99834, -0.0571043, -0.000757792, 0.0571002, 0.998368, -1.36845e-08, 23.6201, -2.36026e-06)
 bones/2/enabled = true
 bones/2/position = Vector3(-1.36845e-08, 23.6201, -2.36026e-06)
-bones/2/rotation = Quaternion(0.03972007, 0.0034537718, 0.010638357, 0.9991483)
+bones/2/rotation = Quaternion(0.03866879, 0.0020412016, 0.009959406, 0.99920034)
 bones/2/scale = Vector3(1, 1, 1)
 bones/3/name = "mixamorig_Spine2"
 bones/3/parent = 2
 bones/3/rest = Transform3D(0.99975, 0.022206, -0.00268875, -0.0223475, 0.986423, -0.162699, -0.000960639, 0.162718, 0.986672, -2.63421e-08, 27.8335, -3.24872e-07)
 bones/3/enabled = true
 bones/3/position = Vector3(-2.63421e-08, 27.8335, -3.24872e-07)
-bones/3/rotation = Quaternion(0.09211278, 0.0043607913, 0.0026434155, 0.9957356)
+bones/3/rotation = Quaternion(0.091445185, 0.003184374, 0.002301821, 0.9958024)
 bones/3/scale = Vector3(1, 1, 1)
 bones/4/name = "mixamorig_Neck"
 bones/4/parent = 3
 bones/4/rest = Transform3D(0.999597, 0.0272384, -0.00797182, -0.0281752, 0.986162, -0.163372, 0.0034115, 0.163531, 0.986532, 1.19276e-06, 31.2941, 1.50207e-06)
 bones/4/enabled = true
 bones/4/position = Vector3(-4.814282e-07, 31.294094, 2.5436032e-06)
-bones/4/rotation = Quaternion(0.13372259, -0.002827679, -0.010207151, 0.9909622)
+bones/4/rotation = Quaternion(0.13082877, -0.0013575046, -0.010181032, 0.9913518)
 bones/4/scale = Vector3(1, 1, 1)
 bones/5/name = "mixamorig_Head"
 bones/5/parent = 4
 bones/5/rest = Transform3D(1, 1.16133e-08, -6.42154e-09, -1.16133e-08, 1, -1.50176e-08, 6.42154e-09, 1.50176e-08, 1, 1.19815e-06, 23.189, -9.89717e-06)
 bones/5/enabled = true
 bones/5/position = Vector3(1.5126914e-06, 23.188976, -1.9362895e-05)
-bones/5/rotation = Quaternion(-0.07270827, 0.0023872668, -0.002280434, 0.99734783)
+bones/5/rotation = Quaternion(-0.06644466, 0.008056903, -0.003913823, 0.9977499)
 bones/5/scale = Vector3(1, 1, 1)
 bones/6/name = "mixamorig_HeadTop_End"
 bones/6/parent = 5
@@ -1351,28 +1351,28 @@ bones/9/parent = 3
 bones/9/rest = Transform3D(-0.152334, 0.987168, 0.0478955, -0.126049, 0.0286597, -0.99161, -0.980258, -0.157094, 0.120066, 12.6034, 19.3138, 0.359167)
 bones/9/enabled = true
 bones/9/position = Vector3(12.6033745, 19.313738, 0.3591689)
-bones/9/rotation = Quaternion(-0.5600112, -0.40455723, 0.5112911, -0.5111774)
+bones/9/rotation = Quaternion(-0.5601888, -0.4041799, 0.5103547, -0.51221615)
 bones/9/scale = Vector3(1, 1, 1)
 bones/10/name = "mixamorig_LeftArm"
 bones/10/parent = 9
 bones/10/rest = Transform3D(0.988302, -0.152444, 0.00449344, 0.15251, 0.987873, -0.0291196, 1.47149e-07, 0.0294642, 0.999566, 9.53674e-07, 26.5833, -9.86539e-06)
 bones/10/enabled = true
 bones/10/position = Vector3(4.390819e-06, 26.583282, -3.914653e-05)
-bones/10/rotation = Quaternion(0.5706412, 0.16393621, 0.18785357, 0.7824351)
+bones/10/rotation = Quaternion(0.5683381, 0.16892725, 0.18538187, 0.78363836)
 bones/10/scale = Vector3(1, 1, 1)
 bones/11/name = "mixamorig_LeftForeArm"
 bones/11/parent = 10
 bones/11/rest = Transform3D(1, -6.95259e-10, -2.4962e-08, 6.95259e-10, 1, -2.69331e-08, 2.4962e-08, 2.69331e-08, 1, 4.95998e-05, 55.1277, 7.05299e-06)
 bones/11/enabled = true
 bones/11/position = Vector3(6.64415e-07, 55.12768, -1.7623339e-05)
-bones/11/rotation = Quaternion(-2.2978089e-08, -2.5763677e-08, 0.013697461, 0.9999062)
+bones/11/rotation = Quaternion(2.2620489e-08, -3.663498e-08, 0.012735035, 0.999919)
 bones/11/scale = Vector3(1, 1, 1)
 bones/12/name = "mixamorig_LeftHand"
 bones/12/parent = 11
 bones/12/rest = Transform3D(1, 7.38567e-08, -2.00552e-07, -7.38566e-08, 1, 5.78276e-07, 2.00552e-07, -5.78276e-07, 1, -1.69092e-06, 52.7734, 3.47907e-05)
 bones/12/enabled = true
 bones/12/position = Vector3(2.3621822e-06, 52.773357, -1.2105265e-06)
-bones/12/rotation = Quaternion(0.046474457, -0.2842107, 0.026923925, 0.9572563)
+bones/12/rotation = Quaternion(0.048301518, -0.28477964, 0.026830848, 0.9569993)
 bones/12/scale = Vector3(1, 1, 1)
 bones/13/name = "mixamorig_LeftHandMiddle1"
 bones/13/parent = 12
@@ -1519,28 +1519,28 @@ bones/33/parent = 3
 bones/33/rest = Transform3D(-0.20166, -0.979455, 0.000945024, 0.117545, -0.0251592, -0.992749, 0.972377, -0.200086, 0.120204, -12.9896, 19.1035, -0.116245)
 bones/33/enabled = true
 bones/33/position = Vector3(-12.989574, 19.103436, -0.11623806)
-bones/33/rotation = Quaternion(0.5689903, -0.40023413, 0.5475331, 0.4650486)
+bones/33/rotation = Quaternion(0.56590307, -0.40369624, 0.5488905, 0.46422225)
 bones/33/scale = Vector3(1, 1, 1)
 bones/34/name = "mixamorig_RightArm"
 bones/34/parent = 33
 bones/34/rest = Transform3D(0.979455, 0.20163, -0.00352928, -0.201661, 0.979305, -0.0171403, 2.36323e-07, 0.0174999, 0.999847, 1.19209e-07, 26.8919, -8.17998e-06)
 bones/34/enabled = true
 bones/34/position = Vector3(-2.0846596e-06, 26.891949, -2.0060079e-05)
-bones/34/rotation = Quaternion(0.48061407, -0.2629365, -0.23098423, 0.8040652)
+bones/34/rotation = Quaternion(0.48041058, -0.26178765, -0.23597044, 0.8031133)
 bones/34/scale = Vector3(1, 1, 1)
 bones/35/name = "mixamorig_RightForeArm"
 bones/35/parent = 34
 bones/35/rest = Transform3D(1, -5.61428e-08, 2.38565e-07, 5.61428e-08, 1, -1.86263e-09, -2.38565e-07, 1.86265e-09, 1, -8.94759e-05, 55.8427, -3.00119e-05)
 bones/35/enabled = true
 bones/35/position = Vector3(1.599954e-06, 55.842667, -2.1905731e-05)
-bones/35/rotation = Quaternion(6.525956e-08, 3.2265174e-08, -0.057238657, 0.9983605)
+bones/35/rotation = Quaternion(4.963295e-10, 9.40615e-08, -0.05838064, 0.9982944)
 bones/35/scale = Vector3(1, 1, 1)
 bones/36/name = "mixamorig_RightHand"
 bones/36/parent = 35
 bones/36/rest = Transform3D(1, 1.12041e-08, -4.02844e-14, -1.12041e-08, 1, -1.17715e-15, 4.02844e-14, 1.17715e-15, 1, -4.40342e-05, 50.3137, -3.30773e-05)
 bones/36/enabled = true
 bones/36/position = Vector3(3.854805e-05, 50.313725, 2.5305435e-05)
-bones/36/rotation = Quaternion(0.05540918, 0.17639793, -0.0040245918, 0.98274994)
+bones/36/rotation = Quaternion(0.059025478, 0.17508736, -0.005957277, 0.98276395)
 bones/36/scale = Vector3(1, 1, 1)
 bones/37/name = "mixamorig_RightHandMiddle1"
 bones/37/parent = 36
@@ -1687,21 +1687,21 @@ bones/57/parent = 0
 bones/57/rest = Transform3D(-0.999989, -0.00476803, -1.1685e-06, 0.0047673, -0.999832, -0.0177226, 8.33335e-05, -0.0177224, 0.999843, 18.5244, -13.8385, 2.66202)
 bones/57/enabled = true
 bones/57/position = Vector3(18.5244, -13.8385, 2.66202)
-bones/57/rotation = Quaternion(0.13836831, 0.06414416, 0.98547053, -0.07475108)
+bones/57/rotation = Quaternion(0.13561648, 0.076166585, 0.98501337, -0.074535795)
 bones/57/scale = Vector3(1, 1, 1)
 bones/58/name = "mixamorig_LeftLeg"
 bones/58/parent = 57
 bones/58/rest = Transform3D(0.99995, -0.0100313, -0.000204761, 0.010031, 0.999049, 0.0424205, -0.000220968, -0.0424205, 0.9991, 1.9437e-07, 85.2457, 1.63973e-07)
 bones/58/enabled = true
 bones/58/position = Vector3(1.9437e-07, 85.2457, 1.63973e-07)
-bones/58/rotation = Quaternion(-0.1324576, -0.0056149927, 0.043106567, 0.99023503)
+bones/58/rotation = Quaternion(-0.13503262, -0.014666459, 0.042799115, 0.9898078)
 bones/58/scale = Vector3(1, 1, 1)
 bones/59/name = "mixamorig_LeftFoot"
 bones/59/parent = 58
 bones/59/rest = Transform3D(0.996813, -0.0796652, -0.00415464, 0.0457, 0.61296, -0.788791, 0.0653858, 0.786088, 0.614647, -3.72529e-09, 85.5711, -4.09818e-07)
 bones/59/enabled = true
 bones/59/position = Vector3(-3.72529e-09, 85.5711, -4.09818e-07)
-bones/59/rotation = Quaternion(0.4299229, -0.05011342, -0.024964942, 0.901128)
+bones/59/rotation = Quaternion(0.42974922, -0.04899344, -0.02295355, 0.90132594)
 bones/59/scale = Vector3(1, 1, 1)
 bones/60/name = "mixamorig_LeftToeBase"
 bones/60/parent = 59
@@ -1722,28 +1722,28 @@ bones/62/parent = 0
 bones/62/rest = Transform3D(-0.999979, 0.00647552, 2.04725e-06, -0.00647504, -0.999909, 0.0118216, 7.85978e-05, 0.0118213, 0.99993, -18.4403, -14.4117, 0.16034)
 bones/62/enabled = true
 bones/62/position = Vector3(-18.4403, -14.4117, 0.16034)
-bones/62/rotation = Quaternion(-0.093456335, -0.010979705, 0.9950673, -0.03140952)
+bones/62/rotation = Quaternion(-0.090733685, -0.0035670025, 0.9953285, -0.03279947)
 bones/62/scale = Vector3(1, 1, 1)
 bones/63/name = "mixamorig_RightLeg"
 bones/63/parent = 62
 bones/63/rest = Transform3D(0.99991, 0.0134119, 0.000469116, -0.0134107, 0.997302, 0.0721754, 0.000500156, -0.0721752, 0.997392, 7.56492e-07, 84.8197, -4.45216e-08)
 bones/63/enabled = true
 bones/63/position = Vector3(7.56492e-07, 84.8197, -4.45216e-08)
-bones/63/rotation = Quaternion(-0.10253626, 0.08412485, -0.039224032, 0.9903892)
+bones/63/rotation = Quaternion(-0.091422655, 0.08408573, -0.03759503, 0.99154335)
 bones/63/scale = Vector3(1, 1, 1)
 bones/64/name = "mixamorig_RightFoot"
 bones/64/parent = 63
 bones/64/rest = Transform3D(0.995798, 0.0914118, 0.0055222, -0.051193, 0.605643, -0.794088, -0.0759335, 0.790468, 0.607778, -6.64499e-07, 85.4194, -3.51896e-07)
 bones/64/enabled = true
 bones/64/position = Vector3(-6.64499e-07, 85.4194, -3.51896e-07)
-bones/64/rotation = Quaternion(0.4787275, 0.050288454, -0.021317909, 0.8762629)
+bones/64/rotation = Quaternion(0.46696225, 0.046499368, -0.020120863, 0.8828246)
 bones/64/scale = Vector3(1, 1, 1)
 bones/65/name = "mixamorig_RightToeBase"
 bones/65/parent = 64
 bones/65/rest = Transform3D(0.995727, 0.06712, 0.0634264, -0.0085667, 0.751, -0.660247, -0.091949, 0.656882, 0.748366, -6.55651e-07, 32.9812, 2.89288e-09)
 bones/65/enabled = true
 bones/65/position = Vector3(-6.55651e-07, 32.9812, 2.89288e-09)
-bones/65/rotation = Quaternion(0.40808412, 0.048139393, -0.019737814, 0.91146064)
+bones/65/rotation = Quaternion(0.410527, 0.04842757, -0.019713799, 0.9103481)
 bones/65/scale = Vector3(1, 1, 1)
 bones/66/name = "mixamorig_RightToe_End"
 bones/66/parent = 65
@@ -1754,43 +1754,43 @@ bones/66/rotation = Quaternion(-1.88911e-08, -6.97591e-07, -1.41275e-07, 1)
 bones/66/scale = Vector3(1, 1, 1)
 
 [node name="Body" type="MeshInstance3D" parent="Skeleton3D"]
-mesh = SubResource("ArrayMesh_lnd3j")
-skin = SubResource("Skin_nf7u0")
+mesh = SubResource("ArrayMesh_wx1dp")
+skin = SubResource("Skin_hneem")
 
 [node name="Bottoms" type="MeshInstance3D" parent="Skeleton3D"]
-mesh = SubResource("ArrayMesh_2nxvj")
-skin = SubResource("Skin_nf7u0")
+mesh = SubResource("ArrayMesh_7c07f")
+skin = SubResource("Skin_hneem")
 
 [node name="Eyelashes" type="MeshInstance3D" parent="Skeleton3D"]
-mesh = SubResource("ArrayMesh_bvfp3")
-skin = SubResource("Skin_nf7u0")
+mesh = SubResource("ArrayMesh_u7eg4")
+skin = SubResource("Skin_hneem")
 
 [node name="Eyes" type="MeshInstance3D" parent="Skeleton3D"]
-mesh = SubResource("ArrayMesh_xsyd7")
-skin = SubResource("Skin_nf7u0")
+mesh = SubResource("ArrayMesh_vyqxy")
+skin = SubResource("Skin_hneem")
 
 [node name="Hair" type="MeshInstance3D" parent="Skeleton3D"]
-mesh = SubResource("ArrayMesh_88mkn")
-skin = SubResource("Skin_nf7u0")
+mesh = SubResource("ArrayMesh_htvt1")
+skin = SubResource("Skin_hneem")
 
 [node name="Machoire" type="MeshInstance3D" parent="Skeleton3D"]
-mesh = SubResource("ArrayMesh_ukx0e")
-skin = SubResource("Skin_nf7u0")
+mesh = SubResource("ArrayMesh_4m3va")
+skin = SubResource("Skin_hneem")
 
 [node name="Head" type="MeshInstance3D" parent="Skeleton3D"]
-mesh = SubResource("ArrayMesh_0vpwo")
-skin = SubResource("Skin_nf7u0")
+mesh = SubResource("ArrayMesh_td0s1")
+skin = SubResource("Skin_hneem")
 
 [node name="Shoes" type="MeshInstance3D" parent="Skeleton3D"]
-mesh = SubResource("ArrayMesh_hogw0")
-skin = SubResource("Skin_nf7u0")
+mesh = SubResource("ArrayMesh_xsxh0")
+skin = SubResource("Skin_hneem")
 
 [node name="Tops" type="MeshInstance3D" parent="Skeleton3D"]
-mesh = SubResource("ArrayMesh_2i4hl")
-skin = SubResource("Skin_nf7u0")
+mesh = SubResource("ArrayMesh_ipfyn")
+skin = SubResource("Skin_hneem")
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource("AnimationNodeStateMachine_i7sst")
+tree_root = SubResource("AnimationNodeStateMachine_1ugpv")
 advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../AnimationPlayer")
 

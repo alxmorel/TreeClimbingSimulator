@@ -1,4 +1,4 @@
-[gd_scene load_steps=119 format=4 uid="uid://cao8dlm7fa25q"]
+[gd_scene load_steps=118 format=4 uid="uid://cao8dlm7fa25q"]
 
 [ext_resource type="PackedScene" uid="uid://ca7wvirp42kb7" path="res://scenes/PlayerController.tscn" id="2_1l6ik"]
 [ext_resource type="PackedScene" uid="uid://bvdujf2ubpixn" path="res://assets/models/grass/grass_resize.glb" id="2_3shck"]
@@ -33,7 +33,6 @@
 [ext_resource type="Texture2D" uid="uid://bysnshqn2icns" path="res://assets/textures/forest_ground/forest_ground_04_diff_1k.jpg" id="20_4spss"]
 [ext_resource type="Texture2D" uid="uid://c3rlaj8ulj7o3" path="res://assets/textures/forest_ground/forest_ground_04_nor_gl_1k.png" id="21_i682v"]
 [ext_resource type="PackedScene" uid="uid://ntnipk6mqdy8" path="res://scenes/cabane.tscn" id="28_erjgr"]
-[ext_resource type="PackedScene" uid="uid://c0yqwbe7yfk8x" path="res://scenes/Personne.tscn" id="31_df303"]
 [ext_resource type="Texture2D" uid="uid://s30q5od7na8l" path="res://assets/models/car1_Image_0.png" id="31_wm0ho"]
 [ext_resource type="Texture2D" uid="uid://ysnnfrtv8kps" path="res://assets/models/car1_Image_1.png" id="32_bgmlv"]
 [ext_resource type="Texture2D" uid="uid://ccgcs4ur8260x" path="res://assets/models/car1_Image_2.png" id="33_x25ci"]
@@ -59,7 +58,6 @@
 [ext_resource type="Script" uid="uid://d0pmvcd8ulrl8" path="res://scenes/debut_tyro.gd" id="44_lnuqa"]
 [ext_resource type="PackedScene" uid="uid://bf0jvh3yxidkw" path="res://assets/models/bin/public_trash_bin_1.glb" id="44_tw4cb"]
 [ext_resource type="PackedScene" uid="uid://c3kg3pqc5e3t5" path="res://scenes/modules/sand_box.tscn" id="44_u5ydn"]
-[ext_resource type="PackedScene" uid="uid://bwktcyboif26o" path="res://scenes/harnais.tscn" id="47_tofup"]
 [ext_resource type="PackedScene" uid="uid://xo7ampkv40tq" path="res://scenes/fridge.tscn" id="48_owmfx"]
 [ext_resource type="PackedScene" uid="uid://df81rqo2ltj81" path="res://scenes/metal_lockers.tscn" id="52_1411t"]
 [ext_resource type="PackedScene" uid="uid://bb4evwm5in5oa" path="res://scenes/comptoir.tscn" id="56_jhn2k"]
@@ -471,6 +469,8 @@ radius = 1.819
 [sub_resource type="SphereShape3D" id="SphereShape3D_lnuqa"]
 radius = 1.819
 
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_qeq0d"]
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qofig"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qofig"]
@@ -613,7 +613,7 @@ top_level = true
 metadata/_edit_lock_ = true
 
 [node name="Cabane" parent="NavigationRegion3D/Terrain3D" instance=ExtResource("28_erjgr")]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -130.547, 5.10295, 31.8587)
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -130.547, 4.866793, 31.8587)
 
 [node name="RouteParc_rapide" type="Path3D" parent="NavigationRegion3D/Terrain3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.22106934, 0.021095276, -0.04524231)
@@ -631,7 +631,6 @@ mass = 1000.0
 center_of_mass_mode = 1
 center_of_mass = Vector3(0, 0, 0.2)
 script = ExtResource("35_x25ci")
-personne_scene = ExtResource("31_df303")
 
 [node name="car" type="MeshInstance3D" parent="NavigationRegion3D/Terrain3D/Voiture"]
 mesh = SubResource("ArrayMesh_a4x1o")
@@ -703,6 +702,15 @@ shape = SubResource("BoxShape3D_wm0ho")
 transform = Transform3D(0.104016, 0, 0.995024, 0, 1.17995, 0, -1.17109, 0, 0.141212, -126.245, 5.13909, 5.26279)
 
 [node name="ParcoursVert1" type="Node3D" parent="NavigationRegion3D/Terrain3D"]
+
+[node name="PositionArea" type="Node3D" parent="NavigationRegion3D/Terrain3D/ParcoursVert1" groups=["adventure_course"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -133.01321, 5.0409327, 9.921811)
+
+[node name="PositionArea2" type="Node3D" parent="NavigationRegion3D/Terrain3D/ParcoursVert1" groups=["adventure_course"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -133.01321, 5.0409327, 11.294795)
+
+[node name="PositionArea3" type="Node3D" parent="NavigationRegion3D/Terrain3D/ParcoursVert1" groups=["adventure_course"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -133.01321, 5.0409327, 12.640746)
 
 [node name="piquet_bois" parent="NavigationRegion3D/Terrain3D/ParcoursVert1" instance=ExtResource("35_norgw")]
 transform = Transform3D(1, 0, 0, 0, 2.49077, 0, 0, 0, 1, -133.908, 5.05497, 5.09731)
@@ -831,16 +839,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -132.606, 5.04051, 22.4849)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -112.159, 5.51058, 24.3022)
 
 [node name="bin2" parent="NavigationRegion3D/Terrain3D" instance=ExtResource("44_tw4cb")]
-transform = Transform3D(0.0419108, 0, -0.999122, 0, 1, 0, 0.999122, 0, 0.0419108, -132.653, 5.63515, 30.9277)
+transform = Transform3D(0.0419108, 0, -0.999122, 0, 1, 0, 0.999122, 0, 0.0419108, -132.653, 5.5295696, 30.882753)
 
 [node name="bin3" parent="NavigationRegion3D/Terrain3D" instance=ExtResource("44_tw4cb")]
 transform = Transform3D(0.995467, 0, -0.095116, 0, 1, 0, 0.095116, 0, 0.995467, -106.415, 5.37797, 18.35)
 
 [node name="pallet_couch2" parent="NavigationRegion3D/Terrain3D" instance=ExtResource("42_siel4")]
 transform = Transform3D(-0.987466, 0, -0.157831, 0, 1, 0, 0.157831, 0, -0.987466, -111.915, 5.49439, 29.1384)
-
-[node name="Harnais" parent="NavigationRegion3D/Terrain3D" instance=ExtResource("47_tofup")]
-transform = Transform3D(-0.999234, -2.98023e-08, -0.0391204, -0.035273, 0.432463, 0.900961, 0.0169181, 0.901651, -0.432132, -123.878, 5.47718, 29.8081)
 
 [node name="Wooden_platform_rudimentaire" parent="NavigationRegion3D/Terrain3D" instance=ExtResource("43_siel4")]
 transform = Transform3D(-0.999234, 0, -0.0391204, 0, 1, 0, 0.0391204, 0, -0.999234, -123.878, 5.06872, 28.4758)
@@ -866,28 +871,52 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -113.425, 4.9624, 9.85617)
 [node name="picnic_table3" parent="NavigationRegion3D/Terrain3D" instance=ExtResource("44_3fgno")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -109.764, 4.94732, 12.6023)
 
-[node name="TargetBilleterie" type="Node3D" parent="NavigationRegion3D/Terrain3D"]
-unique_name_in_owner = true
-transform = Transform3D(-1.2189049, -0.012496234, -0.067511134, -0.015232909, 0.999922, -0.0008436981, 0.033751808, 1.982953e-09, -2.43846, -129.36916, 6.260941, 31.073923)
+[node name="TicketOfficeQueue1" type="Node3D" parent="NavigationRegion3D/Terrain3D" groups=["ticket_office_queue"]]
+transform = Transform3D(1.2194673, 0, 0, 0, 1, 0, 0, 0, 2.4393947, -129.24585, 6.360286, 30.367584)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/Terrain3D/TicketOfficeQueue1"]
+transform = Transform3D(0.1517526, 0, 0, 0, 0.4154927, 0, 0, 0, 0.049123645, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_qeq0d")
+
+[node name="TicketOfficeQueue2" type="Node3D" parent="NavigationRegion3D/Terrain3D" groups=["ticket_office_queue"]]
+transform = Transform3D(1.2194673, 0, 0, 0, 1, 0, 0, 0, 2.4393947, -129.9833, 6.360286, 30.367584)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/Terrain3D/TicketOfficeQueue2"]
+transform = Transform3D(0.1517526, 0, 0, 0, 0.4154927, 0, 0, 0, 0.049123645, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_qeq0d")
+
+[node name="TicketOfficeQueue3" type="Node3D" parent="NavigationRegion3D/Terrain3D" groups=["ticket_office_queue"]]
+transform = Transform3D(1.2194673, 0, 0, 0, 1, 0, 0, 0, 2.4393947, -130.71669, 6.360286, 30.367584)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/Terrain3D/TicketOfficeQueue3"]
+transform = Transform3D(0.1517526, 0, 0, 0, 0.4154927, 0, 0, 0, 0.049123645, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_qeq0d")
+
+[node name="TicketOfficeQueue4" type="Node3D" parent="NavigationRegion3D/Terrain3D" groups=["ticket_office_queue"]]
+transform = Transform3D(1.2194673, 0, 0, 0, 1, 0, 0, 0, 2.4393947, -131.33482, 6.360286, 30.367584)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/Terrain3D/TicketOfficeQueue4"]
+transform = Transform3D(0.1517526, 0, 0, 0, 0.4154927, 0, 0, 0, 0.049123645, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_qeq0d")
 
 [node name="comptoir" parent="NavigationRegion3D/Terrain3D" instance=ExtResource("56_jhn2k")]
-transform = Transform3D(1.219, 0, 0.0675162, 0, 1, 0, -0.0337517, 0, 2.43846, -129.36038, 5.30616, 31.4845)
+transform = Transform3D(1.219, 0, 0.0675162, 0, 1, 0, -0.0337517, 0, 2.43846, -129.36038, 5.132214, 31.4845)
 
 [node name="comptoir2" parent="NavigationRegion3D/Terrain3D" instance=ExtResource("56_jhn2k")]
-transform = Transform3D(-0.021325283, 0, 2.4390213, 0, 1, 0, -1.2192806, 0, -0.042658675, -127.86629, 5.30616, 32.21065)
+transform = Transform3D(-0.021325283, 0, 2.4390213, 0, 1, 0, -1.2192806, 0, -0.042658675, -127.86629, 5.132214, 32.21065)
 
 [node name="Ordinateur" parent="NavigationRegion3D/Terrain3D" node_paths=PackedStringArray("ticket_printer") instance=ExtResource("57_b0vxc")]
-transform = Transform3D(0.7522768, 0, -0.65884733, 0, 1, 0, 0.65884733, 0, 0.7522768, -127.919785, 6.05355, 31.561098)
+transform = Transform3D(0.7522768, 0, -0.65884733, 0, 1, 0, 0.65884733, 0, 0.7522768, -127.919785, 5.879604, 31.561098)
 ticket_printer = NodePath("../Ticket_printer")
 
 [node name="Ticket_printer" parent="NavigationRegion3D/Terrain3D" instance=ExtResource("58_erjgr")]
-transform = Transform3D(0.9998619, 0, -0.01659733, 0, 1, 0, 0.01659733, 0, 0.9998619, -128.56801, 6.0292053, 31.252443)
+transform = Transform3D(0.9998619, 0, -0.01659733, 0, 1, 0, 0.01659733, 0, 0.9998619, -128.56801, 5.8552594, 31.252443)
 
 [node name="fridge2" parent="NavigationRegion3D/Terrain3D" instance=ExtResource("48_owmfx")]
-transform = Transform3D(-0.999959, 0, 0.00902322, 0, 1, 0, -0.00902322, 0, -0.999959, -128.018, 5.22628, 34.496)
+transform = Transform3D(-0.999959, 0, 0.00902322, 0, 1, 0, -0.00902322, 0, -0.999959, -128.018, 5.11116, 34.496)
 
 [node name="metal_lockers" parent="NavigationRegion3D/Terrain3D" instance=ExtResource("52_1411t")]
-transform = Transform3D(-1, 0, 8.9407e-08, 0, 1, 0, -8.9407e-08, 0, -1, -135.924, 4.99861, 30.9095)
+transform = Transform3D(-1, 0, 8.9407e-08, 0, 1, 0, -8.9407e-08, 0, -1, -135.924, 4.99861, 30.827015)
 
 [node name="Fences" type="Node3D" parent="NavigationRegion3D/Terrain3D"]
 
@@ -1012,10 +1041,10 @@ transform = Transform3D(-0.994678, 0, -0.103036, 0, 1, 0, 0.103036, 0, -0.994678
 transform = Transform3D(0.64889, 0, -0.760882, 0, 1, 0, 0.760882, 0, 0.64889, -202.834, 5.21826, -1.21118)
 
 [node name="Wooden_chair" parent="NavigationRegion3D/Terrain3D" instance=ExtResource("64_erjgr")]
-transform = Transform3D(-1.2601843, 0, -0.31927335, 0, 1.3, 0, 0.31927335, 0, -1.2601843, -128.96387, 5.3678336, 32.941246)
+transform = Transform3D(-1.2601843, 0, -0.31927335, 0, 1.3, 0, 0.31927335, 0, -1.2601843, -128.96387, 5.1303525, 32.941246)
 
 [node name="Paiement_terminal" parent="NavigationRegion3D/Terrain3D" instance=ExtResource("63_udpf3")]
-transform = Transform3D(-0.9693726, 0, -0.24559496, 0, 1, 0, 0.24559496, 0, -0.9693726, -130.15666, 6.0292053, 31.379766)
+transform = Transform3D(-0.9693726, 0, -0.24559496, 0, 1, 0, 0.24559496, 0, -0.9693726, -130.15666, 5.8552594, 31.379766)
 
 [node name="HUD" type="CanvasLayer" parent="." node_paths=PackedStringArray("day_label", "time_label", "park_state_label", "money_label", "skill_points_label", "experience_bar")]
 script = ExtResource("15_hud_manager")

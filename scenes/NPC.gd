@@ -117,7 +117,6 @@ func _ready():
 	print("👤 NPC groupes: ", get_groups())
 
 	_snap_to_ground_safe()
-	call_deferred("_setup_target")
 	
 	# 🔹 S'assurer que l'anim_tree est actif
 	if anim_tree:
@@ -155,10 +154,13 @@ func get_interaction_label() -> String:
 	if not player:
 		return "Parler à " + (data.nom if data else "Personne")
 	
-	# Utiliser la méthode utilitaire
-	if is_in_state("WaitingForTicketState") and player.held_ticket:
-		return "Donner le ticket au client (E)"
-	
+	var active_item = player.player_inventory.get_active_item()
+	if  active_item:
+		if active_item is Ticket and is_in_state("WaitingForTicketState"):
+			return "Donner le ticket au client (E)"
+		if active_item is Harnais and is_in_state("WaitingForEquipmentState"):
+			return "Donner un harnais au client (E)"
+		
 	return "Parler à " + (data.nom if data else "Personne")
 
 
@@ -181,24 +183,23 @@ func object_interact() -> bool:
 	
 	print("🎫 Interaction avec NPC - État actuel:", get_current_state_name())
 	
-	# Utiliser la méthode utilitaire
-	if is_in_state("WaitingForTicketState"):
-		if player and player.held_ticket:
-			print("🎫 Tentative de donner le ticket au NPC")
-			var success = player._give_ticket_to_npc(self)
-			if success:
-				print("🎫 Ticket donné avec succès!")
-			else:
-				print("🎫 Échec de la remise du ticket")
-		else:
-			print("🎫 Pas de ticket, démarrage du dialogue")
-			_start_dialogue()
+	#Logique simplifiée
+	var active_item = player.player_inventory.get_active_item()
+	
+	# Vérifier si on peut donner un item
+	if active_item and is_in_state("WaitingForTicketState") and active_item is Ticket:
+		print("🎫 Tentative de donner le ticket au NPC")
+		return player._give_ticket_to_npc(self)
+	elif active_item and is_in_state("WaitingForEquipmentState") and active_item is Harnais:
+		print("🎒 Tentative de donner un harnais au NPC")
+		return player._give_harnais_to_npc(self)
 	else:
-		print("🎫 Dialogue normal")
+		# Toujours démarrer le dialogue
+		print("🎫 Démarrage du dialogue")
 		_start_dialogue()
-			
-	return true
-
+		return true
+	
+	
 
 func _update_object_interaction_detection(is_detected: bool):
 	if interaction_component:
@@ -231,9 +232,26 @@ func trigger_interaction(player: Node = null) -> bool:
 
 
 func _start_dialogue():
+	print("🔍 DEBUG: _start_dialogue() appelé")
 	is_talking = true
-	$Label3D.text = ticket_phrase
-	pass
+	
+	#Toujours afficher quelque chose
+	var dialogue_text = ""
+	
+	if is_in_state("WaitingForTicketState"):
+		dialogue_text = ticket_phrase
+	elif is_in_state("WaitingForEquipmentState"):
+		dialogue_text = "Vous allez me chercher mon équipement ?"
+	else:
+		dialogue_text = "Bonjour !"
+	
+	print("🔍 DEBUG: Dialogue affiché: ", dialogue_text)
+	$Label3D.text = dialogue_text
+	
+	#Masquer après un délai
+	await get_tree().create_timer(5.0).timeout
+	$Label3D.text = ""
+	is_talking = false
 
 
 # ===== SYSTÈME DE TICKETS =====
@@ -247,10 +265,18 @@ func receive_ticket(ticket: Node) -> bool:
 	var ticket_data = ticket.ticket_data
 	var npc_phrase = ticket_phrase.to_lower()
 	
-	# Vérifier le type de personne
-	var wants_adult = "adulte" in npc_phrase
-	var wants_child = "enfant" in npc_phrase
-	var wants_senior = "sénior" in npc_phrase or "senior" in npc_phrase
+	# Vérifier le type de personne basé sur les données du NPC
+	var npc_type = data.tranche_age if data else "Adulte"
+	
+	# Vérifier la correspondance du type de personne
+	var type_match = false
+	match ticket_data.type:
+		"Enfant":
+			type_match = (npc_type == "Enfant")
+		"Adulte":
+			type_match = (npc_type == "Adulte")
+		"Sénior":
+			type_match = (npc_type == "Senior")
 	
 	# Vérifier la durée
 	var wants_full_day = "journée" in npc_phrase and "demi" not in npc_phrase
@@ -259,16 +285,6 @@ func receive_ticket(ticket: Node) -> bool:
 	# Vérifier la formule
 	var wants_standard = "simple" in npc_phrase or "standard" in npc_phrase
 	var wants_sensation = "sensation" in npc_phrase
-	
-	# Vérifier la correspondance du type de personne
-	var type_match = false
-	match ticket_data.type:
-		"Enfant":
-			type_match = wants_child
-		"Adulte":
-			type_match = wants_adult
-		"Sénior":
-			type_match = wants_senior
 	
 	# Vérifier la correspondance de la durée
 	var duration_match = false
@@ -295,15 +311,14 @@ func receive_ticket(ticket: Node) -> bool:
 		# CORRECTION : Remettre is_talking à false pour permettre le mouvement
 		is_talking = false
 		
-		# Faire disparaître le ticket après un court délai
-		var ticket_rigidbody = ticket.get_parent()
-		if ticket_rigidbody:
-			ticket_rigidbody.queue_free()
-		else:
-			ticket.queue_free()
-		
 		# Optionnel: faire réagir le NPC
 		_react_to_ticket_received(ticket_data)
+		
+		 # Quitter la file AVANT la transition
+		if ParkPointsManager.instance:
+			var park_manager = ParkPointsManager.instance
+			park_manager.leave_ticket_queue(get_instance_id())
+			print("[NPC] Quitte la file d'attente AVANT la transition")
 		
 		if npc_state_machine:
 			npc_state_machine.change_state("waiting_for_equipment")
@@ -341,6 +356,8 @@ func _react_to_ticket_received(ticket_data: Dictionary):
 	
 	await get_tree().create_timer(3.0).timeout
 	$Label3D.text = reactions[randi() % reactions.size()]
+	await get_tree().create_timer(1.0).timeout
+	$Label3D.text = ""
 
 func _set_height(target_height: float) -> void:
 	# Calcul du scale proportionnel à la taille désirée
@@ -364,23 +381,6 @@ func _snap_to_ground_safe():
 	else:
 		print("[NPC] Aucun sol détecté sous le spawn, position conservée")
 
-
-func _setup_target():
-	print("[NPC] Setup target")
-	var current_scene = get_tree().current_scene
-
-	var nav_region = current_scene.get_node_or_null("NavigationRegion3D")
-	if nav_region:
-		agent.set_navigation_map(nav_region.get_navigation_map())
-		print("[NPC] Navigation map configurée: ", nav_region.get_navigation_map())
-	else:
-		print("[NPC] ERREUR: NavigationRegion3D introuvable!")
-
-	if GlobalContext.target_billeterie:
-		agent.target_position = GlobalContext.target_billeterie.global_position
-		print("[NPC] TargetBilleterie found at ", GlobalContext.target_billeterie.global_position)
-	else:
-		push_error("[NPC] TargetBilleterie introuvable dans la scène !")
 
 
 func _physics_process(delta):
@@ -512,3 +512,38 @@ func get_current_state_name() -> String:
 		return "unknown"
 	
 	return npc_state_machine.current_state.get_script().get_global_name()
+
+
+func receive_harnais(harnais: Harnais) -> bool:
+	# Vérifier si le NPC est dans le bon état
+	if not is_in_state("WaitingForEquipmentState"):
+		print("🎒 Le NPC n'est pas en attente d'équipement!")
+		return false
+	
+	# Vérifier si le harnais correspond au type de personne
+	var harnais_size = harnais.harnais_data.get("size", "Adulte")
+	var npc_type = data.tranche_age if data else "Adulte"
+	
+	var size_match = false
+	match npc_type:
+		"Enfant":
+			size_match = (harnais_size == "Enfant")
+		"Adulte", "Senior":
+			size_match = (harnais_size == "Adulte")
+	
+	if size_match:
+		print("🎒 Le NPC accepte le harnais!")
+		$Label3D.text = "Parfait! Merci pour le harnais!"
+		
+		# Détruire le harnais (il est maintenant "utilisé")
+		harnais.queue_free()
+		
+		# Passer à l'état d'installation
+		if npc_state_machine:
+			npc_state_machine.change_state("equipment_fitting")
+		
+		return true
+	else:
+		print("🎒 Le NPC refuse le harnais - taille incorrecte!")
+		$Label3D.text = "Ce harnais n'est pas de la bonne taille pour moi..."
+		return false
